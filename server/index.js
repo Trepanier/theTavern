@@ -5,7 +5,7 @@ var webpack = require('webpack');
 var app = express();
 var mongoose = require('mongoose');
 
-mongoose.connect(process.env.MONGOHQ_URL || 'mongodb://localhost/blog');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/blog');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
