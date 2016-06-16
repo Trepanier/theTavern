@@ -5,8 +5,10 @@ var path = require('path');
 var secrets = require('./secrets');
 var flash = require('express-flash');
 var methodOverride = require('method-override');
+var cookieParser = require('cookie-parser');
+var morgan = require('morgan');
 
-module.exports = function (app) {
+module.exports = function (app, passport) {
   app.set('port', (process.env.PORT || 3000));
 
   // X-Powered-By header has no functional value.
@@ -16,7 +18,10 @@ module.exports = function (app) {
   app.set('views', path.join(__dirname, '..', 'views'));
 
   app.set('view cache', false);
-
+  app.use(morgan('dev'));
+  app.use(cookieParser());
+  app.use(passport.initialize());
+  app.use(passport.session());
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({extended: true})); // for parsing application/x-www-form-urlencoded
   app.use(methodOverride());

@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import styles from 'css/components/home';
 import 'whatwg-fetch';
 const cx = classNames.bind(styles);
+import {browserHistory} from 'react-router';
 
 /*
  * Note: This is kept as a container-level component, 
@@ -33,26 +34,11 @@ const cx = classNames.bind(styles);
       console.log('parsed json', json)
     }).catch(function(ex) {
       console.log('parsing failed', ex)
+    }).then(function(){
+      browserHistory.push('/')
     })
   };
 
-  deletePost(){
-    fetch('/api/v1/posts/'+this.state.slug, {
-      method: 'DELETE',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }})
-    .then(function(response) {
-      return response.json()
-    }).then(function(json) {
-      console.log('parsed json', json)
-    }).catch(function(ex) {
-      console.log('parsing failed', ex)
-    })
-  }
-
-  
 
   render() {
     return (
@@ -66,8 +52,6 @@ const cx = classNames.bind(styles);
       <p>Body</p>
       <p><textarea onChange={(e)=>this.setState({body: e.target.value})} /></p>
       <button onClick={this.submitPost.bind(this)}>Submit</button>
-      <button onClick={this.deletePost.bind(this)}>Delete</button>
-       <button>Update</button>
        </div>
        );
      }

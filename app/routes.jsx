@@ -4,6 +4,8 @@ import { Route, IndexRoute } from 'react-router';
 import App from 'containers/App';
 import AddPost from 'containers/AddPost';
 import Home from 'containers/Home';
+import SlugPost from 'containers/SlugPost';
+import ReadPage from 'containers/ReadPage';
 
 /*
  * @param {Redux Store}
@@ -15,6 +17,8 @@ export default (store) => {
     <Route path="/" component={App}>
       <IndexRoute component={Home} />
       <Route path="add-post" component={AddPost} />
+      <Route path="post/:slug" component={SlugPost} />
+      <Route path="read/:slug" component={ReadPage} />
     </Route>
   );
 };
