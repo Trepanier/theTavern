@@ -24,7 +24,12 @@
         failureRedirect : '/', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
       }));
-  app.post('/api/v1/login', authController.login);
+  app.post('/api/v1/login', passport.authenticate('local-login', {
+        successRedirect : '/', // redirect to the secure profile section
+        failureRedirect : '/', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+      }));
+
   app.post('/api/v1/logout',   authController.logout);
 
   app.post('/api/v1/posts', isLoggedIn, postController.create) //post to database
@@ -34,7 +39,6 @@
   app.put('/api/v1/posts/:slug', isLoggedIn, postController.change) //change slug post
 
   function isLoggedIn(req, res, next) {
-
     // if user is authenticated in the session, carry on 
     if (req.isAuthenticated())
       return next();
