@@ -17,7 +17,7 @@ export default class ReadPage extends React.Component {
 	}
 
 	componentWillMount(){
-		var self=this
+		var self = this
 		console.log("This.props.params.slug = " ,this.props.params.slug)
 		fetch('/api/v1/posts/'+ this.props.params.slug)
 		.then(function(response) {
@@ -30,48 +30,49 @@ export default class ReadPage extends React.Component {
 		}) 
 	}
 
-	// submitEdits(){
-	// 	fetch('/api/v1/posts/' + this.props.params.slug, {
-	// 		method: 'PUT',
-	// 		headers: {
-	// 			'Accept': 'application/json',
-	// 			'Content-Type': 'application/json'
-	// 		},
-	// 		body: JSON.stringify(this.state)
-	// 	})
-	// 	.then(function(response) {
-	// 		return response.json()
-	// 	}).then(function(json) {
-	// 		console.log('parsed json', json)
-	// 	}).catch(function(ex) {
-	// 		console.log('parsing failed', ex)
-	// 	}).then(function(){
-	// 		browserHistory.push('/')
-	// 	})
+	submitEdits(){
+		fetch('/api/v1/posts/' + this.props.params.slug, {
+			method: 'PUT',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(this.state)
+		})
+		.then(function(response) {
+			return response.json()
+		}).then(function(json) {
+			console.log('parsed json', json)
+		}).catch(function(ex) {
+			console.log('parsing failed', ex)
+		}).then(function(){
+			browserHistory.push('/')
+		})
 
-	// }
+	}
 
-	// deletePost(){
- // 		console.log('DELETING POST', this.props.params.slug)
- // 		var self = this
- // 		fetch('/api/v1/posts/'+self.props.params.slug, {
- // 			method: 'DELETE',
- // 			headers: {
- // 				'Accept': 'application/json',
- // 				'Content-Type': 'application/json'
- // 			}})
- // 		.then(function(response) {
- // 			return response.json()
- // 		}).then(function(json) {
- // 			console.log('parsed json', json)
- // 		}).catch(function(ex) {
- // 			console.log('parsing failed', ex)
- // 		}).then(function(){
- // 			browserHistory.push('/')
- // 		})
- // 	}
+	deletePost(){
+			console.log('DELETING POST', this.props.params.slug)
+			var self = this
+			fetch('/api/v1/posts/'+self.props.params.slug, {
+				method: 'DELETE',
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				}})
+			.then(function(response) {
+				return response.json()
+			}).then(function(json) {
+				console.log('parsed json', json)
+			}).catch(function(ex) {
+				console.log('parsing failed', ex)
+			}).then(function(){
+				browserHistory.push('/')
+			})
+		}
 
 	render(){
+		var self = this
 		return(
 			<div>
 			<p>Posts ID# : {this.state._id}</p>
@@ -82,8 +83,8 @@ export default class ReadPage extends React.Component {
 			<p>Body:</p>
 			<p><textarea rows='20' cols="30" onChange={(e)=>this.setState({body: e.target.value})} value={this.state.body}/></p>
 			<p><input onChange={(e)=>this.setState({slug: e.target.value})} value={this.state.slug} /></p>
-			<button onClick={this.submitEdits.bind(this)}>Confirm Edits</button>
-			<button onClick={this.deletePost.bind(this)}>Delete</button><br/>
+			<button onChange={()=>{this.submitEdits}}>Confirm Edits</button>
+			<button onChange={()=>{this.deletePost}}>Delete</button>
 			</div>
 				)
 	}
