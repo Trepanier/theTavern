@@ -6,6 +6,8 @@ import AddPost from 'containers/AddPost';
 import Home from 'containers/Home';
 import SlugPost from 'containers/SlugPost';
 import ReadPage from 'containers/ReadPage';
+import Login from 'containers/Login';
+import SignUp from 'containers/SignUp';
 
 /*
  * @param {Redux Store}
@@ -19,6 +21,8 @@ export default (store) => {
       <Route path="add-post" component={AddPost} />
       <Route path="post/:slug" component={SlugPost} />
       <Route path="read/:slug" component={ReadPage} />
+      <Route path="login" component={Login} />
+      <Route path="signup" component ={SignUp} />
     </Route>
   );
 };

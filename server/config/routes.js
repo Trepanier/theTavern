@@ -20,17 +20,33 @@
 
 
   app.post('/api/v1/signup', passport.authenticate('local-signup', {
-        successRedirect : '/', // redirect to the secure profile section
-        failureRedirect : '/', // redirect back to the signup page if there is an error
-        failureFlash : true // allow flash messages
-      }));
-  app.post('/api/v1/login', passport.authenticate('local-login', {
-        successRedirect : '/', // redirect to the secure profile section
-        failureRedirect : '/', // redirect back to the signup page if there is an error
+        successRedirect : '/api/v1/signup/true', // redirect to the secure profile section
+        failureRedirect : '/api/v1/signup/false', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
       }));
 
-  app.post('/api/v1/logout',   authController.logout);
+  app.get('/api/v1/signup/:result',function(req, res){
+    res.json({success: req.params.result})
+  } )//write function her 
+
+  app.post('/api/v1/login', passport.authenticate('local-login', {
+        successRedirect : '/api/v1/login/true', // redirect to the secure profile section
+        failureRedirect : '/api/v1/login/false', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+      }));
+
+  app.get('/api/v1/login/:result',function(req, res){
+    res.json({success: req.params.result})
+  } )//write function her 
+
+  app.get('/api/v1/user',function(req,res){
+    res.json({user : _.get(req, 'user.username','none')});
+  });
+
+  app.get('/api/v1/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
+  });
 
   app.post('/api/v1/posts', isLoggedIn, postController.create) //post to database
   app.get('/api/v1/posts', postController.retreiveAll) //get all posts

@@ -31,7 +31,9 @@ export default class ReadPage extends React.Component {
 	}
 
 	submitEdits(){
+		console.log("LOOK HERE")
 		fetch('/api/v1/posts/' + this.props.params.slug, {
+			credentials: 'same-origin',
 			method: 'PUT',
 			headers: {
 				'Accept': 'application/json',
@@ -55,6 +57,7 @@ export default class ReadPage extends React.Component {
 			console.log('DELETING POST', this.props.params.slug)
 			var self = this
 			fetch('/api/v1/posts/'+self.props.params.slug, {
+				credentials: 'same-origin',
 				method: 'DELETE',
 				headers: {
 					'Accept': 'application/json',
@@ -83,8 +86,8 @@ export default class ReadPage extends React.Component {
 			<p>Body:</p>
 			<p><textarea rows='20' cols="30" onChange={(e)=>this.setState({body: e.target.value})} value={this.state.body}/></p>
 			<p><input onChange={(e)=>this.setState({slug: e.target.value})} value={this.state.slug} /></p>
-			<button onChange={()=>{this.submitEdits}}>Confirm Edits</button>
-			<button onChange={()=>{this.deletePost}}>Delete</button>
+			<button onClick={this.submitEdits.bind(this)}>Confirm Edits</button>
+			<button onClick={this.deletePost.bind(this)}>Delete</button>
 			</div>
 				)
 	}

@@ -43,13 +43,13 @@ function deletion(req, res){
 
 function change(req, res){
 	console.log("Post Request Received for", req.params.slug)
-	Post.findOneAndUpdate({slug:req.params.slug}, req.body, function(err, post){
+	Post.findOneAndUpdate({slug:req.params.slug}, req.body, {new: true} ,function(err, post){
       	if (!err) {
         	console.log("updated");
       	} else {
         	console.log(err);
       	}
-      	return res.send(post);
+      	return res.send({post});
     	});
 	}//ends change
 

@@ -21,6 +21,7 @@ import {browserHistory} from 'react-router';
 
   submitPost(){
     fetch('/api/v1/posts', {
+      credentials: 'same-origin',
       method: 'POST',
       headers: {
         'Accept': 'application/json',
