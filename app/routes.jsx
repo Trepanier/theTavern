@@ -8,6 +8,8 @@ import SlugPost from 'containers/SlugPost';
 import ReadPage from 'containers/ReadPage';
 import Login from 'containers/Login';
 import SignUp from 'containers/SignUp';
+import Profile from 'containers/Profile';
+import FrontCollection from 'containers/FrontCollection';
 
 /*
  * @param {Redux Store}
@@ -18,6 +20,8 @@ export default (store) => {
   return (
     <Route path="/" component={App}>
       <IndexRoute component={Home} />
+      <Route path="profile" component={Profile} />
+      <Route path="collection" component = {FrontCollection} />
       <Route path="add-post" component={AddPost} />
       <Route path="post/:slug" component={SlugPost} />
       <Route path="read/:slug" component={ReadPage} />
