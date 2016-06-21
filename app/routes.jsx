@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
 import App from 'containers/App';
-import AddPost from 'containers/AddPost';
+import Profile from 'containers/Profile';
 import Home from 'containers/Home';
 import SlugPost from 'containers/SlugPost';
 import ReadPage from 'containers/ReadPage';
@@ -18,7 +18,7 @@ export default (store) => {
   return (
     <Route path="/" component={App}>
       <IndexRoute component={Home} />
-      <Route path="add-post" component={AddPost} />
+      <Route path="profile" component={Profile} />
       <Route path="post/:slug" component={SlugPost} />
       <Route path="read/:slug" component={ReadPage} />
       <Route path="login" component={Login} />
