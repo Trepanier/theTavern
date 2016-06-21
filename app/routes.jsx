@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
+import FrontCollection from 'containers/FrontCollection'
 import App from 'containers/App';
 import AddPost from 'containers/AddPost';
 import Home from 'containers/Home';
@@ -18,6 +19,7 @@ export default (store) => {
   return (
     <Route path="/" component={App}>
       <IndexRoute component={Home} />
+      <Route path ="collection" component={FrontCollection} />
       <Route path="add-post" component={AddPost} />
       <Route path="post/:slug" component={SlugPost} />
       <Route path="read/:slug" component={ReadPage} />
