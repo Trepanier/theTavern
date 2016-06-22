@@ -1,6 +1,9 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 
+import Search from 'containers/Search';
+import Profile from 'containers/Profile';
+import FrontCollection from 'containers/FrontCollection';
 import App from 'containers/App';
 import AddPost from 'containers/AddPost';
 import Home from 'containers/Home';
@@ -29,6 +32,7 @@ export default (store) => {
       <Route path="login" component= {Login} />
       <Route path="signup" component = {SignUp} />
       <Route path="logout" component = {LogOut} />
+      <Route path="search" component={Search} />
     </Route>
   );
 };
