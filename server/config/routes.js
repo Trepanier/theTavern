@@ -17,36 +17,56 @@
   // fetched and seed our stores with data.
   // App is a function that requires store data and url to initialize and return the React-rendered html string
 
+  var multer  =   require('multer');
+  //var upload = multer({ dest: path.join(__dirname, '../..', 'public/uploads/') })
 
+  var storage =   multer.diskStorage({
+    destination: function (req, file, callback) {
+      //uploads is empty
+      console.log('file!', file)
+      callback(null, '/Users/Trep/MTCS/collectionProject/public/uploads');
+    },
+    filename: function (req, file, callback) {
+      callback(null, file.fieldname + '-' + Date.now());
+    }
+  });
 
-  app.post('/api/v1/signup', passport.authenticate('local-signup', {
+//need to download multer
+
+var upload = multer({ storage : storage}).single('userPhoto');
+
+app.post('/api/v1/signup', passport.authenticate('local-signup', {
         successRedirect : '/api/v1/signup/true', // redirect to the secure profile section
         failureRedirect : '/api/v1/signup/false', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
       }));
 
-  app.get('/api/v1/signup/:result',function(req, res){
-    res.json({success: req.params.result})
+app.get('/api/v1/signup/:result',function(req, res){
+  res.json({success: req.params.result})
   } )//write function her 
 
-  app.post('/api/v1/login', passport.authenticate('local-login', {
+app.post('/api/v1/login', passport.authenticate('local-login', {
         successRedirect : '/api/v1/login/true', // redirect to the secure profile section
         failureRedirect : '/api/v1/login/false', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
       }));
 
-  app.get('/api/v1/login/:result',function(req, res){
-    res.json({success: req.params.result})
+app.get('/api/v1/login/:result',function(req, res){
+  res.json({success: req.params.result})
   } )//write function her 
 
-  app.get('/api/v1/user',function(req,res){
-    res.json({user : _.get(req, 'user.username','none')});
-  });
+app.get('/api/v1/user',function(req,res){
+  res.json({user : _.get(req, 'user.username','none')});
+});
 
-  app.get('/api/v1/logout', function(req, res){
-    req.logout();
-    res.redirect('/');
-  });
+app.get('/api/v1/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
+app.post('/api/v1/photo', upload,function(req,res){
+      return res.json({file: req.file});
+});
 
   app.post('/api/v1/posts', isLoggedIn, postController.create) //post to database
   app.get('/api/v1/posts', postController.retreiveAll) //get all posts

@@ -16,7 +16,15 @@ export default class Profile extends React.Component {
       		<h1>Profile</h1>
       		<img />
       		<h2>Name Goes Here</h2>
-      		<body></body>
+      		<p></p>
+      		<form id =  "uploadForm"
+     			enctype   =  "multipart/form-data"
+     			action    =  "/api/v1/photo"
+     			method    =  "post"
+     		>
+				<input type="file" name="userPhoto" />
+				<input type="submit" value="Upload Image" name="submit" />
+			</form>
       	</div>
     );
   }
