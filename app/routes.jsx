@@ -19,8 +19,9 @@ export default (store) => {
   return (
     <Route path="/" component={App}>
       <IndexRoute component={Home} />
-      <Route path="profile" component={Profile} />
+      <Route path = "profile" component={Profile} />
       <Route path="collection" component={FrontCollection} />
+      
       <Route path="post/:slug" component={SlugPost} />
       <Route path="read/:slug" component={ReadPage} />
       <Route path="login" component={Login} />
