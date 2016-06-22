@@ -14,16 +14,13 @@ export default class Home extends React.Component {
 	render(){
 		return (
 			<div>
-
 			<h1>Welcome to the Collection Box</h1>
-
 				<div>
 					<h2>The Collection Box helps individuals store, view, and trade 
 					their collections online with other users. Either enter your login
 					information or signup as a new user.</h2>
 					<p>Recent Activity 'news feed goes here'</p>
 				</div>
-
 			</div>
 		)
 	} 	

@@ -9,9 +9,20 @@ const cx = classNames.bind(styles);
 
 class Navigation extends Component {
 
+  constructor(props){
+    super(props);
+    this.state={
+      search: ''
+    }
+  }
+
 	logout(){
 		fetch('/api/v1/logout',{credentials : 'same-origin'})
 	}
+
+  search(){
+  }
+   
 
   render() {
     return (
@@ -20,10 +31,11 @@ class Navigation extends Component {
       	<Link to="/add-post" className={cx('item')} activeClassName={cx('active')}>Add Post</Link>
       	<Link to="/login" className={cx('item')} activeClassName={cx('active')}>Login</Link>
       	<Link to="/" onClick = {this.logout} className={cx('item')} activeClassName={cx('active')}>Logout</Link>
+        <input onChange={(e)=>this.setState({search:e.target.value})} />
+        <button onClick={this.search.bind(this)}>Search Collections</button>
       </nav>
     );
   }
-
 }
 
 export default Navigation;
