@@ -4,7 +4,7 @@
  var express = require('express');
  var _ = require('lodash');
  var path = require('path');
- var postController = require("../controllers/postController")
+ var collectionController = require("../controllers/collectionController")
  var authController = require("../controllers/authController")
 
  var App = require(path.resolve(__dirname, '../../', 'public', 'assets', 'server.js'))['default'];
@@ -68,12 +68,13 @@ app.post('/api/v1/photo', upload,function(req,res){
       return res.json({file: req.file});
 });
 
-  app.post('/api/v1/posts', isLoggedIn, postController.create) //post to database
-  app.get('/api/v1/posts', postController.retreiveAll) //get all posts
-  app.get('/api/v1/posts/:slug', postController.retreiveOne) //get one post
-  app.delete('/api/v1/posts/:slug', isLoggedIn, postController.deletion) //delete Slug post
-  app.put('/api/v1/posts/:slug', isLoggedIn, postController.change) //change slug post
-  app.post('/api/v1/FrontCollection/:slug', isLoggedIn, postController.create)
+  app.post('/api/v1/collection', isLoggedIn, collectionController.create)
+  // app.post('/api/v1/posts', isLoggedIn, postController.create) //post to database
+  // app.get('/api/v1/posts', postController.retreiveAll) //get all posts
+  // app.get('/api/v1/posts/:slug', postController.retreiveOne) //get one post
+  // app.delete('/api/v1/posts/:slug', isLoggedIn, postController.deletion) //delete Slug post
+  // app.put('/api/v1/posts/:slug', isLoggedIn, postController.change) //change slug post
+  // app.post('/api/v1/FrontCollection/:slug', isLoggedIn, postController.create)
   
   function isLoggedIn(req, res, next) {
     // if user is authenticated in the session, carry on 
