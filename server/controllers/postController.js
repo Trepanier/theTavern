@@ -27,9 +27,6 @@ function retreiveOne(req, res){
 	})//end post.findOne
 }//end retreiveOne
 
-function retreiveDate(){
-
-}//end retreiveDate
 
 function deletion(req, res){
 	console.log("Deletion Request Recieved for ", req.params.slug)

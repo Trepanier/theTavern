@@ -39,14 +39,25 @@
     res.json({success: req.params.result})
   } )//write function her 
 
-  app.get('/api/v1/user',function(req,res){
-    res.json({user : _.get(req, 'user.username','none')});
-  });
+  // app.get('/api/v1/user',function(req,res){
+  //   res.json({user : _.get(req, 'user.username','none')});
+  // });
 
   app.get('/api/v1/logout', function(req, res){
     req.logout();
     res.redirect('/');
   });
+
+  app.get('/api/v1/getuser', function(req,res){
+    res.json(req.user)
+  })
+  app.get('/api/v1/loggedin',function(req,res){
+    if(req.isAuthenticated()){
+      res.json({loggedIn : true})
+    }else{
+      res.json({loggedIn : false})
+    }
+  })
 
   app.post('/api/v1/posts', isLoggedIn, postController.create) //post to database
   app.get('/api/v1/posts', postController.retreiveAll) //get all posts
