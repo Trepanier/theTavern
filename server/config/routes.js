@@ -84,7 +84,7 @@ app.post('/api/v1/photo', upload,function(req,res){
   app.get('/api/v1/posts/:slug', postController.retreiveOne) //get one post
   app.delete('/api/v1/posts/:slug', isLoggedIn, postController.deletion) //delete Slug post
   app.put('/api/v1/posts/:slug', isLoggedIn, postController.change) //change slug post
-
+  //app.post('/api/v1/collection/:slug', isLoggedIn, postController.create)
   function isLoggedIn(req, res, next) {
     // if user is authenticated in the session, carry on 
     if (req.isAuthenticated())
