@@ -23,7 +23,7 @@ export default (store) => {
       <IndexRoute component={Home} />
       <Route path="profile" component={Profile} />
       <Route path="collection" component={FrontCollection} />
-      <Route path="search" component={Search} />
+      <Route path="search/:slug" component={Search} />
       <Route path="add-post" component={AddPost} />
       <Route path="post/:slug" component={SlugPost} />
       <Route path="read/:slug" component={ReadPage} />
