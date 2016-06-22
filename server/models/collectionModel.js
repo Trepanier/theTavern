@@ -1,15 +1,16 @@
-// var mongoose = require('mongoose');
-// var Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
-// var postSchema = new Schema({
-//   title:  String,
-//   author: String,
-//   body:   String,
-//   date: { type: Date, default: Date.now },
-//   hidden: Boolean,
-//   slug: String
-// });
+var collectionSchema = new Schema({
+ user:  String,
+ title: String,
+ kollection: [],
+ date: { type: Date, default: Date.now },
+ hidden: Boolean,
+ slug: String
+});
 
-// var Post = mongoose.model('post', postSchema);
+var Collection = mongoose.model('kollection', collectionSchema);
 
-// module.exports = Post
+module.exports = Collection
+
