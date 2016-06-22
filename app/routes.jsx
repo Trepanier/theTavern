@@ -12,9 +12,8 @@ import SlugPost from 'containers/SlugPost';
 import ReadPage from 'containers/ReadPage';
 import Login from 'containers/Login';
 import SignUp from 'containers/SignUp';
-import Profile from 'containers/Profile';
-import FrontCollection from 'containers/FrontCollection';
 import LogOut from 'containers/LogOut';
+import AddItem from 'containers/AddItem';
 
 /*
  * @param {Redux Store}
@@ -34,6 +33,10 @@ export default (store) => {
       <Route path="signup" component = {SignUp} />
       <Route path="logout" component = {LogOut} />
       <Route path="search" component={Search} />
+      <Route path = "additem" component = {AddItem} />
     </Route>
   );
 };
+
+
+
