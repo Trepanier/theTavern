@@ -5,7 +5,8 @@ import Search from 'containers/Search';
 import Profile from 'containers/Profile';
 import FrontCollection from 'containers/FrontCollection';
 import App from 'containers/App';
-import AddPost from 'containers/AddPost';
+import Profile from 'containers/Profile';
+import FrontCollection from 'containers/FrontCollection'
 import Home from 'containers/Home';
 import SlugPost from 'containers/SlugPost';
 import ReadPage from 'containers/ReadPage';

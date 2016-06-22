@@ -8,9 +8,10 @@ var methodOverride = require('method-override');
 var cookieParser = require('cookie-parser');
 var morgan = require('morgan');
 
+
 module.exports = function (app, passport) {
   app.set('port', (process.env.PORT || 3000));
-
+ 
   // X-Powered-By header has no functional value.
   // Keeping it makes it easier for an attacker to build the site's profile
   // It can be removed safely
