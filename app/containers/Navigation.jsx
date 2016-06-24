@@ -24,6 +24,10 @@ class Navigation extends Component {
     }
   }
 
+  search() {
+    
+  }
+
   render() {
     return (
       <nav className={cx('navigation')} role="navigation">
@@ -31,6 +35,7 @@ class Navigation extends Component {
       {this.logInOut()}
       <input onChange={(e)=>this.setState({search:e.target.value})} />
       <button onClick={this.search.bind(this)}>Search Collections</button>
+
       </nav>
       );
   }

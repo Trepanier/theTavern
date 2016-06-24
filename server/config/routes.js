@@ -4,19 +4,34 @@
  var express = require('express');
  var _ = require('lodash');
  var path = require('path');
- var postController = require("../controllers/postController")
+ var collectionController = require("../controllers/collectionController")
  var authController = require("../controllers/authController")
-
  var App = require(path.resolve(__dirname, '../../', 'public', 'assets', 'server.js'))['default'];
 
  module.exports = function(app, passport) {
-  // app.put('/myRoute', myController.handlerMethod);
-  // app.delete('/otherRoute', routeController.handlerMethod);
+  
+  var multer  =   require('multer');
+  
+  var suffix = {
+    'image/jpeg' : 'jpg',
+    'image/png'  : 'png'
+  }
+  var storage =   multer.diskStorage({
+    destination: function (req, file, callback) {
+      console.log('file!', file)
+      callback(null, __dirname +'/../../public/uploads');
+    },
+    filename: function (req, file, callback) {
+      callback(null, `${file.fieldname}-${Date.now()}.${suffix[file.mimetype]}`);
+    }
+  });
+  var upload = multer({ storage : storage}).single('userPhoto');
 
-  // This is where the magic happens. We take the locals data we have already
-  // fetched and seed our stores with data.
-  // App is a function that requires store data and url to initialize and return the React-rendered html string
-
+  app.get('/api/v1/collection/:slug', collectionController.retrieveOne)
+  app.put('/api/v1/collection/:slug', upload, collectionController.addItem)
+  app.get('/api/v1/photo', function(req,res){
+    return res.json(req.file);
+  });
 
 
   app.post('/api/v1/signup', passport.authenticate('local-signup', {
@@ -39,9 +54,9 @@
     res.json({success: req.params.result})
   } )//write function her 
 
-  // app.get('/api/v1/user',function(req,res){
-  //   res.json({user : _.get(req, 'user.username','none')});
-  // });
+  app.get('/api/v1/user',function(req,res){
+    res.json({user : _.get(req, 'user.username','none')});
+  });
 
   app.get('/api/v1/logout', function(req, res){
     req.logout();
@@ -59,12 +74,7 @@
     }
   })
 
-  app.post('/api/v1/posts', isLoggedIn, postController.create) //post to database
-  app.get('/api/v1/posts', postController.retreiveAll) //get all posts
-  app.get('/api/v1/posts/:slug', postController.retreiveOne) //get one post
-  app.delete('/api/v1/posts/:slug', isLoggedIn, postController.deletion) //delete Slug post
-  app.put('/api/v1/posts/:slug', isLoggedIn, postController.change) //change slug post
-
+  
   function isLoggedIn(req, res, next) {
     // if user is authenticated in the session, carry on 
     if (req.isAuthenticated())
@@ -80,8 +90,3 @@
   });
 
 };
-
-
-
-
-//req.perams.slug
