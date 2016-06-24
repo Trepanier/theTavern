@@ -1,11 +1,11 @@
+var Item = require("./itemModel")
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var collectionSchema = new Schema({
  user:  String,
  title: String,
- kollection: [],
- date: { type: Date, default: Date.now },
+ userKollection: [Item],
  hidden: Boolean,
  slug: String
 });

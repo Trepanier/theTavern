@@ -6,7 +6,7 @@ var app = express();
 var mongoose = require('mongoose');
 var passport = require('passport');
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/blog');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/kollectionDB');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

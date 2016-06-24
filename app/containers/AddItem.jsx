@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import styles from 'css/components/home';
 import 'whatwg-fetch';
 const cx = classNames.bind(styles);
+import {browserHistory} from 'react-router';
 
 /*
  * Note: This is kept as a container-level component, 
@@ -12,14 +13,33 @@ const cx = classNames.bind(styles);
  */
 
  export default class AddItem extends React.Component {
+ 	// componentWillMount() {
+ 	// 	var self = this
+ 	// 	fetch('/api/v1/collection/' + this.props.params.slug)
+ 	// 	.then(function(response) {
+ 	// 		return response.json()
+ 	// 	}).then(function(json) {
+ 	// 		self.setState({collect: json})
+ 	// 		console.log("Collect is:",self.state.collect)
+ 	// 	}).catch(function(ex) {
+ 	// 		console.log('parsing failed', ex)
+ 	// 	})
+
+ 	// }
+
  	submitPost() {
- 		fetch('/api/v1/FrontCollection', {
- 			method: 'POST',
- 			headers: {
- 				'Accept': 'application/json',
- 				'Content-Type': 'application/json'
- 			},
- 			body: JSON.stringify(this.state)
+ 		var self = this
+ 		var input = document.querySelector('input[type = "file"]')
+ 		var data = new FormData()
+ 		data.append('userPhoto', input.files[0])
+ 		data.append('title', self.state.title)
+ 		data.append('category', self.state.category)
+ 		data.append('description', self.state.description)
+ 		data.append('rarity', self.state.rarity)
+ 		data.append('condition', self.state.condition)
+ 		fetch('/api/v1/collection/' + self.props.params.slug, {
+ 			method: 'PUT',
+ 			body: data
  		}).then(function(response) {
  			return response.json()
  		}).then(function(json) {
@@ -31,7 +51,7 @@ const cx = classNames.bind(styles);
 
  	constructor(props) {
  		super(props);
- 		this.state = {
+ 		this.state = {	
  			title: '',
  			category: '',
  			description: '',
@@ -45,13 +65,14 @@ const cx = classNames.bind(styles);
  			<div className={cx('home')}>
  			<h1 className={cx('home__header')}>Welcome to <em>(INSERT COMPANY NAME)</em>!</h1>
  			<p>title<input onChange={(e) => this.setState({title: e.target.value})} /></p>
- 			<p>category<input onChange={(e) => this.setState({slug: e.target.value})} /></p>
- 			<p>description<textarea onChange={(e) => this.setState({body: e.target.value})} /></p>
- 			<p>rarity<input onChange={(e) => this.setState({title: e.target.value})} /></p>
- 			<p>condition<input onChange={(e) => this.setState({title: e.target.value})} /></p>
- 			<button onClick={() => this.submitPost()}>add to collection</button>
+ 			<p>category<input onChange={(e) => this.setState({category: e.target.value})} /></p>
+ 			<p>description<textarea onChange={(e) => this.setState({description: e.target.value})} /></p>
+ 			<p>rarity<input onChange={(e) => this.setState({rarity: e.target.value})} /></p>
+ 			<p>condition<input onChange={(e) => this.setState({condition: e.target.value})} /></p>
+ 			<input type="file" name="userPhoto" />
+ 			<button onClick={this.submitPost.bind(this)}>add to collection</button>
  			</div>
- 			);
+ 		);
  	}
 
  };

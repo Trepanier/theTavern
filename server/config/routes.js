@@ -20,14 +20,19 @@
   var multer  =   require('multer');
   //var upload = multer({ dest: path.join(__dirname, '../..', 'public/uploads/') })
 
+
+  var suffix = {
+    'image/jpeg' : 'jpg',
+    'image/png'  : 'png'
+  }
   var storage =   multer.diskStorage({
     destination: function (req, file, callback) {
       //uploads is empty
       console.log('file!', file)
-      callback(null, '/Users/Trep/MTCS/collectionProject/public/uploads');
+      callback(null, __dirname +'/../../public/uploads');
     },
     filename: function (req, file, callback) {
-      callback(null, file.fieldname + '-' + Date.now());
+      callback(null, `${file.fieldname}-${Date.now()}.${suffix[file.mimetype]}`);
     }
   });
 
@@ -64,17 +69,12 @@ app.get('/api/v1/logout', function(req, res){
   res.redirect('/');
 });
 
-app.post('/api/v1/photo', upload,function(req,res){
-      return res.json({file: req.file});
-});
+  app.get('/api/v1/collection/:slug', collectionController.retreiveOne)
+  app.put('/api/v1/collection/:slug', upload, collectionController.addItem)
+  app.get('/api/v1/photo', function(req,res){
+      return res.json(req.file);
+  });
 
-  app.post('/api/v1/collection', isLoggedIn, collectionController.create)
-  // app.post('/api/v1/posts', isLoggedIn, postController.create) //post to database
-  // app.get('/api/v1/posts', postController.retreiveAll) //get all posts
-  // app.get('/api/v1/posts/:slug', postController.retreiveOne) //get one post
-  // app.delete('/api/v1/posts/:slug', isLoggedIn, postController.deletion) //delete Slug post
-  // app.put('/api/v1/posts/:slug', isLoggedIn, postController.change) //change slug post
-  // app.post('/api/v1/FrontCollection/:slug', isLoggedIn, postController.create)
   
   function isLoggedIn(req, res, next) {
     // if user is authenticated in the session, carry on 
