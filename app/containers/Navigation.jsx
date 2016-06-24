@@ -9,6 +9,14 @@ const cx = classNames.bind(styles);
 
 class Navigation extends Component {
 
+  logInOut(){
+    if(this.props.loggedIn){
+      return <Link to="/logout" onClick = {this.props.toggleLogin} className = {cx('item')} activeclassName={cx('active')}>Logout</Link>
+    }else{
+      return <Link to="/login"  className={cx('item')} activeClassName={cx('active')}>Login</Link>
+    }
+  }
+
   constructor(props){
     super(props);
     this.state = {
@@ -16,23 +24,15 @@ class Navigation extends Component {
     }
   }
 
-	logout(){
-		fetch('/api/v1/logout',{credentials : 'same-origin'})
-	}
-
-   
-
   render() {
     return (
       <nav className={cx('navigation')} role="navigation">
-      	<Link to="/" className={cx('item')} activeClassName={cx('active')}>Home</Link>
-      	<Link to="/add-post" className={cx('item')} activeClassName={cx('active')}>Add Post</Link>
-      	<Link to="/login" className={cx('item')} activeClassName={cx('active')}>Login</Link>
-      	<Link to="/" onClick={this.logout} className={cx('item')} activeClassName={cx('active')}>Logout</Link>
-        <input onChange={(e)=>this.setState({search: "/search/" + e.target.value})} />
-        <Link to={this.state.search}><button>Search Collections</button></Link>
+      <Link to="/" className={cx('item')} activeClassName={cx('active')}>Home</Link>
+      {this.logInOut()}
+      <input onChange={(e)=>this.setState({search:e.target.value})} />
+      <button onClick={this.search.bind(this)}>Search Collections</button>
       </nav>
-    );
+      );
   }
 }
 

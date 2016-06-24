@@ -16,6 +16,7 @@ export default class Login extends React.Component {
 	}
 
 	pullUser(){
+		console.log(this.props)
 		var self = this
 		console.log("HERE HERE" , self)
 		fetch('/api/v1/login', {
@@ -33,6 +34,7 @@ export default class Login extends React.Component {
 		.then(function(response) {
 			return response.json()
 		}).then(function(json) {
+			self.props.toggleLogin()
 			self.setState(json)
 		}).catch(function(ex) {
 			console.log('parsing failed', ex)

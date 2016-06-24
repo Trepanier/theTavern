@@ -11,6 +11,15 @@ import {browserHistory} from 'react-router';
  
 export default class Home extends React.Component {
 
+ 	constructor(props){
+    super(props);
+    this.state={};
+  }
+
+    componentWillMount(){
+    this.setState(this.state)
+  }
+
 	render(){
 		return (
 			<div>
