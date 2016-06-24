@@ -19,21 +19,15 @@ class Navigation extends Component {
 
   constructor(props){
     super(props);
-    this.state={
+    this.state = {
       search: ''
     }
   }
-
-
-  search(){
-  }
-  
 
   render() {
     return (
       <nav className={cx('navigation')} role="navigation">
       <Link to="/" className={cx('item')} activeClassName={cx('active')}>Home</Link>
-      <Link to="/add-post" className={cx('item')} activeClassName={cx('active')}>Add Post</Link>
       {this.logInOut()}
       <input onChange={(e)=>this.setState({search:e.target.value})} />
       <button onClick={this.search.bind(this)}>Search Collections</button>
