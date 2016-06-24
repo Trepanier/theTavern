@@ -13,31 +13,18 @@ import {browserHistory} from 'react-router';
  */
 
  export default class AddItem extends React.Component {
- 	// componentWillMount() {
- 	// 	var self = this
- 	// 	fetch('/api/v1/collection/' + this.props.params.slug)
- 	// 	.then(function(response) {
- 	// 		return response.json()
- 	// 	}).then(function(json) {
- 	// 		self.setState({collect: json})
- 	// 		console.log("Collect is:",self.state.collect)
- 	// 	}).catch(function(ex) {
- 	// 		console.log('parsing failed', ex)
- 	// 	})
 
- 	// }
 
  	submitPost() {
- 		var self = this
  		var input = document.querySelector('input[type = "file"]')
  		var data = new FormData()
  		data.append('userPhoto', input.files[0])
- 		data.append('title', self.state.title)
- 		data.append('category', self.state.category)
- 		data.append('description', self.state.description)
- 		data.append('rarity', self.state.rarity)
- 		data.append('condition', self.state.condition)
- 		fetch('/api/v1/collection/' + self.props.params.slug, {
+ 		data.append('title', this.state.title)
+ 		data.append('category', this.state.category)
+ 		data.append('description', this.state.description)
+ 		data.append('rarity', this.state.rarity)
+ 		data.append('condition', this.state.condition)
+ 		fetch('/api/v1/collection/' + this.props.params.slug, {
  			method: 'PUT',
  			body: data
  		}).then(function(response) {

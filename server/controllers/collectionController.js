@@ -2,7 +2,7 @@ var Collection=require("../models/collectionModel")
 
 function create(req, res){
 	console.log('here\'s your file info', req.file)
-	console.log("Collection Requst Recieved")
+	console.log("Collection Request Received")
 	Collection.create(req.body, function (err, collection) {
   		if (err) return console.error(err);
 		res.writeHead(200 , {"Content-Type" : "text/json"})
@@ -10,8 +10,8 @@ function create(req, res){
 	})
 }//ends create
 
-function retreiveAll(req, res){
-	console.log("Get Request for All Recieved")
+function retrieveAll(req, res){
+	console.log("Get Request for All Received")
 	Collection.find({}, function(err, collection){
 		if(err) return console.error(err);
 	res.writeHead(200 , {"Content-Type" : "text/json"})
@@ -19,8 +19,8 @@ function retreiveAll(req, res){
 	})//end post.find
 }//ends retreive
 
-function retreiveOne(req, res){
-	console.log("Get Request Recieved for ", req.params.slug)
+function retrieveOne(req, res){
+	console.log("Get Request Received for ", req.params.slug)
 	Collection.findOne({slug:req.params.slug}, function (err, collection) {
   		if (err) return console.error(err);
   	res.writeHead(200 , {"Content-Type" : "text/json"})
@@ -28,12 +28,8 @@ function retreiveOne(req, res){
 	})//end post.findOne
 }//end retreiveOne
 
-function retreiveDate(){
-
-}//end retreiveDate
-
 function deletion(req, res){
-	console.log("Deletion Request Recieved for ", req.params.slug)
+	console.log("Deletion Request Received for ", req.params.slug)
 	Collection.remove({slug:req.params.slug},function(err, collection){
 		if(err) return console.error(err);
 	res.writeHead(200 , {"Content-Type" : "text/json"})
@@ -42,7 +38,7 @@ function deletion(req, res){
 	})
 }//ends deletion
 
-function change(req, res){
+function updateChange(req, res){
 	console.log("Collection Request Received for", req.params.slug)
 	Collection.findOneAndUpdate({slug:req.params.slug}, req.body.collection, {new: true} ,function(err, collection){
       	if (!err) {
