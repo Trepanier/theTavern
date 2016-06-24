@@ -24,6 +24,10 @@ class Navigation extends Component {
     }
   }
 
+  search() {
+    
+  }
+
   render() {
     return (
       <nav className={cx('navigation')} role="navigation">

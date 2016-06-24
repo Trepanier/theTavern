@@ -1,9 +1,6 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-
 import Search from 'containers/Search';
-import Profile from 'containers/Profile';
-import FrontCollection from 'containers/FrontCollection';
 import App from 'containers/App';
 import Profile from 'containers/Profile';
 import Collection from 'containers/Collection'

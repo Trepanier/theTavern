@@ -17,7 +17,7 @@ function retrieveAll(req, res){
 	res.writeHead(200 , {"Content-Type" : "text/json"})
 	res.end(JSON.stringify(collection))
 	})//end post.find
-}//ends retreive
+}//ends retrieve
 
 function retrieveOne(req, res){
 	console.log("Get Request Received for ", req.params.slug)
@@ -26,7 +26,7 @@ function retrieveOne(req, res){
   	res.writeHead(200 , {"Content-Type" : "text/json"})
 	res.end(JSON.stringify(collection))
 	})//end post.findOne
-}//end retreiveOne
+}//end retrieveOne
 
 function deletion(req, res){
 	console.log("Deletion Request Received for ", req.params.slug)
@@ -69,13 +69,11 @@ function addItem(req, res){
 }
 
 
-// .findOneAndUpdate ("some sort of search", "What we want to change to" , callback function he)
-
 module.exports = {
 	create,
-	retreiveAll,
-	retreiveOne,
+	retrieveAll,
+	retrieveOne,
 	deletion,
-	change,
+	updateChange,
 	addItem
 }
