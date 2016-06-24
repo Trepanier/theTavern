@@ -8,8 +8,6 @@ import App from 'containers/App';
 import Profile from 'containers/Profile';
 import Collection from 'containers/Collection'
 import Home from 'containers/Home';
-import SlugPost from 'containers/SlugPost';
-import ReadPage from 'containers/ReadPage';
 import Login from 'containers/Login';
 import SignUp from 'containers/SignUp';
 import LogOut from 'containers/LogOut';
@@ -24,19 +22,13 @@ export default (store) => {
   return (
     <Route path="/" component={App}>
       <IndexRoute component={Home} />
-      <Route path="profile" component={Profile} />
-      <Route path="collection" component={Collection} />
-      <Route path="add-post" component= {AddPost} />
-      <Route path="post/:slug" component= {SlugPost} />
-      <Route path="read/:slug" component= {ReadPage} />
-      <Route path="login" component= {Login} />
-      <Route path="signup" component = {SignUp} />
+      <Route path = "profile" component={Profile} />
+      <Route path="collection/:slug" component={Collection} />
+      <Route path = "additem/:slug" component = {AddItem} />
+      <Route path="login" component={Login} />
       <Route path="logout" component = {LogOut} />
+      <Route path="signup" component ={SignUp} />
       <Route path="search" component={Search} />
-      <Route path = "additem" component = {AddItem} />
     </Route>
   );
 };
-
-
-
