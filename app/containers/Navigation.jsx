@@ -11,7 +11,7 @@ class Navigation extends Component {
 
   constructor(props){
     super(props);
-    this.state={
+    this.state = {
       search: ''
     }
   }
@@ -20,8 +20,6 @@ class Navigation extends Component {
 		fetch('/api/v1/logout',{credentials : 'same-origin'})
 	}
 
-  search(){
-  }
    
 
   render() {
@@ -30,9 +28,9 @@ class Navigation extends Component {
       	<Link to="/" className={cx('item')} activeClassName={cx('active')}>Home</Link>
       	<Link to="/add-post" className={cx('item')} activeClassName={cx('active')}>Add Post</Link>
       	<Link to="/login" className={cx('item')} activeClassName={cx('active')}>Login</Link>
-      	<Link to="/" onClick = {this.logout} className={cx('item')} activeClassName={cx('active')}>Logout</Link>
-        <input onChange={(e)=>this.setState({search:e.target.value})} />
-        <button onClick={this.search.bind(this)}>Search Collections</button>
+      	<Link to="/" onClick={this.logout} className={cx('item')} activeClassName={cx('active')}>Logout</Link>
+        <input onChange={(e)=>this.setState({search: "/search/" + e.target.value})} />
+        <Link to={this.state.search}><button>Search Collections</button></Link>
       </nav>
     );
   }
