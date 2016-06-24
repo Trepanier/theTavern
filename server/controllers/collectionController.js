@@ -28,6 +28,7 @@ function retrieveOne(req, res){
 	})//end post.findOne
 }//end retrieveOne
 
+
 function deletion(req, res){
 	console.log("Deletion Request Received for ", req.params.slug)
 	Collection.remove({slug:req.params.slug},function(err, collection){
@@ -67,7 +68,6 @@ function addItem(req, res){
 		})
 	})
 }
-
 
 module.exports = {
 	create,

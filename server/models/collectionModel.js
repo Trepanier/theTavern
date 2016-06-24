@@ -13,4 +13,3 @@ var collectionSchema = new Schema({
 var Collection = mongoose.model('kollection', collectionSchema);
 
 module.exports = Collection
-

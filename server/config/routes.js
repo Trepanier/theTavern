@@ -9,7 +9,7 @@
  var App = require(path.resolve(__dirname, '../../', 'public', 'assets', 'server.js'))['default'];
 
  module.exports = function(app, passport) {
-
+  
   var multer  =   require('multer');
   
   var suffix = {
@@ -32,6 +32,7 @@
   app.get('/api/v1/photo', function(req,res){
     return res.json(req.file);
   });
+
 
   app.post('/api/v1/signup', passport.authenticate('local-signup', {
         successRedirect : '/api/v1/signup/true', // redirect to the secure profile section
@@ -72,6 +73,7 @@
       res.json({loggedIn : false})
     }
   })
+
   
   function isLoggedIn(req, res, next) {
     // if user is authenticated in the session, carry on 
