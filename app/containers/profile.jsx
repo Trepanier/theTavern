@@ -1,11 +1,8 @@
 import React from 'react';
-
 import classNames from 'classnames/bind';
 import styles from 'css/components/home';
-import 'whatwg-fetch';
-const cx = classNames.bind(styles);
 import {browserHistory} from 'react-router';
-
+const cx = classNames.bind(styles);
 
 
 export default class Profile extends React.Component {
