@@ -9,7 +9,7 @@
  var App = require(path.resolve(__dirname, '../../', 'public', 'assets', 'server.js'))['default'];
 
  module.exports = function(app, passport) {
-
+  
   var multer  =   require('multer');
   
   var suffix = {
@@ -25,14 +25,14 @@
       callback(null, `${file.fieldname}-${Date.now()}.${suffix[file.mimetype]}`);
     }
   });
+  var upload = multer({ storage : storage}).single('userPhoto');
 
-  app.get('/api/v1/collection/:slug', collectionController.retreiveOne)
+  app.get('/api/v1/collection/:slug', collectionController.retrieveOne)
   app.put('/api/v1/collection/:slug', upload, collectionController.addItem)
   app.get('/api/v1/photo', function(req,res){
     return res.json(req.file);
   });
 
-  var upload = multer({ storage : storage}).single('userPhoto');
 
   app.post('/api/v1/signup', passport.authenticate('local-signup', {
         successRedirect : '/api/v1/signup/true', // redirect to the secure profile section
@@ -62,6 +62,17 @@
     req.logout();
     res.redirect('/');
   });
+
+  app.get('/api/v1/getuser', function(req,res){
+    res.json(req.user)
+  })
+  app.get('/api/v1/loggedin',function(req,res){
+    if(req.isAuthenticated()){
+      res.json({loggedIn : true})
+    }else{
+      res.json({loggedIn : false})
+    }
+  })
 
   
   function isLoggedIn(req, res, next) {

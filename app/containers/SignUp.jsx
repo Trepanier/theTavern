@@ -9,6 +9,7 @@ export default class SignUp extends React.Component {
 	constructor(props){
 		super(props)
 		this.state ={
+			username:'',
 			email:'',
 			password:'',
 			success:''
@@ -54,6 +55,8 @@ export default class SignUp extends React.Component {
 		return(<div>
 			Sign Up for a FREE account:<br/>
 			<div style={{color:"red"}}>{this.inUse()}</div>
+			Username:
+			<input onChange={(e)=>this.setState({username:e.target.value})}/><br/>
 			Email:
 			<input onChange={(e)=>this.setState({email:e.target.value})}/><br/>
 			Password: 
