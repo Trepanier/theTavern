@@ -17,7 +17,6 @@ class Navigation extends Component {
     return (
       <nav className={cx('navigation')} role="navigation">
       	<Link to="/" className={cx('item')} activeClassName={cx('active')}>Home</Link>
-      	<Link to="/add-post" className={cx('item')} activeClassName={cx('active')}>Add Post</Link>
       	<Link to="/login" className={cx('item')} activeClassName={cx('active')}>Login</Link>
       	<Link to="/" onClick = {this.logout} className={cx('item')} activeClassName={cx('active')}>Logout</Link>
       </nav>
