@@ -15,6 +15,7 @@ export default class AddScan extends React.Component {
  	}	
 
 	imageScan() {
+		var self = this
 		var input = document.querySelector('input[type = "file"]')
  		var data = new FormData()
  		data.append('userPhoto', input.files[0])
@@ -22,9 +23,10 @@ export default class AddScan extends React.Component {
 			method: 'POST',
 			body: data
 		}).then(function(response){
+			console.log("Response", response)
 			return response.json()
 		}).then(function(json){
-			this.setState(json)
+			self.setState(json)
 			console.log('parsed json', json)
 		}).catch(function(ex){
 			console.log('parsing failed', ex)
