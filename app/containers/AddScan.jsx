@@ -7,6 +7,13 @@ const cx = classNames.bind(styles);
 
 export default class AddScan extends React.Component {
 
+	constructor(props) {
+ 		super(props);
+ 		this.state = {
+ 			description: ''
+ 		}
+ 	}	
+
 	imageScan() {
 		var input = document.querySelector('input[type = "file"]')
  		var data = new FormData()
@@ -17,6 +24,7 @@ export default class AddScan extends React.Component {
 		}).then(function(response){
 			return response.json()
 		}).then(function(json){
+			this.setState(json)
 			console.log('parsed json', json)
 		}).catch(function(ex){
 			console.log('parsing failed', ex)
@@ -26,7 +34,9 @@ export default class AddScan extends React.Component {
 	render() {
 		return (
 			<div>
+				<input type="file" name="userPhoto" />
 				<button onClick={this.imageScan.bind(this)}>Add Photo</button>
+				{this.state.description}
 			</div>
 		);
 	}

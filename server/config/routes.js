@@ -75,7 +75,7 @@
     }
   })
 
-  app.post('/api/v1/scanimage', visionController.scanImage)
+  app.post('/api/v1/scanimage', upload, visionController.scanImage)
 
 
   
