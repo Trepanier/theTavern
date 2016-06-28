@@ -5,6 +5,7 @@
  var _ = require('lodash');
  var path = require('path');
  var collectionController = require("../controllers/collectionController")
+ var visionController = require("../controllers/visionController")
  var authController = require("../controllers/authController")
  var App = require(path.resolve(__dirname, '../../', 'public', 'assets', 'server.js'))['default'];
 
@@ -73,6 +74,9 @@
       res.json({loggedIn : false})
     }
   })
+
+  app.post('/api/v1/scanimage', upload, visionController.scanImage)
+
 
   
   function isLoggedIn(req, res, next) {

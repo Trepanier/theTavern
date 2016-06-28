@@ -8,7 +8,7 @@ import Home from 'containers/Home';
 import Login from 'containers/Login';
 import SignUp from 'containers/SignUp';
 import LogOut from 'containers/LogOut';
-
+import AddScan from 'containers/AddScan';
 import AddItem from 'containers/AddItem';
 
 /*
@@ -27,6 +27,7 @@ export default (store) => {
       <Route path="logout" component = {LogOut} />
       <Route path="signup" component ={SignUp} />
       <Route path="search" component={Search} />
+      <Route path="addscan" component={AddScan} />
     </Route>
   );
 };
