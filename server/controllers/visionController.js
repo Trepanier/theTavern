@@ -1,3 +1,4 @@
+var Card = require("../models/cardModel")
 'use strict'
 const vision = require('node-cloud-vision-api')
 
@@ -15,7 +16,7 @@ function scanImage(requ,resp) {
 	// send single request
 	vision.annotate(req).then((res) => {
   	// handling response
-  	//console.log(JSON.stringify(res.responses))
+  	console.log(JSON.stringify(res.responses))
   		resp.json(res)
 	}, (e) => {
 	console.log('Error: ', e)
