@@ -10,7 +10,8 @@ export default class AddScan extends React.Component {
 	constructor(props) {
  		super(props);
  		this.state = {
- 			name: ''
+ 			name: '',
+ 			multiverseid:''
  		}
  	}	
 
@@ -33,12 +34,19 @@ export default class AddScan extends React.Component {
 		});
 	}
 
+	multiverseImage(){
+		return (
+			<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.multiverseid}&type=card`} />
+			)
+	}
+
 	render() {
 		return (
 			<div>
 				<input type="file" name="userPhoto" />
 				<button onClick={this.imageScan.bind(this)}>Add Photo</button>
 				{this.state.name}
+				{this.multiverseImage()}
 			</div>
 		);
 	}
