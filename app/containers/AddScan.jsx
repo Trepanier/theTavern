@@ -10,7 +10,7 @@ export default class AddScan extends React.Component {
 	constructor(props) {
  		super(props);
  		this.state = {
- 			description: ''
+ 			name: ''
  		}
  	}	
 
@@ -38,7 +38,7 @@ export default class AddScan extends React.Component {
 			<div>
 				<input type="file" name="userPhoto" />
 				<button onClick={this.imageScan.bind(this)}>Add Photo</button>
-				{this.state.description}
+				{this.state.name}
 			</div>
 		);
 	}

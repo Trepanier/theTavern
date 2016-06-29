@@ -26,5 +26,6 @@ var cardSchema = new Schema({
  types: []
 });
 
+var Card = mongoose.model('cards', cardSchema);
 
-module.exports = cardSchema
+module.exports = Card
