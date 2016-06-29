@@ -52,6 +52,7 @@ export default class AddScan extends React.Component {
 	confirmImage(){
 		return (
 			<div>
+			{this.state.name}
 			<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.multiverseid}&type=card`} />
 			<button onClick={this.addToCollection.bind(this)}>Confirm</button>
 			</div>
@@ -65,8 +66,7 @@ export default class AddScan extends React.Component {
 			<div>
 				<input type="file" name="userPhoto" />
 				<button onClick={this.imageScan.bind(this)}>Add Photo</button>
-				{this.state.name}
-				{this.confirmImage()}
+				{this.state.name ? this.confirmImage() : ''}
 			</div>
 		);
 	}
