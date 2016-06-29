@@ -34,11 +34,31 @@ export default class AddScan extends React.Component {
 		});
 	}
 
-	multiverseImage(){
+	addToCollection() {
+		fetch('api/v1/scanimage', {
+			method: 'POST',
+			body: data
+		}).then(function(response){
+			console.log("Response", response)
+			return response.json()
+		}).then(function(json){
+			self.setState(json)
+			console.log('parsed json', json)
+		}).catch(function(ex){
+			console.log('parsing failed', ex)
+		});
+	}
+
+	confirmImage(){
 		return (
+			<div>
 			<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.multiverseid}&type=card`} />
+			<button onClick={this.addToCollection.bind(this)}>Confirm</button>
+			</div>
 			)
 	}
+
+
 
 	render() {
 		return (
@@ -46,7 +66,7 @@ export default class AddScan extends React.Component {
 				<input type="file" name="userPhoto" />
 				<button onClick={this.imageScan.bind(this)}>Add Photo</button>
 				{this.state.name}
-				{this.multiverseImage()}
+				{this.confirmImage()}
 			</div>
 		);
 	}

@@ -34,6 +34,7 @@
     return res.json(req.file);
   });
 
+  app.get('/api/v1/cards/:slug', cardsController.retrieveOne)
 
   app.post('/api/v1/signup', passport.authenticate('local-signup', {
         successRedirect : '/api/v1/signup/true', // redirect to the secure profile section
@@ -75,7 +76,7 @@
     }
   })
 
-  app.post('/api/v1/scanimage', upload, visionController.scanImage)
+  app.post('/api/v1/scanimage', visionController.scanImage)
 
 
   
