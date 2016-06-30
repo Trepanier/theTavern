@@ -1,8 +1,8 @@
-var Card = require('../models/cardModel')
+var Card = require('../models/cardModel').Card
 
-function findOne() {
+function findOne(req, res) {
 	console.log("Get Request Received for ", req.params.slug)
-	Card.findOne({slug:req.params.slug}, function (err, card) {
+	Card.findOne({name : req.params.slug}, function (err, card) {
   		if (err) return console.error(err);
   	res.writeHead(200 , {"Content-Type" : "text/json"})
 	res.end(JSON.stringify(card))
