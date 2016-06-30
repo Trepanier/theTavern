@@ -37,9 +37,14 @@ export default class AddScan extends React.Component {
 	}
 
 	addToCollection() {
-		fetch('/api/v1/collection/' + this.props.params.slug, {
-			method: 'POST',
-			body: this.state
+		var self = this
+		fetch('/api/v1/collection/' + self.props.params.slug, {
+			method: 'PUT',
+			headers: {
+ 				'Accept': 'application/json', 
+ 				'Content-Type': 'application/json'
+ 			},
+ 			body: JSON.stringify(self.state)
 		}).then(function(response){
 			console.log("Response", response)
 			return response.json()
