@@ -20,18 +20,15 @@ function scanImage(req,res) {
 	// send single request
 	vision.annotate(visionReq).then((visionRes) => {
   	// handling response
-  	
   		var title = visionRes.responses[0].textAnnotations[0].description.split("\n")[0]
   		Card.findOne({name : title }, function (err, card) {
-  			if (err) return console.error(err);
+  			if (err  || !card) return res.json({falseCard: true});
   			res.writeHead(200, {"Content-Type" : "text/json"})
   			res.end(JSON.stringify(card))
   		})
  	}, (e) => {
   		console.log('Error: ', e)
-  	}).catch((err) =>
-  		console.log('Errrr', err)
-  	)
+  	})
 }
 
 

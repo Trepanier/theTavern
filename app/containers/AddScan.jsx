@@ -11,11 +11,13 @@ export default class AddScan extends React.Component {
  		super(props);
  		this.state = {
  			name: '',
- 			multiverseid:''
+ 			multiverseid:'',
+ 			falseCard: false
  		}
  	}	
 
 	imageScan() {
+		this.setState({falseCard: false})
 		var self = this
 		var input = document.querySelector('input[type = "file"]')
  		var data = new FormData()
@@ -49,6 +51,15 @@ export default class AddScan extends React.Component {
 		});
 	}
 
+	falseImage() {
+		return (
+			<div>
+				<p>Could not find card.</p>
+				<p>Make sure this is a Magic the Gathering card from Eternal Masters.</p>
+			</div>
+			)
+	}
+
 	confirmImage(){
 		return (
 			<div>
@@ -67,6 +78,7 @@ export default class AddScan extends React.Component {
 				<input type="file" name="userPhoto" />
 				<button onClick={this.imageScan.bind(this)}>Add Photo</button>
 				{this.state.name ? this.confirmImage() : ''}
+				{this.state.falseCard ? this.falseImage() : ''}
 			</div>
 		);
 	}
