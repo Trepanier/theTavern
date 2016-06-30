@@ -22,7 +22,7 @@ export default class AddScan extends React.Component {
 		var input = document.querySelector('input[type = "file"]')
  		var data = new FormData()
  		data.append('userPhoto', input.files[0])
-		fetch('api/v1/scanimage', {
+		fetch('/api/v1/scanimage', {
 			method: 'POST',
 			body: data
 		}).then(function(response){
@@ -37,9 +37,9 @@ export default class AddScan extends React.Component {
 	}
 
 	addToCollection() {
-		fetch('api/v1/scanimage', {
+		fetch('/api/v1/collection/' + this.props.params.slug, {
 			method: 'POST',
-			body: data
+			body: this.state
 		}).then(function(response){
 			console.log("Response", response)
 			return response.json()

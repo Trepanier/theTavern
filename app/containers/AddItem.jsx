@@ -44,7 +44,8 @@ const cx = classNames.bind(styles);
  	constructor(props) {
  		super(props);
  		this.state = {	
- 			name: ''
+ 			name: '',
+ 			card: {name: ''}
  		};
  	}
 
