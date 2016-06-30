@@ -52,22 +52,36 @@ function updateChange(req, res){
 }//ends change
 
 function addItem(req, res){
-	req.body.img = req.file.path
-	console.log('req.body', req.body)
-	console.log('req.file:', req.file)
-	Collection.findOne({slug: req.params.slug}, function(err, collection){
+	Collection.findOne({slug: req.params.slug}, function(err, collection) {
 		collection.userKollection.push(req.body)
-		console.log('collection', collection)
-		collection.save(function(err, saveResp){
+		collection.save(function(err, saveResp) {
 			if (!err) {
-        	console.log("updated");
-      		} else {
-        	console.log(err);
-      		}
-      			return res.json(saveResp);
-		})
+	        	console.log("updated");
+	      	} else {
+	        	console.log(err);
+	      	}
+	      	return res.json(saveResp)
+      	})
 	})
 }
+
+// function addItem(req, res){
+// 	req.body.img = req.file.path
+// 	console.log('req.body', req.body)
+// 	console.log('req.file:', req.file)
+// 	Collection.findOne({slug: req.params.slug}, function(err, collection){
+// 		collection.userKollection.push(req.body)
+// 		console.log('collection', collection)
+// 		collection.save(function(err, saveResp){
+// 			if (!err) {
+//         	console.log("updated");
+//       		} else {
+//         	console.log(err);
+//       		}
+//       			return res.json(saveResp);
+// 		})
+// 	})
+// }
 
 module.exports = {
 	create,
