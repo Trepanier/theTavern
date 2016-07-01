@@ -25,7 +25,8 @@ axios.defaults.baseURL = `http://${clientConfig.host}:${clientConfig.port}`;
 function renderFullPage(renderedContent, initialState, head={
   title: '',
   meta: '<meta name="viewport" content="width=device-width, initial-scale=1" />',
-  link: '<link rel="stylesheet" href="/assets/styles/main.css"/>'
+  link: '<link rel="stylesheet" href="/assets/styles/main.css"/>',
+  theme: '<link rel="stylesheet" href="/assets/styles/theme.css"/>'
 }) {
   return `
   <!DOCTYPE html>
@@ -34,6 +35,7 @@ function renderFullPage(renderedContent, initialState, head={
     ${head.title}
     ${head.meta}
     ${head.link}
+    ${head.theme}
   </head>
   <body>
     <div id="app">${renderedContent}</div>
