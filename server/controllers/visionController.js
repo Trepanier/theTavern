@@ -12,6 +12,7 @@ function scanImage(requ,resp) {
 		new vision.Feature('TEXT_DETECTION', 4)
 		]
 	})
+	console.log('here we go', requ.file.description)
 	// send single request
 	vision.annotate(req).then((res) => {
   	// handling response

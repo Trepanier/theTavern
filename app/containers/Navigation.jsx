@@ -34,7 +34,7 @@ class Navigation extends Component {
       <Link to="/" className={cx('item')} activeClassName={cx('active')}>Home</Link>
       {this.logInOut()}
       <input onChange={(e)=>this.setState({search:e.target.value})} />
-      <button onClick={this.search.bind(this)}>Search Collections</button>
+      <button className='btn' onClick={this.search.bind(this)}>Search Collections</button>
 
       </nav>
       );
