@@ -13,6 +13,7 @@ function scanImage(req,res) {
 		new vision.Feature('TEXT_DETECTION', 4)
 		]
 	})
+
 	//FIND THE NAME OF THE CARD
 
 

@@ -9,23 +9,35 @@ const cx = classNames.bind(styles);
 
 class Navigation extends Component {
 
+ constructor(props){
+    super(props);
+    this.state = {}
+  }  
+
+  componentWillMount() {
+    var self = this
+    fetch('/api/v1/getuser', {credentials : 'same-origin'})
+    .then(function(response) {
+      return response.json()
+    }).then(function(json){
+      self.setState(json)
+      console.log("parsed json", json)
+    }).catch(function(ex) {
+      console.log('parsing failed', ex)
+    })
+  }
+
   logInOut(){
     if(this.props.loggedIn){
-      return <Link to="/logout" onClick = {this.props.toggleLogin} className = {cx('item')} activeclassName={cx('active')}>Logout</Link>
-    }else{
+      return(
+        <div> 
+        {this.state.local && this.state.local.email}
+        <Link to="/logout" onClick = {this.props.toggleLogin} className = {cx('item')} activeclassName={cx('active')}>Logout</Link>
+        </div> 
+      )     
+    } else {
       return <Link to="/login"  className={cx('item')} activeClassName={cx('active')}>Login</Link>
     }
-  }
-
-  constructor(props){
-    super(props);
-    this.state = {
-      search: ''
-    }
-  }
-
-  search() {
-    
   }
 
   render() {
@@ -33,9 +45,6 @@ class Navigation extends Component {
       <nav className={cx('navigation')} role="navigation">
       <Link to="/" className={cx('item')} activeClassName={cx('active')}>Home</Link>
       {this.logInOut()}
-      <input onChange={(e)=>this.setState({search:e.target.value})} />
-      <button onClick={this.search.bind(this)}>Search Collections</button>
-
       </nav>
       );
   }
