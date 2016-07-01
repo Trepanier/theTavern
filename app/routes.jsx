@@ -27,7 +27,7 @@ export default (store) => {
       <Route path="logout" component = {LogOut} />
       <Route path="signup" component ={SignUp} />
       <Route path="search" component={Search} />
-      <Route path="addscan" component={AddScan} />
+      <Route path="addscan/:slug" component={AddScan} />
     </Route>
   );
 };

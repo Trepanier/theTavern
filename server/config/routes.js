@@ -7,6 +7,7 @@
  var collectionController = require("../controllers/collectionController")
  var visionController = require("../controllers/visionController")
  var authController = require("../controllers/authController")
+ var cardsController = require("../controllers/cardsController")
  var App = require(path.resolve(__dirname, '../../', 'public', 'assets', 'server.js'))['default'];
 
  module.exports = function(app, passport) {
@@ -29,11 +30,12 @@
   var upload = multer({ storage : storage}).single('userPhoto');
 
   app.get('/api/v1/collection/:slug', collectionController.retrieveOne)
-  app.put('/api/v1/collection/:slug', upload, collectionController.addItem)
+  app.put('/api/v1/collection/:slug', collectionController.addItem)
   app.get('/api/v1/photo', function(req,res){
     return res.json(req.file);
   });
 
+  app.get('/api/v1/cards/:slug', cardsController.findOne)
 
   app.post('/api/v1/signup', passport.authenticate('local-signup', {
         successRedirect : '/api/v1/signup/true', // redirect to the secure profile section

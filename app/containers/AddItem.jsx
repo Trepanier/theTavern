@@ -13,19 +13,38 @@ const cx = classNames.bind(styles);
 
  export default class AddItem extends React.Component {
 
+ 	constructor(props) {
+ 		super(props);
+ 		this.state = {	
+ 			name: '',
+ 			card: {name: ''}
+ 		};
+ 	}
 
- 	submitPost() {
- 		var input = document.querySelector('input[type = "file"]')
- 		var data = new FormData()
- 		data.append('userPhoto', input.files[0])
- 		data.append('title', this.state.title)
- 		data.append('category', this.state.category)
- 		data.append('description', this.state.description)
- 		data.append('rarity', this.state.rarity)
- 		data.append('condition', this.state.condition)
- 		fetch('/api/v1/collection/' + this.props.params.slug, {
+ 	checkName() {
+ 		var self = this
+ 		fetch('/api/v1/cards/' + this.state.name) 
+ 		.then(function(response) {
+ 			return response.json()
+ 		}).then(function(json) {
+ 			self.setState({card : json})
+ 			console.log('parsed json', json)
+ 		}).catch(function(ex) {
+ 			console.log('parsing failed', ex)
+ 		})
+ 	}
+
+
+ 	addToCollection() {
+ 		var self = this
+ 		console.log('addToCollection card state:', self.state.card)
+ 		fetch('/api/v1/collection/' + self.props.params.slug, {
  			method: 'PUT',
- 			body: data
+ 			headers: {
+ 				'Accept': 'application/json', 
+ 				'Content-Type': 'application/json'
+ 			},
+ 			body: JSON.stringify(self.state.card)	
  		}).then(function(response) {
  			return response.json()
  		}).then(function(json) {
@@ -35,28 +54,24 @@ const cx = classNames.bind(styles);
  		})
  	}
 
- 	constructor(props) {
- 		super(props);
- 		this.state = {	
- 			title: '',
- 			category: '',
- 			description: '',
- 			rarity: '',
- 			condition: ''
- 		};
+ 	confirmImage(){
+ 		console.log(this.state.card)
+ 		return (
+ 			<div>
+ 			{this.state.name}
+ 			<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.card.multiverseid}&type=card`} />
+ 			<button onClick={this.addToCollection.bind(this)}>Confirm</button>
+ 			</div>
+ 			)
  	}
 
  	render() {
  		return (
  			<div className={cx('home')}>
  			<h1 className={cx('home__header')}>Welcome to <em>(INSERT COMPANY NAME)</em>!</h1>
- 			<p>title<input onChange={(e) => this.setState({title: e.target.value})} /></p>
- 			<p>category<input onChange={(e) => this.setState({category: e.target.value})} /></p>
- 			<p>description<textarea onChange={(e) => this.setState({description: e.target.value})} /></p>
- 			<p>rarity<input onChange={(e) => this.setState({rarity: e.target.value})} /></p>
- 			<p>condition<input onChange={(e) => this.setState({condition: e.target.value})} /></p>
- 			<input type="file" name="userPhoto" />
- 			<button onClick={this.submitPost.bind(this)}>add to collection</button>
+ 			<p>Name<input onChange={(e) => this.setState({name: e.target.value})} /></p>
+ 			{this.state.card.name ? this.confirmImage() : ''}
+ 			<button onClick={this.checkName.bind(this)}>add to collection</button>
  			</div>
  		);
  	}
