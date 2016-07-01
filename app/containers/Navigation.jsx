@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link, IndexLink } from 'react-router';
 import { connect } from 'react-redux';
 
 import classNames from 'classnames/bind';
@@ -43,11 +43,14 @@ class Navigation extends Component {
   render() {
     return (
       <nav className={cx('navigation')} role="navigation">
-      <Link to="/" className={cx('item')} activeClassName={cx('active')}>Home</Link>
+      <IndexLink to="/" className={cx('item')} activeClassName={cx('active')}>Home</IndexLink>
+      <Link to="/profile" className={cx('item')} activeClassName={cx('active')}>Profile</Link>
+      <Link to="/additem/test-collection" className={cx('item')} activeClassName={cx('active')}>Add Item</Link>
       {this.logInOut()}
       </nav>
       );
   }
 }
+
 
 export default Navigation;
