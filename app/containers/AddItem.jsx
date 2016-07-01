@@ -13,9 +13,17 @@ const cx = classNames.bind(styles);
 
  export default class AddItem extends React.Component {
 
+ 	constructor(props) {
+ 		super(props);
+ 		this.state = {	
+ 			name: '',
+ 			card: {name: ''}
+ 		};
+ 	}
+
  	checkName() {
  		var self = this
- 		fetch('/api/v1/collection/' + this.state.name) 
+ 		fetch('/api/v1/cards/' + this.state.name) 
  		.then(function(response) {
  			return response.json()
  		}).then(function(json) {
@@ -27,11 +35,16 @@ const cx = classNames.bind(styles);
  	}
 
 
- 	submitPost() {
- 		data.append('name', this.state.name)
- 		fetch('/api/v1/collection/' + this.props.params.slug, {
+ 	addToCollection() {
+ 		var self = this
+ 		console.log('addToCollection card state:', self.state.card)
+ 		fetch('/api/v1/collection/' + self.props.params.slug, {
  			method: 'PUT',
- 			body: data
+ 			headers: {
+ 				'Accept': 'application/json', 
+ 				'Content-Type': 'application/json'
+ 			},
+ 			body: JSON.stringify(self.state.card)	
  		}).then(function(response) {
  			return response.json()
  		}).then(function(json) {
@@ -41,11 +54,15 @@ const cx = classNames.bind(styles);
  		})
  	}
 
- 	constructor(props) {
- 		super(props);
- 		this.state = {	
- 			name: ''
- 		};
+ 	confirmImage(){
+ 		console.log(this.state.card)
+ 		return (
+ 			<div>
+ 			{this.state.name}
+ 			<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.card.multiverseid}&type=card`} />
+ 			<button onClick={this.addToCollection.bind(this)}>Confirm</button>
+ 			</div>
+ 			)
  	}
 
  	render() {
@@ -53,8 +70,8 @@ const cx = classNames.bind(styles);
  			<div className={cx('home')}>
  			<h1 className={cx('home__header')}>Welcome to <em>(INSERT COMPANY NAME)</em>!</h1>
  			<p>Name<input onChange={(e) => this.setState({name: e.target.value})} /></p>
- 			{this.state.card.name ? this.state.card.name : ''}
- 			<button onClick={this.submitPost.bind(this)}>add to collection</button>
+ 			{this.state.card.name ? this.confirmImage() : ''}
+ 			<button onClick={this.checkName.bind(this)}>add to collection</button>
  			</div>
  		);
  	}

@@ -1,4 +1,4 @@
-var Card = require("../models/cardModel")
+var Card = require("../models/cardModel").Card
 'use strict'
 const vision = require('node-cloud-vision-api')
 

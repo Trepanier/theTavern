@@ -30,7 +30,7 @@
   var upload = multer({ storage : storage}).single('userPhoto');
 
   app.get('/api/v1/collection/:slug', collectionController.retrieveOne)
-  app.put('/api/v1/collection/:slug', upload, collectionController.addItem)
+  app.put('/api/v1/collection/:slug', collectionController.addItem)
   app.get('/api/v1/photo', function(req,res){
     return res.json(req.file);
   });

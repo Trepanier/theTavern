@@ -53,6 +53,7 @@ function updateChange(req, res){
 
 function addItem(req, res){
 	Collection.findOne({slug: req.params.slug}, function(err, collection) {
+		console.log('req.body', req.body)
 		collection.userKollection.push(req.body)
 		collection.save(function(err, saveResp) {
 			if (!err) {
