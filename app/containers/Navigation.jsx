@@ -28,12 +28,13 @@ class Navigation extends Component {
   }
 
   logInOut(){
+    console.log("This.State", this.state)
     if(this.props.loggedIn){
       return(
-        <div> 
-        {this.state.local && this.state.local.email}
+        <span> 
+        {this.props.user}
         <Link to="/logout" onClick = {this.props.toggleLogin} className = {cx('item')} activeclassName={cx('active')}>Logout</Link>
-        </div> 
+        </span> 
       )     
     } else {
       return <Link to="/login"  className={cx('item')} activeClassName={cx('active')}>Login</Link>

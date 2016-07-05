@@ -25,24 +25,31 @@ export default class App extends Component {
   }
 
    componentWillMount(){
+    this.resetState()
+  }
+
+   resetState(){
     var self = this
-    fetch('/api/v1/loggedin', {credentials : 'same-origin'})
+    return fetch('/api/v1/getuser', {credentials : 'same-origin'})
     .then(function(response) {
       return response.json()
     }).then(function(json) {
+      console.log('userdata', json)
       self.setState(json)
     }).catch(function(ex) {
       console.log('parsing failed', ex)
     })
   }
+
   toggleLogin(){
-  	this.setState({loggedIn: !this.state.loggedIn})
+  	this.resetState()
+    .then(()=>this.setState({loggedIn: !this.state.loggedIn})) 
   }
 
   render() {
     return (
       <div className={cx('app')}>
-        <Navigation loggedIn={this.state.loggedIn} toggleLogin={this.toggleLogin.bind(this)}/>
+        <Navigation loggedIn={this.state.loggedIn} toggleLogin={this.toggleLogin.bind(this)} user={this.state.local && this.state.local.email} />
         {this.props.children && React.cloneElement(this.props.children, {loggedIn: !this.state.loggedIn ,
   				   														 toggleLogin: this.toggleLogin.bind(this)})}
       </div>

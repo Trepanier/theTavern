@@ -33,13 +33,13 @@ export default class Login extends React.Component {
 		})
 		.then(function(response) {
 			return response.json()
-		}).then(function(json) {
-			self.props.toggleLogin()
+		}).then(function(json) {			
 			self.setState(json)
 		}).catch(function(ex) {
 			console.log('parsing failed', ex)
 		}).then(function(){
 			if(self.state.success){
+				self.props.toggleLogin()
 				browserHistory.push('/')
 			}
 		})

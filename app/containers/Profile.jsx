@@ -30,7 +30,7 @@ export default class Profile extends React.Component {
     return (
     	<div>
       		<h1>Profile</h1>
-          {this.state.local && this.state.local.username}
+          {this.state.local && this.state.local.email}
       		<h2>Name Goes Here</h2>
       	</div>
     );
