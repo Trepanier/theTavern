@@ -18,7 +18,6 @@ export default class Login extends React.Component {
 	pullUser(){
 		console.log(this.props)
 		var self = this
-		console.log("HERE HERE" , self)
 		fetch('/api/v1/login', {
 			credentials : 'same-origin',
 			method: 'POST',

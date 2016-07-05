@@ -20,7 +20,7 @@ export default class App extends Component {
   constructor(props){
     super(props);
     this.state={
-      loggedIn : false
+      local: {}
     };
   }
 
@@ -35,22 +35,22 @@ export default class App extends Component {
       return response.json()
     }).then(function(json) {
       console.log('userdata', json)
-      self.setState(json)
+      self.setState({local: json.local || {}})
     }).catch(function(ex) {
-      console.log('parsing failed', ex)
+      console.log('parsing failed.....', ex)
     })
   }
 
   toggleLogin(){
   	this.resetState()
-    .then(()=>this.setState({loggedIn: !this.state.loggedIn})) 
   }
 
   render() {
+    console.log('SFdjlsj', this.state)
     return (
       <div className={cx('app')}>
-        <Navigation loggedIn={this.state.loggedIn} toggleLogin={this.toggleLogin.bind(this)} user={this.state.local && this.state.local.userName} />
-        {this.props.children && React.cloneElement(this.props.children, {loggedIn: !this.state.loggedIn ,
+        <Navigation toggleLogin={this.toggleLogin.bind(this)} user={this.state.local.userName} />
+        {this.props.children && React.cloneElement(this.props.children, {user: this.state.local.userName,
   				   														 toggleLogin: this.toggleLogin.bind(this)})}
       </div>
     );

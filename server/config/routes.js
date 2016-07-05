@@ -67,7 +67,7 @@
   });
 
   app.get('/api/v1/getuser', function(req,res){
-    res.json(req.user)
+    res.json(req.user || {local: null})
   })
   app.get('/api/v1/loggedin',function(req,res){
     if(req.isAuthenticated()){

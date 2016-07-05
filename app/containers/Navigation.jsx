@@ -28,8 +28,7 @@ class Navigation extends Component {
   }
 
   logInOut(){
-    console.log("This.State", this.state)
-    if(this.props.loggedIn){
+    if(this.props.user){
       return(
         <span> 
         <Link to={"/profile/" + this.props.user} className={cx('item')} activeClassName={cx('active')}>Profile</Link>
