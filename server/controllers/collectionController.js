@@ -21,7 +21,7 @@ function retrieveAll(req, res){
 
 function retrieveOne(req, res){
 	console.log("Get Request Received for ", req.params.slug)
-	Collection.findOne({slug:req.params.slug}, function (err, collection) {
+	Collection.findOne({user:req.params.slug}, function (err, collection) {
   		if (err) return console.error(err);
   	res.writeHead(200 , {"Content-Type" : "text/json"})
 	res.end(JSON.stringify(collection))

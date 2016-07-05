@@ -9,7 +9,7 @@ export default class SignUp extends React.Component {
 	constructor(props){
 		super(props)
 		this.state ={
-			username:'',
+			userName:'',
 			email:'',
 			password:'',
 			success:''
@@ -28,7 +28,8 @@ export default class SignUp extends React.Component {
 			},
 			body: JSON.stringify({
 				email : self.state.email,
-				password : self.state.password
+				password : self.state.password,
+				userName : self.state.userName
 			})
 		})
 		.then(function(response) {
@@ -56,7 +57,7 @@ export default class SignUp extends React.Component {
 			Sign Up for a FREE account:<br/>
 			<div style={{color:"red"}}>{this.inUse()}</div>
 			Username:
-			<input onChange={(e)=>this.setState({username:e.target.value})}/><br/>
+			<input onChange={(e)=>this.setState({userName:e.target.value})}/><br/>
 			Email:
 			<input onChange={(e)=>this.setState({email:e.target.value})}/><br/>
 			Password: 

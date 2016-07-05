@@ -49,7 +49,7 @@ export default class App extends Component {
   render() {
     return (
       <div className={cx('app')}>
-        <Navigation loggedIn={this.state.loggedIn} toggleLogin={this.toggleLogin.bind(this)} user={this.state.local && this.state.local.email} />
+        <Navigation loggedIn={this.state.loggedIn} toggleLogin={this.toggleLogin.bind(this)} user={this.state.local && this.state.local.userName} />
         {this.props.children && React.cloneElement(this.props.children, {loggedIn: !this.state.loggedIn ,
   				   														 toggleLogin: this.toggleLogin.bind(this)})}
       </div>

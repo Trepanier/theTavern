@@ -20,7 +20,7 @@ export default (store) => {
   return (
     <Route path="/" component={App}>
       <IndexRoute component={Home} />
-      <Route path = "profile" component={Profile} />
+      <Route path = "profile/:slug" component={Profile} />
       <Route path="collection/:slug" component={Collection} />
       <Route path = "additem/:slug" component = {AddItem} />
       <Route path="login" component={Login} />

@@ -32,6 +32,8 @@ class Navigation extends Component {
     if(this.props.loggedIn){
       return(
         <span> 
+        <Link to={"/profile/" + this.props.user} className={cx('item')} activeClassName={cx('active')}>Profile</Link>
+        <Link to="/additem/test-collection" className={cx('item')} activeClassName={cx('active')}>Add Item</Link>
         {this.props.user}
         <Link to="/logout" onClick = {this.props.toggleLogin} className = {cx('item')} activeclassName={cx('active')}>Logout</Link>
         </span> 
@@ -45,8 +47,6 @@ class Navigation extends Component {
     return (
       <nav className={cx('navigation')} role="navigation">
       <IndexLink to="/" className={cx('item')} activeClassName={cx('active')}>Home</IndexLink>
-      <Link to="/profile" className={cx('item')} activeClassName={cx('active')}>Profile</Link>
-      <Link to="/additem/test-collection" className={cx('item')} activeClassName={cx('active')}>Add Item</Link>
       {this.logInOut()}
       </nav>
       );

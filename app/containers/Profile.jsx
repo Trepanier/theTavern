@@ -12,9 +12,9 @@ export default class Profile extends React.Component {
     this.state={};
   }
 
-  componentWillMount(){
+  loggedInUser() {
     var self = this
-    fetch('/api/v1/getuser', {credentials : 'same-origin'})
+    return fetch('/api/v1/getuser', {credentials : 'same-origin'})
     .then(function(response) {
       return response.json()
     }).then(function(json) {
@@ -25,13 +25,22 @@ export default class Profile extends React.Component {
     })
   }
 
+  profileUser() {
+    var self = this
+    return fetch('/api/v1/collection/' + this.props.params.slug)
+  }
+
+  componentWillMount(){
+    var self = this
+    self.loggedInUser()
+    .then(()=>self.profileUser.bind(self))
+  }
+
 	render() {
-  
     return (
     	<div>
       		<h1>Profile</h1>
           {this.state.local && this.state.local.email}
-      		<h2>Name Goes Here</h2>
       	</div>
     );
   }
