@@ -75,8 +75,6 @@ export default class AddScan extends React.Component {
 			)
 	}
 
-
-
 	render() {
 		return (
 			<div>

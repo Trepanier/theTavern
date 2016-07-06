@@ -47,7 +47,7 @@ import {browserHistory} from 'react-router';
  					<h2>The Collection Box helps individuals store, view, and trade 
  					their collections online with other users. Either enter your login
  					information or signup as a new user.</h2>
- 					<p>Recent Activity 'news feed goes here'</p>
+ 					<h3>Recent Users</h3>
  					{this.displayUsers()}
  				</div>
  			</div>
