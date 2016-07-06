@@ -21,9 +21,10 @@ const cx = classNames.bind(styles);
  		};
  	}
 
+
  	checkName() {
  		var self = this
- 		self.setState({failed: false})
+ 		self.setState({failed: false, name: ''})
  		fetch('/api/v1/cards/' + this.state.search) 
  		.then(function(response) {
  			console.log("response", response)
