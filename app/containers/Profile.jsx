@@ -93,13 +93,9 @@ export default class Profile extends React.Component {
   render() {
     return (
      <div>
-     <h1>Profile</h1>
-     {this.state.currentUser.local && this.state.currentUser.local.userName}
-
-     {this.displayKollection()}
-
-
-
+      <h1>Profile</h1>
+      {this.state.currentUser.local && this.state.currentUser.local.userName}
+      {this.displayKollection()}
      </div>
      );
   }

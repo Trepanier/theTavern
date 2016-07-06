@@ -46,7 +46,6 @@ export default class App extends Component {
   }
 
   render() {
-    console.log('SFdjlsj', this.state)
     return (
       <div className={cx('app')}>
         <Navigation toggleLogin={this.toggleLogin.bind(this)} user={this.state.local.userName} />

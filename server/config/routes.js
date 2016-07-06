@@ -9,6 +9,7 @@
  var authController = require("../controllers/authController")
  var cardsController = require("../controllers/cardsController")
  var App = require(path.resolve(__dirname, '../../', 'public', 'assets', 'server.js'))['default'];
+ var User=require("../models/userModel")
 
  module.exports = function(app, passport) {
   
@@ -70,6 +71,15 @@
   app.get('/api/v1/getuser', function(req,res){
     res.json(req.user || {local: null})
   })
+
+  app.get('/api/v1/getallusers', function(req,res){
+    User.find({}, function(err, user){
+      if(err) return console.error(err);
+      res.writeHead(200 , {"Content-Type" : "text/JSON"})
+      res.end(JSON.stringify(user));
+    })
+  })
+
   app.get('/api/v1/loggedin',function(req,res){
     if(req.isAuthenticated()){
       res.json({loggedIn : true})
