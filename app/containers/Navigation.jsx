@@ -32,7 +32,7 @@ class Navigation extends Component {
       return(
         <span> 
         <Link to={"/profile/" + this.props.user} className={cx('item')} activeClassName={cx('active')}>Profile</Link>
-        <Link to="/additem/test-collection" className={cx('item')} activeClassName={cx('active')}>Add Item</Link>
+        <Link to={"/additem/" + this.props.user} className={cx('item')} activeClassName={cx('active')}>Add Item</Link>
         {this.props.user}
         <Link to="/logout" onClick = {this.props.toggleLogin} className = {cx('item')} activeclassName={cx('active')}>Logout</Link>
         </span> 

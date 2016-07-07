@@ -48,9 +48,9 @@ export default class Login extends React.Component {
 		var self = this 
 		return(<div>
 			Email:
-			<input onChange={(e)=>this.setState({email:e.target.value})}/><br/>
+			<input onChange={(e)=>this.setState({email:e.target.value})} /><br/>
 			Password: 
-			<input onChange={(e)=>this.setState({password:e.target.value})}/><br/>
+			<input onChange={(e)=>this.setState({password:e.target.value})} type = 'password' /><br/>
 			<button onClick ={this.pullUser.bind(this)}>Login</button><br/>
 			<br/> Don't have an Account?
 			<Link to = "/signup">Sign Up Here</Link>

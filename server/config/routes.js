@@ -30,12 +30,14 @@
   });
   var upload = multer({ storage : storage}).single('userPhoto');
 
+  app.post('/api/v1/collection', collectionController.create)
   app.get('/api/v1/collection/:slug', collectionController.retrieveOne)
   app.put('/api/v1/collection/remove/', collectionController.removeItem)//remove this when done
   app.put('/api/v1/collection/:slug', collectionController.addItem)
   app.get('/api/v1/photo', function(req,res){
     return res.json(req.file);
   });
+
 
   app.get('/api/v1/cards/:slug', cardsController.findOne)
 

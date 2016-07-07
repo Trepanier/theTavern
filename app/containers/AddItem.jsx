@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import styles from 'css/components/home';
 import 'whatwg-fetch';
 import {browserHistory} from 'react-router';
+import { Link } from 'react-router';
 const cx = classNames.bind(styles);
 
 /*
@@ -48,7 +49,7 @@ const cx = classNames.bind(styles);
  			'Accept': 'application/json', 
  			'Content-Type': 'application/json'
  		},
- 		body: JSON.stringify(self.state.card)	
+ 		body: JSON.stringify(self.state)	
  	}).then(function(response) {
  		return response.json()
  	}).then(function(json) {
@@ -80,12 +81,14 @@ const cx = classNames.bind(styles);
  	return (
  		<div className={cx('home')}>
  		<h1 className={cx('home__header')}>Add your picture here!</h1>
+ 		<h3>Input function is case sensitive!</h3>
  		<p>Name<input onChange={(e) => this.setState({search: e.target.value})} /></p>
  		{this.state.name ? this.confirmImage() : ''}
  		{this.state.failed ? this.searchFailed() : ''}
  		<button onClick={this.checkName.bind(this)}>add to collection</button>
+ 		<button><Link to={"/addscan/" + this.props.params.slug}>Search via Photo</Link></button>
  		</div>
- 		);
+ 	);
  }
 
 };
