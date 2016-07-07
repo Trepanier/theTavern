@@ -9,6 +9,7 @@
  var authController = require("../controllers/authController")
  var cardsController = require("../controllers/cardsController")
  var App = require(path.resolve(__dirname, '../../', 'public', 'assets', 'server.js'))['default'];
+ var User=require("../models/userModel")
 
  module.exports = function(app, passport) {
   
@@ -29,11 +30,14 @@
   });
   var upload = multer({ storage : storage}).single('userPhoto');
 
+  app.post('/api/v1/collection', collectionController.create)
   app.get('/api/v1/collection/:slug', collectionController.retrieveOne)
+  app.put('/api/v1/collection/remove/', collectionController.removeItem)//remove this when done
   app.put('/api/v1/collection/:slug', collectionController.addItem)
   app.get('/api/v1/photo', function(req,res){
     return res.json(req.file);
   });
+
 
   app.get('/api/v1/cards/:slug', cardsController.findOne)
 
@@ -67,8 +71,17 @@
   });
 
   app.get('/api/v1/getuser', function(req,res){
-    res.json(req.user)
+    res.json(req.user || {local: null})
   })
+
+  app.get('/api/v1/getallusers', function(req,res){
+    User.find({}, function(err, user){
+      if(err) return console.error(err);
+      res.writeHead(200 , {"Content-Type" : "text/JSON"})
+      res.end(JSON.stringify(user));
+    })
+  })
+
   app.get('/api/v1/loggedin',function(req,res){
     if(req.isAuthenticated()){
       res.json({loggedIn : true})

@@ -12,7 +12,6 @@
   display: inline-block;
   text-decoration: none;
   padding: 16px 32px;
-  color: color-black;
   background-color: ##d1d1e0;
 }
 
@@ -21,6 +20,6 @@
 }
 
 .active {
-  color: color-dodger-blue;
+  /*color: color-dodger-blue;*/
   background-color: #d1d1e0;
 }

@@ -10,6 +10,7 @@ import SignUp from 'containers/SignUp';
 import LogOut from 'containers/LogOut';
 import AddScan from 'containers/AddScan';
 import AddItem from 'containers/AddItem';
+import PageNotFound from 'containers/PageNotFound';
 
 /*
  * @param {Redux Store}
@@ -20,7 +21,7 @@ export default (store) => {
   return (
     <Route path="/" component={App}>
       <IndexRoute component={Home} />
-      <Route path = "profile" component={Profile} />
+      <Route path = "profile/:slug" component={Profile} />
       <Route path="collection/:slug" component={Collection} />
       <Route path = "additem/:slug" component = {AddItem} />
       <Route path="login" component={Login} />
@@ -28,6 +29,7 @@ export default (store) => {
       <Route path="signup" component ={SignUp} />
       <Route path="search" component={Search} />
       <Route path="addscan/:slug" component={AddScan} />
+      <Route path = "*" component = {PageNotFound} />
     </Route>
   );
 };

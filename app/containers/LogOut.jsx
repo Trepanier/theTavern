@@ -15,21 +15,14 @@ export default class Logout extends React.Component {
 
 	componentWillMount(){
 		var self = this
-		fetch('/api/v1/getuser', {credentials : 'same-origin'})
-		.then(function(response) {
-			return response.json()
-		}).then(function(json) {
-			self.setState(json)
-		}).catch(function(ex) {
-			console.log('parsing failed', ex)
-		})
 		fetch('/api/v1/logout',{credentials : 'same-origin'})
+		.then(()=> self.props.toggleLogin())
 	}
 
 	render(){
 		return(<div>
 		<h1>Thanks for using Collection Box!</h1>
-		<p>User {this.state.local && this.state.local.username} has logged out</p>
+		<p>You have logged out</p>
 		</div>)
 	}
 

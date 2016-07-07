@@ -1,6 +1,6 @@
 
 function logout(req,res){
-	return res.json({message: "You've logged out (Again at least theres text here"})
+	return res.json({message: "You've logged out Again at least theres text here"})
 };
 
 

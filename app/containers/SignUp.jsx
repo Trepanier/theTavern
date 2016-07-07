@@ -9,7 +9,7 @@ export default class SignUp extends React.Component {
 	constructor(props){
 		super(props)
 		this.state ={
-			username:'',
+			userName:'',
 			email:'',
 			password:'',
 			success:''
@@ -28,7 +28,8 @@ export default class SignUp extends React.Component {
 			},
 			body: JSON.stringify({
 				email : self.state.email,
-				password : self.state.password
+				password : self.state.password,
+				userName : self.state.userName
 			})
 		})
 		.then(function(response) {
@@ -39,8 +40,34 @@ export default class SignUp extends React.Component {
 			console.log('parsing failed', ex)
 		}).then(function(){
 			if(self.state.success === "true"){
+				self.createCollection()
 				browserHistory.push('/')
 			}
+		})
+	}
+
+	createCollection(){
+		var self = this
+		fetch('/api/v1/collection', {
+			credentials : 'same-origin',
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				user: self.state.userName,
+				title: self.state.userName + "\'s Collection",
+				userKollection: [],
+				slug: self.state.userName
+			})
+		})
+		.then(function(response) {
+			return response.json()
+		}).then(function(json) {
+			console.log(json)
+		}).catch(function(ex) {
+			console.log('parsing failed', ex)
 		})
 	}
 
@@ -56,11 +83,11 @@ export default class SignUp extends React.Component {
 			Sign Up for a FREE account:<br/>
 			<div style={{color:"red"}}>{this.inUse()}</div>
 			Username:
-			<input onChange={(e)=>this.setState({username:e.target.value})}/><br/>
+			<input onChange={(e)=>this.setState({userName:e.target.value})}/><br/>
 			Email:
 			<input onChange={(e)=>this.setState({email:e.target.value})}/><br/>
 			Password: 
-			<input onChange={(e)=>this.setState({password:e.target.value})}/><br/>
+			<input onChange={(e)=>this.setState({password:e.target.value})} type = 'password' /><br/>
 			<button onClick ={this.pullUser.bind(this)}>Sign Up</button>
 			</div>)
 		}

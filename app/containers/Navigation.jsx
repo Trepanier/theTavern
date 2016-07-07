@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Link } from 'react-router';
+import { Link, IndexLink } from 'react-router';
 import { connect } from 'react-redux';
 
 import classNames from 'classnames/bind';
@@ -28,12 +28,14 @@ class Navigation extends Component {
   }
 
   logInOut(){
-    if(this.props.loggedIn){
+    if(this.props.user){
       return(
-        <div> 
-        {this.state.local && this.state.local.email}
+        <span> 
+        <Link to={"/profile/" + this.props.user} className={cx('item')} activeClassName={cx('active')}>Profile</Link>
+        <Link to={"/additem/" + this.props.user} className={cx('item')} activeClassName={cx('active')}>Add Item</Link>
+        {this.props.user}
         <Link to="/logout" onClick = {this.props.toggleLogin} className = {cx('item')} activeclassName={cx('active')}>Logout</Link>
-        </div> 
+        </span> 
       )     
     } else {
       return <Link to="/login"  className={cx('item')} activeClassName={cx('active')}>Login</Link>
@@ -43,11 +45,12 @@ class Navigation extends Component {
   render() {
     return (
       <nav className={cx('navigation')} role="navigation">
-      <Link to="/" className={cx('item')} activeClassName={cx('active')}>Home</Link>
+      <IndexLink to="/" className={cx('item')} activeClassName={cx('active')}>Home</IndexLink>
       {this.logInOut()}
       </nav>
       );
   }
 }
+
 
 export default Navigation;

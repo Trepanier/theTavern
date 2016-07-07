@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import 'whatwg-fetch';
 import styles from 'css/components/home';
 import {browserHistory} from 'react-router';
+import { Link } from 'react-router';
 const cx = classNames.bind(styles);
 
 export default class AddScan extends React.Component {
@@ -75,8 +76,7 @@ export default class AddScan extends React.Component {
 			)
 	}
 
-
-
+//will need to change bottom button
 	render() {
 		return (
 			<div>
@@ -84,8 +84,8 @@ export default class AddScan extends React.Component {
 				<button onClick={this.imageScan.bind(this)}>Add Photo</button>
 				{this.state.name ? this.confirmImage() : ''}
 				{this.state.falseCard ? this.falseImage() : ''}
+				<button><Link to={"/additem/" + this.props.params.slug}>Search via Name</Link></button>
 			</div>
 		);
 	}
-
 }
