@@ -32,11 +32,11 @@ import {browserHistory} from 'react-router';
  	displayUsers(){
  		var self = this
  		var userArr = Object.keys(self.state).map(function (key) {return self.state[key]});
-    	return userArr.map((user)=>
-    		<div>
-    		<Link to={"/profile/" + user.local.userName}>{user.local.userName}</Link>
-    		</div>
-    	)
+    		return userArr.map((user)=>
+    			<div>
+    			<Link to={"/profile/" + user.local.userName}>{user.local.userName}</Link>
+    			</div>
+    		)
  	}
 
  	render(){
