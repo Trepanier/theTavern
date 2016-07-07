@@ -34,33 +34,33 @@ const cx = classNames.bind(styles);
  			console.log("json", json)
  			self.setState(json)
  			console.log("state" , self.state)
- 	}).catch(function(ex) {
- 		console.log('parsing failed', ex)
- 	})
- }
+ 		}).catch(function(ex) {
+ 			console.log('parsing failed', ex)
+ 		})
+ 	}
 
 
- addToCollection() {
- 	var self = this
- 	console.log('addToCollection card state:', self.state.card)
- 	fetch('/api/v1/collection/' + self.props.params.slug, {
- 		method: 'PUT',
- 		headers: {
- 			'Accept': 'application/json', 
- 			'Content-Type': 'application/json'
- 		},
- 		body: JSON.stringify(self.state)	
- 	}).then(function(response) {
- 		return response.json()
- 	}).then(function(json) {
- 		console.log('parsed json', json)
- 	}).catch(function(ex) {
- 		console.log('parsing failed', ex)
- 	})
- }
+ 	addToCollection() {
+ 		var self = this
+ 		fetch('/api/v1/collection/' + self.props.params.slug, {
+ 			method: 'PUT',
+ 			headers: {
+ 				'Accept': 'application/json', 
+ 				'Content-Type': 'application/json'
+ 			},
+ 			body: JSON.stringify(self.state)	
+ 		}).then(function(response) {
+ 			return response.json()
+ 		}).then(function(json) {
+ 			console.log('parsed json', json)
+ 		}).catch(function(ex) {
+ 			console.log('parsing failed', ex)
+ 		})
+ 		self.setState({search: '', failed: false, name: ''})
+ 	}
 
- confirmImage(){
- 	console.log(this.state)
+ 	confirmImage(){
+ 		console.log(this.state)
  		return (
  			<div>
  			{this.state.name}
@@ -71,24 +71,24 @@ const cx = classNames.bind(styles);
  	}
 
 
- searchFailed(){
- 	return (<div>
- 		No Card Found
- 	</div>);
- }
+ 	searchFailed(){
+ 		return (<div>
+ 			No Card Found
+ 			</div>);
+ 	}
 
- render() {
- 	return (
- 		<div className={cx('home')}>
- 		<h1 className={cx('home__header')}>Add your picture here!</h1>
- 		<h3>Input function is case sensitive!</h3>
- 		<p>Name<input onChange={(e) => this.setState({search: e.target.value})} /></p>
- 		{this.state.name ? this.confirmImage() : ''}
- 		{this.state.failed ? this.searchFailed() : ''}
- 		<button onClick={this.checkName.bind(this)}>add to collection</button>
- 		<button><Link to={"/addscan/" + this.props.params.slug}>Search via Photo</Link></button>
- 		</div>
- 	);
- }
+ 	render() {
+ 		return (
+ 			<div className={cx('home')}>
+ 			<h1 className={cx('home__header')}>Add your picture here!</h1>
+ 			<h3>Input function is case sensitive!</h3>
+ 			<p>Name<input onChange={(e) => this.setState({search: e.target.value})} value = {this.state.search} /></p>
+ 			{this.state.name ? this.confirmImage() : ''}
+ 			{this.state.failed ? this.searchFailed() : ''}
+ 			<button onClick={this.checkName.bind(this)}>add to collection</button>
+ 			<button><Link to={"/addscan/" + this.props.params.slug}>Search via Photo</Link></button>
+ 			</div>
+ 			);
+ 	}
 
-};
+ };

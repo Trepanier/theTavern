@@ -55,6 +55,7 @@ export default class AddScan extends React.Component {
 		}).catch(function(ex){
 			console.log('parsing failed', ex)
 		});
+		self.setState({failed: false, name: ''})
 	}
 
 	falseImage() {
@@ -76,6 +77,11 @@ export default class AddScan extends React.Component {
 			)
 	}
 
+	switchButton() {
+		var self = this
+		self.setState({falseCard : !self.state.falseCard})
+	}
+
 //will need to change bottom button
 	render() {
 		return (
@@ -85,6 +91,7 @@ export default class AddScan extends React.Component {
 				{this.state.name ? this.confirmImage() : ''}
 				{this.state.falseCard ? this.falseImage() : ''}
 				<button><Link to={"/additem/" + this.props.params.slug}>Search via Name</Link></button>
+				<p><input type = 'checkbox' id = "changeButton" onClick = {this.switchButton.bind(this)}/>For Multiple Cards at Once</p>
 			</div>
 		);
 	}
