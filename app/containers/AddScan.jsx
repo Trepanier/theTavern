@@ -30,7 +30,7 @@ export default class AddScan extends React.Component {
 			console.log("Response", response)
 			return response.json()
 		}).then(function(json){
-			self.setState(json)
+			self.setState({card: json})
 			console.log('parsed json', json)
 		}).catch(function(ex){
 			console.log('parsing failed', ex)
@@ -50,7 +50,7 @@ export default class AddScan extends React.Component {
 			console.log("Response", response)
 			return response.json()
 		}).then(function(json){
-			self.setState(json)
+			self.setState({multipleCards : json})
 			console.log('parsed json', json)
 		}).catch(function(ex){
 			console.log('parsing failed', ex)
@@ -59,13 +59,19 @@ export default class AddScan extends React.Component {
 
 	addToCollection() {
 		var self = this
+		var sendInfo
+		if(_.get(self.state, 'card')){
+			sendInfo = self.state.card
+		} else if (_.get(self.state, 'multipleCards')) {
+			sendInfo = self.state.multipleCards
+		}
 		fetch('/api/v1/collection/' + self.props.params.slug, {
 			method: 'PUT',
 			headers: {
  				'Accept': 'application/json', 
  				'Content-Type': 'application/json'
  			},
- 			body: JSON.stringify(self.state)
+ 			body: JSON.stringify(sendInfo)
 		}).then(function(response){
 			console.log("Response", response)
 			return response.json()
@@ -75,7 +81,7 @@ export default class AddScan extends React.Component {
 		}).catch(function(ex){
 			console.log('parsing failed', ex)
 		});
-		self.setState({failed: false, name: ''})
+		self.setState({failed: false, card: ''})
 	}
 
 	falseImage() {
@@ -90,8 +96,8 @@ export default class AddScan extends React.Component {
 	confirmImage(){
 		return (
 			<div>
-			{this.state.name}
-			<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.multiverseid}&type=card`} />
+			{this.state.card.name}
+			<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.card.multiverseid}&type=card`} />
 			<button onClick={this.addToCollection.bind(this)}>Confirm</button>
 			</div>
 			)
@@ -110,16 +116,29 @@ export default class AddScan extends React.Component {
 		}
 	}
 
+	displayMultiple() {
+		var self = this
+		if(_.get(self.state, 'multipleCards')) {
+			return self.state.multipleCards.map((card)=>
+				<div>
+				<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${card.multiverseid}&type=card`} />
+				</div>
+			)
+		}
+	}
+
 //will need to change bottom button
 	render() {
 		return (
 			<div>
 				<input type="file" name="userPhoto" />
 				{this.displayButton()}
-				{this.state.name ? this.confirmImage() : ''}
+				{this.state.card ? this.confirmImage() : ''}
 				{this.state.falseCard ? this.falseImage() : ''}
 				<button><Link to={"/additem/" + this.props.params.slug}>Search via Name</Link></button>
 				<p><input type = 'checkbox' id = "changeButton" onClick = {this.switchButton.bind(this)}/>For Multiple Cards at Once</p>
+				{this.displayMultiple()}
+				{this.state.multipleCards ? <button onClick={this.addToCollection.bind(this)}>Confirm</button> : ""}
 			</div>
 		);
 	}
