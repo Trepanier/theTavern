@@ -37,6 +37,26 @@ export default class AddScan extends React.Component {
 		});
 	}
 
+	multiScan() {
+		this.setState({falseCard: false})
+		var self = this
+		var input = document.querySelector('input[type = "file"]')
+ 		var data = new FormData()
+ 		data.append('userPhoto', input.files[0])
+		fetch('/api/v1/scanmultipleimages', {
+			method: 'POST',
+			body: data
+		}).then(function(response){
+			console.log("Response", response)
+			return response.json()
+		}).then(function(json){
+			self.setState(json)
+			console.log('parsed json', json)
+		}).catch(function(ex){
+			console.log('parsing failed', ex)
+		});
+	}
+
 	addToCollection() {
 		var self = this
 		fetch('/api/v1/collection/' + self.props.params.slug, {
@@ -79,7 +99,15 @@ export default class AddScan extends React.Component {
 
 	switchButton() {
 		var self = this
-		self.setState({falseCard : !self.state.falseCard})
+		self.setState({buttonState: !self.state.buttonState})
+	}
+
+	displayButton() {
+		if(this.state.buttonState) {
+			return (<button onClick = {this.multiScan.bind(this)}>Add Photo</button>)
+		} else {
+			return (<button onClick={this.imageScan.bind(this)}>Add Photo</button>)
+		}
 	}
 
 //will need to change bottom button
@@ -87,7 +115,7 @@ export default class AddScan extends React.Component {
 		return (
 			<div>
 				<input type="file" name="userPhoto" />
-				<button onClick={this.imageScan.bind(this)}>Add Photo</button>
+				{this.displayButton()}
 				{this.state.name ? this.confirmImage() : ''}
 				{this.state.falseCard ? this.falseImage() : ''}
 				<button><Link to={"/additem/" + this.props.params.slug}>Search via Name</Link></button>

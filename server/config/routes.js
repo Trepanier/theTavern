@@ -91,7 +91,7 @@
   })
 
   app.post('/api/v1/scanimage', upload, visionController.scanImage)
-
+  app.post('/api/v1/scanmultipleimages', upload, visionController.scanMultipleImages)
 
   
   function isLoggedIn(req, res, next) {
