@@ -6,6 +6,19 @@ import {browserHistory} from 'react-router';
 import { Link } from 'react-router';
 const cx = classNames.bind(styles);
 
+function filterOne(arrN, filtinfo){
+	var skip = false
+	return arrN.reduce(function(prev, curr){
+		if(skip || !filtinfo(curr)){
+			console.log("Prev= ", prev," Curr= ", curr)
+			return prev.concat(curr)
+		}else{
+			skip = true
+			return prev
+		}
+	},[])
+}
+
 export default class AddScan extends React.Component {
 
 	constructor(props) {
@@ -116,12 +129,22 @@ export default class AddScan extends React.Component {
 		}
 	}
 
+	displayDelete(card){
+		var self = this
+        return <button onClick={self.removeCard.bind(self, card)}>Delete</button>
+    }
+
+    removeCard(card){
+    	this.setState({multipleCards: filterOne(this.state.multipleCards, (obj) => obj.name === card.name)})
+    }
+
 	displayMultiple() {
 		var self = this
 		if(_.get(self.state, 'multipleCards')) {
 			return self.state.multipleCards.map((card)=>
 				<div>
-				<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${card.multiverseid}&type=card`} />
+				<p><img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${card.multiverseid}&type=card`} />
+				{this.displayDelete(card)}</p>
 				</div>
 			)
 		}
