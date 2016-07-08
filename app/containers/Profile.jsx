@@ -3,8 +3,8 @@ import classNames from 'classnames/bind';
 import styles from 'css/components/home';
 import {Link, IndexLink, browserHistory} from 'react-router';
 import _ from 'lodash';
-
 const cx = classNames.bind(styles);
+import {Grid, Col, Row} from 'react-bootstrap'
 
 
 export default class Profile extends React.Component {
@@ -78,15 +78,28 @@ export default class Profile extends React.Component {
 
   displayKollection(){
     var self = this
+    var colStyle = {
+      paddingTop: '90px',
+
+    }
+    var rowStyle = {
+      position: 'relative'
+    }
     if(_.get(self.state , "profile.userKollection")){
       return self.state.profile.userKollection.map((card)=>
-        <div>
-        <img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${card.multiverseid}&type=card`} />
-        <p>{card.name}</p>
-        <p><a href = {`http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=${card.multiverseid}`} target="_blank">Offical Page</a></p>
-        <p><a href = {`http://sales.starcitygames.com/search.php?substring=${card.name}&t_all=All&start_date=2010-01-29&end_date=2012-04-22&order_1=finish&limit=25&action=Show%2BDecks&card_qty%5B1%5D=1&auto=Y`} target="_blank">Card INFO</a></p>
-        {this.displayDelete(card)}
-        </div>)
+        <Row>
+           <Col sm={4} md={4}>
+              <img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${card.multiverseid}&type=card`} />
+            </Col>
+            <Col  style={colStyle} sm={8}  md={7}>
+              <div>{card.name}<br/></div>
+              {card.originalText}<br/>
+              <a className = {"link"} href = {`http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=${card.multiverseid}`} target="_blank">Offical Page</a>
+              <a className = {"link"} href = {`http://sales.starcitygames.com/search.php?substring=${card.name}&t_all=All&start_date=2010-01-29&end_date=2012-04-22&order_1=finish&limit=25&action=Show%2BDecks&card_qty%5B1%5D=1&auto=Y`} target="_blank">Card INFO</a>
+              {this.displayDelete(card)}
+            </Col>
+        </Row>
+      )
     }
   }
 
@@ -95,7 +108,7 @@ export default class Profile extends React.Component {
      <div>
       <h1>Profile</h1>
       {this.state.currentUser.local && this.state.currentUser.local.userName}
-      {this.displayKollection()}
+      <Grid>{this.displayKollection()}</Grid>
      </div>
      );
   }

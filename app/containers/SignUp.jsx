@@ -83,9 +83,9 @@ export default class SignUp extends React.Component {
 			Sign Up for a FREE account:<br/>
 			<div style={{color:"red"}}>{this.inUse()}</div>
 			Username:
-			<input onChange={(e)=>this.setState({userName:e.target.value})}/><br/>
+			<input className = {'textbox'} onChange={(e)=>this.setState({userName:e.target.value})}/><br/>
 			Email:
-			<input onChange={(e)=>this.setState({email:e.target.value})}/><br/>
+			<input className = {'textbox'} onChange={(e)=>this.setState({email:e.target.value})}/><br/>
 			Password: 
 			<input onChange={(e)=>this.setState({password:e.target.value})} type = 'password' /><br/>
 			<button onClick ={this.pullUser.bind(this)}>Sign Up</button>

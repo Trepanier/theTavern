@@ -18,3 +18,9 @@ body {
   font-weight: normal;
   font-smoothing: antialiased;
 }
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
