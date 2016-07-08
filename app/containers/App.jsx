@@ -4,6 +4,8 @@ import Navigation from 'containers/Navigation';
 import classNames from 'classnames/bind';
 import styles from 'css/main';
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css" />
+
 const cx = classNames.bind(styles);
 
 /*
