@@ -4,6 +4,7 @@ import 'whatwg-fetch';
 import styles from 'css/components/home';
 import {browserHistory} from 'react-router';
 import { Link } from 'react-router';
+import { Button } from 'react-bootstrap'
 const cx = classNames.bind(styles);
 
 export default class AddScan extends React.Component {
@@ -104,9 +105,9 @@ export default class AddScan extends React.Component {
 
 	displayButton() {
 		if(this.state.buttonState) {
-			return (<button onClick = {this.multiScan.bind(this)}>Add Photo</button>)
+			return (<Button onClick = {this.multiScan.bind(this)} bsStyle = 'primary'>Add Photo</Button>)
 		} else {
-			return (<button onClick={this.imageScan.bind(this)}>Add Photo</button>)
+			return (<Button onClick={this.imageScan.bind(this)} bsStyle = 'primary'>Add Photo</Button>)
 		}
 	}
 

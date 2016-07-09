@@ -2,6 +2,7 @@ import React from 'react';
 import 'whatwg-fetch';
 import { Link, IndexLink } from 'react-router';
 import {browserHistory} from 'react-router';
+import { Carousel } from 'react-bootstrap'
 
 /*
  * Note: This is kept as a container-level component, 
@@ -39,15 +40,44 @@ import {browserHistory} from 'react-router';
     		)
  	}
 
+ 	carouselSlideShow() {
+ 		return (
+ 			<Carousel className = 'carousel-inner img'>
+		 		<Carousel.Item>
+			 		<img width={223} height={311} src= "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=413591&type=card" />
+			 		<Carousel.Caption>
+				 		<h3>New card added from Fred1234</h3>
+				 		<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+			 		</Carousel.Caption>
+		 		</Carousel.Item>
+		 		<Carousel.Item>
+			 		<img width={223} height={311} src= "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=413767&type=card" />
+			 		<Carousel.Caption>
+				 		<h3>Second slide label</h3>
+				 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+			 		</Carousel.Caption>
+		 		</Carousel.Item>
+		 		<Carousel.Item>
+			 		<img width={223} height={311} src= "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=413790&type=card" />
+			 		<Carousel.Caption>
+				 		<h3>Third slide label</h3>
+				 		<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+			 		</Carousel.Caption>
+		 		</Carousel.Item>
+	 		</Carousel>
+	 	)
+ 	}
+
  	render(){
  		return (
- 			<div>
+ 			<div className = 'centerText'>
  				<h1>Welcome to the Collection Box</h1>
  				<div>
  					<h2>The Collection Box helps individuals store, view, and trade 
  					their collections online with other users. Either enter your login
- 					information or signup as a new user.</h2>
- 					<h3>Current Users</h3>
+ 					information or <Link to = "/signup">Sign Up Here</Link>.</h2>
+ 					{this.carouselSlideShow()}
+ 					<h3>Users Collections</h3>
  					{this.displayUsers()}
  				</div>
  			</div>

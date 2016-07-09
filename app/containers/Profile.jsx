@@ -4,7 +4,7 @@ import styles from 'css/components/home';
 import {Link, IndexLink, browserHistory} from 'react-router';
 import _ from 'lodash';
 const cx = classNames.bind(styles);
-import {Grid, Col, Row} from 'react-bootstrap'
+import {Grid, Col, Row, Button} from 'react-bootstrap'
 
 
 export default class Profile extends React.Component {
@@ -72,7 +72,7 @@ export default class Profile extends React.Component {
   displayDelete(card){
     var self = this
     if(_.get(this.state, 'currentUser.local.userName', null) === this.state.profile.user){
-        return <button onClick={self.removeItem.bind(self, card)}>Delete</button>
+        return <Button onClick={self.removeItem.bind(self, card)} bsStyle = "danger">Delete Card</Button>
       }
     }
 
@@ -87,18 +87,21 @@ export default class Profile extends React.Component {
     }
     if(_.get(self.state , "profile.userKollection")){
       return self.state.profile.userKollection.map((card)=>
+        <div>
         <Row>
            <Col sm={4} md={4}>
-              <img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${card.multiverseid}&type=card`} />
+              <img className = 'imageShadow' src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${card.multiverseid}&type=card`} />
             </Col>
-            <Col  style={colStyle} sm={8}  md={7}>
-              <div>{card.name}<br/></div>
-              {card.originalText}<br/>
-              <a className = {"link"} href = {`http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=${card.multiverseid}`} target="_blank">Offical Page</a>
-              <a className = {"link"} href = {`http://sales.starcitygames.com/search.php?substring=${card.name}&t_all=All&start_date=2010-01-29&end_date=2012-04-22&order_1=finish&limit=25&action=Show%2BDecks&card_qty%5B1%5D=1&auto=Y`} target="_blank">Card INFO</a>
+            <Col  style={colStyle} sm={8}  md={7} className = 'centerText profileCD'>
+              <h3 className = {'textShadowTitle'}>{card.name}<br/></h3>
+              <label className = {'textShadow'}>{card.originalText}</label><br/>
+              <a className = {"link"} href = {`http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=${card.multiverseid}`} target="_blank">Offical Wizards Page</a>
+              <a className = {"link"} href = {`http://sales.starcitygames.com/search.php?substring=${card.name}&t_all=All&start_date=2010-01-29&end_date=2012-04-22&order_1=finish&limit=25&action=Show%2BDecks&card_qty%5B1%5D=1&auto=Y`} target="_blank">Card Pricing</a><br />
               {this.displayDelete(card)}
             </Col>
         </Row>
+        <br />
+        </div>
       )
     }
   }
@@ -106,8 +109,8 @@ export default class Profile extends React.Component {
   render() {
     return (
      <div>
-      <h1>Profile</h1>
-      {this.state.currentUser.local && this.state.currentUser.local.userName}
+      <h1 className = 'centerText profileName'>{this.state.profile.user}'s Profile</h1>
+      <hr />
       <Grid>{this.displayKollection()}</Grid>
      </div>
      );

@@ -42,7 +42,7 @@ class Navigation extends Component {
 
   render() {
     return (
-      <Navbar>
+      <Navbar fluid = 'true'>
         <Navbar.Header>
           <Navbar.Brand>
             COLLECTION BOX
