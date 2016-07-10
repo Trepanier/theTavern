@@ -86,7 +86,7 @@ export default class Profile extends React.Component {
         <col md = {4}>{card.name}
         <a href = {`http://gatherer.wizards.com/Pages/Card/Details.aspx?multiverseid=${card.multiverseid}`} target="_blank">Offical Page</a>
         <a href = {`http://sales.starcitygames.com/search.php?substring=${card.name}&t_all=All&start_date=2010-01-29&end_date=2012-04-22&order_1=finish&limit=25&action=Show%2BDecks&card_qty%5B1%5D=1&auto=Y`} target="_blank">Card INFO</a>
-        {this.displayDelete(card)}</col>
+        </col>
         </row>
         </div>)
     }

@@ -24,16 +24,12 @@ export default class AddScan extends React.Component {
 	constructor(props) {
  		super(props);
  		this.state = {
- 			card:{
- 				name: "",
- 				falseCard: ""
- 			}
  		}
  	}	
 
 	imageScan() {
-		this.setState({card: {falseCard: false}})
 		var self = this
+		self.setState({})
 		var input = document.querySelector('input[type = "file"]')
  		var data = new FormData()
  		data.append('userPhoto', input.files[0])
@@ -52,8 +48,8 @@ export default class AddScan extends React.Component {
 	}
 
 	multiScan() {
-		this.setState({card : {falseCard: false}})
 		var self = this
+		self.setState({})
 		var input = document.querySelector('input[type = "file"]')
  		var data = new FormData()
  		data.append('userPhoto', input.files[0])
@@ -79,6 +75,7 @@ export default class AddScan extends React.Component {
 		} else if (_.get(self.state, 'multipleCards')) {
 			sendInfo = self.state.multipleCards
 		}
+		console.log("Sendinfo = ", sendInfo)
 		fetch('/api/v1/collection/' + self.props.params.slug, {
 			method: 'PUT',
 			headers: {
@@ -95,7 +92,7 @@ export default class AddScan extends React.Component {
 		}).catch(function(ex){
 			console.log('parsing failed', ex)
 		});
-		self.setState({card : ''})
+		self.setState({})
 	}
 
 	falseImage() {
@@ -157,8 +154,8 @@ export default class AddScan extends React.Component {
 			<div>
 				<input type="file" name="userPhoto" />
 				{this.displayButton()}
-				{this.state.card.name? this.confirmImage() : ''}
-				{this.state.card.falseCard? this.falseImage() : ''}
+				{this.state.card && !this.state.card.falseCard? this.confirmImage() : ''}
+				{_.get(this.state, 'card.falseCard')? this.falseImage() : ''}
 				<button><Link to={"/additem/" + this.props.params.slug}>Search via Name</Link></button>
 				<p><input type = 'checkbox' id = "changeButton" onClick = {this.switchButton.bind(this)}/>For Multiple Cards at Once</p>
 				{this.displayMultiple()}
