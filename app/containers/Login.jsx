@@ -5,7 +5,7 @@ import 'whatwg-fetch';
 import { Link } from 'react-router';
 const cx = classNames.bind(styles);
 import {browserHistory} from 'react-router';
-import {Button, form, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
+import {Button, form, FormGroup, ControlLabel, FormControl, Col, Row} from 'react-bootstrap';
 
 export default class Login extends React.Component {
 	setInitialState(){
@@ -51,18 +51,26 @@ export default class Login extends React.Component {
 			<div>
 			<form>
 				<FormGroup>
+					<Row>
+					<Col sm={3}>
 					<ControlLabel>Email</ControlLabel>
-					<FormControl type="email" placeHolder = "Enter Email" onChange={(e)=>this.setState({email:e.target.value})}/>
+					<FormControl type="email" placeHolder = "Enter Email" onChange={(e)=>this.setState({email:e.target.value})}/><br />
+					</Col>
+					</Row>
 				</FormGroup>
 				<FormGroup>
+					<Row>
+					<Col sm={3}>
 					<ControlLabel>Password</ControlLabel>
-					<FormControl type="password" placeHolder= "Enter Password" onChange={(e)=>this.setState({password:e.target.value})} />
+					<FormControl type="password" placeHolder= "Enter Password" onChange={(e)=>this.setState({password:e.target.value})} /><br />
+					</Col>
+					</Row>
 				</FormGroup>
 			</form>
 
 			<Button onClick ={this.pullUser.bind(this)} bsStyle = 'primary'>Login</Button><br/>
 			<br/> Dont have an Account?
-			<Link to = "/signup">Sign Up Here</Link>
+			<Link to = "/signup">  Sign Up Here</Link>
 			</div>)
 		}
 	}

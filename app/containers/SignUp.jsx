@@ -4,7 +4,7 @@ import styles from 'css/components/home';
 import 'whatwg-fetch';
 const cx = classNames.bind(styles);
 import {browserHistory} from 'react-router';
-import {Button, form, FormGroup, ControlLabel, FormControl} from 'react-bootstrap';
+import {Button, form, FormGroup, ControlLabel, FormControl, Col, Row} from 'react-bootstrap';
 
 export default class SignUp extends React.Component {
 	constructor(props){
@@ -82,18 +82,31 @@ export default class SignUp extends React.Component {
 		var self = this 
 		return(
 			<div>
+			<label className = 'alertText'>{this.inUse()}</label>
 			<form>
 				<FormGroup>
-					<ControlLabel>Username</ControlLabel>
-					<FormControl placeHolder= "Enter Username" onChange={(e)=>this.setState({userName:e.target.value})} />
+					<Row>
+						<Col sm={3}>
+							<ControlLabel>Username</ControlLabel>
+							<FormControl placeHolder= "Enter Username" onChange={(e)=>this.setState({userName:e.target.value})}/><br />
+						</Col>
+					</Row>
 				</FormGroup>
 				<FormGroup>
-					<ControlLabel>Email</ControlLabel>
-					<FormControl type="email" placeHolder = "Enter Email" onChange={(e)=>this.setState({email:e.target.value})}/>
+					<Row>
+						<Col sm={3}>
+							<ControlLabel>Email</ControlLabel>
+							<FormControl type="email" placeHolder = "Enter Email" onChange={(e)=>this.setState({email:e.target.value})}/><br />
+						</Col>
+					</Row>
 				</FormGroup>
 				<FormGroup>
-					<ControlLabel>Password</ControlLabel>
-					<FormControl type="password" placeHolder= "Enter Password" onChange={(e)=>this.setState({password:e.target.value})} />
+					<Row>
+						<Col sm={3}>
+							<ControlLabel>Password</ControlLabel>
+							<FormControl type="password" placeHolder= "Enter Password" onChange={(e)=>this.setState({password:e.target.value})}/><br />
+						</Col>
+					</Row>
 				</FormGroup>
 			</form>
 			<Button onClick ={this.pullUser.bind(this)} bsStyle = 'primary'>Sign Up</Button>

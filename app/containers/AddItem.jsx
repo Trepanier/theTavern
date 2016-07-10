@@ -4,6 +4,7 @@ import styles from 'css/components/home';
 import 'whatwg-fetch';
 import {browserHistory} from 'react-router';
 import { Link } from 'react-router';
+import {Button, Row, form, FormGroup, ControlLabel, FormControl, Col} from 'react-bootstrap'
 const cx = classNames.bind(styles);
 
 /*
@@ -62,31 +63,50 @@ const cx = classNames.bind(styles);
  	confirmImage(){
  		console.log(this.state)
  		return (
- 			<div>
- 			{this.state.name}
- 			<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.multiverseid}&type=card`} />
- 			<button onClick={this.addToCollection.bind(this)}>Confirm</button>
+ 			<div className ='centerText'>
+	 			<Row className ='centerText'>
+	 				{this.state.name}
+	 			</Row>
+	 			<Row className ='centerText'>
+	 				<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.multiverseid}&type=card`} />
+	 			</Row>
+	 			<Row className ='centerText'>
+	 				<Button onClick={this.addToCollection.bind(this)} bsStyle = 'primary'>Add to Collection</Button>
+	 			</Row>
  			</div>
- 			)
+ 		)
  	}
 
-
  	searchFailed(){
- 		return (<div>
- 			No Card Found
- 			</div>);
+ 		return (
+ 			<h2>
+ 				Sorry, No Card Found
+ 			</h2>
+ 		)
  	}
 
  	render() {
  		return (
  			<div className={cx('home')}>
- 			<h1 className={cx('home__header')}>Add your picture here!</h1>
- 			<h3>Input function is case sensitive!</h3>
- 			<p>Name<input onChange={(e) => this.setState({search: e.target.value})} value = {this.state.search} /></p>
- 			{this.state.name ? this.confirmImage() : ''}
- 			{this.state.failed ? this.searchFailed() : ''}
- 			<button onClick={this.checkName.bind(this)}>add to collection</button>
- 			<button><Link to={"/addscan/" + this.props.params.slug}>Search via Photo</Link></button>
+ 			<form>
+				<FormGroup>
+					<Row className ='centerText'>
+ 			<h1 className={cx('home__header')}>Search for your card here!</h1>
+ 			<ControlLabel className='centerText'>Name</ControlLabel>
+ 						<Col sm={12}>
+ 			<FormControl className='centerText' onChange={(e) => this.setState({search: e.target.value})} value = {this.state.search} />
+ 						</Col>
+ 					</Row>
+ 				</FormGroup>
+ 				<FormGroup>
+ 					<Row className ='centerText'>
+ 					{this.state.name ? this.confirmImage() : ''}
+ 					{this.state.failed ? this.searchFailed() : ''}<br />
+ 					<Button onClick={this.checkName.bind(this)} bsStyle = 'primary'>Search</Button>
+ 					<Button><Link to={"/addscan/" + this.props.params.slug} bsStyle = 'primary'>Search via Photo</Link></Button>
+ 					</Row>
+ 				</FormGroup>
+ 			</form>
  			</div>
  			);
  	}

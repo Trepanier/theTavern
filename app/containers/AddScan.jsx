@@ -4,7 +4,7 @@ import 'whatwg-fetch';
 import styles from 'css/components/home';
 import {browserHistory} from 'react-router';
 import { Link } from 'react-router';
-import { Button } from 'react-bootstrap'
+import { Button, Row, form, FormGroup, ControlLabel, FormControl, Col } from 'react-bootstrap'
 const cx = classNames.bind(styles);
 
 export default class AddScan extends React.Component {
@@ -31,7 +31,7 @@ export default class AddScan extends React.Component {
 			console.log("Response", response)
 			return response.json()
 		}).then(function(json){
-			self.setState(json)
+			self.setState({card: json})
 			console.log('parsed json', json)
 		}).catch(function(ex){
 			console.log('parsing failed', ex)
@@ -51,7 +51,7 @@ export default class AddScan extends React.Component {
 			console.log("Response", response)
 			return response.json()
 		}).then(function(json){
-			self.setState(json)
+			self.setState({mulitcard: json})
 			console.log('parsed json', json)
 		}).catch(function(ex){
 			console.log('parsing failed', ex)
@@ -60,13 +60,19 @@ export default class AddScan extends React.Component {
 
 	addToCollection() {
 		var self = this
+		var info
+		if(self.card){
+			info = this.state.card
+		} else if(self.multicard){
+			info = this.state.multicard
+		}
 		fetch('/api/v1/collection/' + self.props.params.slug, {
 			method: 'PUT',
 			headers: {
  				'Accept': 'application/json', 
  				'Content-Type': 'application/json'
  			},
- 			body: JSON.stringify(self.state)
+ 			body: JSON.stringify(info)
 		}).then(function(response){
 			console.log("Response", response)
 			return response.json()
@@ -90,10 +96,16 @@ export default class AddScan extends React.Component {
 
 	confirmImage(){
 		return (
-			<div>
-			{this.state.name}
-			<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.multiverseid}&type=card`} />
-			<button onClick={this.addToCollection.bind(this)}>Confirm</button>
+			<div className = 'centerText'>
+				<Row className = 'centerText'>
+					{this.state.card.name}
+				</Row>
+				<Row className = 'centerText'>
+					<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.card.multiverseid}&type=card`} />
+				</Row>
+				<Row className = 'centerText'>
+					<Button onClick={this.addToCollection.bind(this)}>Confirm</Button>
+				</Row>	
 			</div>
 			)
 	}
@@ -114,13 +126,17 @@ export default class AddScan extends React.Component {
 //will need to change bottom button
 	render() {
 		return (
-			<div>
-				<input type="file" name="userPhoto" />
-				{this.displayButton()}
-				{this.state.name ? this.confirmImage() : ''}
-				{this.state.falseCard ? this.falseImage() : ''}
-				<button><Link to={"/additem/" + this.props.params.slug}>Search via Name</Link></button>
-				<p><input type = 'checkbox' id = "changeButton" onClick = {this.switchButton.bind(this)}/>For Multiple Cards at Once</p>
+			<div className = 'centerText'>
+				<form>
+					<FormGroup>
+						<FormControl type="file" name="userPhoto" />
+							{this.state.card ? this.confirmImage() : ''}
+							{this.displayButton()}
+							{this.state.falseCard ? this.falseImage() : ''}
+							<Button><Link to={"/additem/" + this.props.params.slug}>Search via Name</Link></Button>
+							<p><input type = 'checkbox' id = "changeButton" onClick = {this.switchButton.bind(this)}/>For Multiple Cards at Once</p>
+					</FormGroup>
+				</form>
 			</div>
 		);
 	}

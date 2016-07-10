@@ -46,22 +46,22 @@ import { Carousel } from 'react-bootstrap'
 		 		<Carousel.Item>
 			 		<img width={223} height={311} src= "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=413591&type=card" />
 			 		<Carousel.Caption>
-				 		<h3>New card added from Fred1234</h3>
-				 		<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+				 		<h3>Bill just added Force of Will to their Collection</h3>
+				 		<p>(recent activity feature to be added in the future)</p>
 			 		</Carousel.Caption>
 		 		</Carousel.Item>
 		 		<Carousel.Item>
 			 		<img width={223} height={311} src= "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=413767&type=card" />
 			 		<Carousel.Caption>
-				 		<h3>Second slide label</h3>
-				 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+				 		<h3>Lydar now has Mana Crypt for trade</h3>
+				 		<p>(recent activity feature to be added in the future)</p>
 			 		</Carousel.Caption>
 		 		</Carousel.Item>
 		 		<Carousel.Item>
 			 		<img width={223} height={311} src= "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=413790&type=card" />
 			 		<Carousel.Caption>
-				 		<h3>Third slide label</h3>
-				 		<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+				 		<h3>Trep just traded Wasteland</h3>
+				 		<p>(recent activity feature to be added in the future)</p>
 			 		</Carousel.Caption>
 		 		</Carousel.Item>
 	 		</Carousel>

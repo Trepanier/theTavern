@@ -55,16 +55,26 @@ button {
 .textShadow {
 	text-shadow: 1px 2px 1px black;
 }
+
 .textShadowTitle {
 	text-shadow: 2px 2px 1px black;
 }
 
-.imageShadow{
+.imageShadow {
 	border-radius: 10px;
 	background-color: black;
 	box-shadow: 15px 15px 20px black;
 }
 
+.centerText {
+	text-align: center;
+	padding: 15px;
+}
+
+.alertText {
+	color: red;
+	font-size: 20px;
+}
  
 
 
