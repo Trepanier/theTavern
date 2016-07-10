@@ -70,7 +70,7 @@ function updateChange(req, res){
 function addItem(req, res){
 	Collection.findOne({user: req.params.slug}, function(err, collection) {
 		console.log('req.body', req.body)
-		collection.userKollection.push(req.body)
+		collection.userKollection = collection.userKollection.concat(req.body)
 		collection.save(function(err, saveResp) {
 			if (!err) {
 				console.log("updated");

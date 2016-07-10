@@ -3,24 +3,34 @@ import classNames from 'classnames/bind';
 import 'whatwg-fetch';
 import styles from 'css/components/home';
 import {browserHistory} from 'react-router';
-import { Link } from 'react-router';
+import { Link, IndexLink} from 'react-router';
 import { Button, Row, form, FormGroup, ControlLabel, FormControl, Col } from 'react-bootstrap'
 const cx = classNames.bind(styles);
+
+function filterOne(arrN, filtinfo){
+	var skip = false
+	return arrN.reduce(function(prev, curr){
+		if(skip || !filtinfo(curr)){
+			console.log("Prev= ", prev," Curr= ", curr)
+			return prev.concat(curr)
+		}else{
+			skip = true
+			return prev
+		}
+	},[]);
+}
 
 export default class AddScan extends React.Component {
 
 	constructor(props) {
  		super(props);
  		this.state = {
- 			name: '',
- 			multiverseid:'',
- 			falseCard: false
  		}
  	}	
 
 	imageScan() {
-		this.setState({falseCard: false})
 		var self = this
+		self.setState({})
 		var input = document.querySelector('input[type = "file"]')
  		var data = new FormData()
  		data.append('userPhoto', input.files[0])
@@ -39,8 +49,8 @@ export default class AddScan extends React.Component {
 	}
 
 	multiScan() {
-		this.setState({falseCard: false})
 		var self = this
+		self.setState({})
 		var input = document.querySelector('input[type = "file"]')
  		var data = new FormData()
  		data.append('userPhoto', input.files[0])
@@ -51,7 +61,7 @@ export default class AddScan extends React.Component {
 			console.log("Response", response)
 			return response.json()
 		}).then(function(json){
-			self.setState({mulitcard: json})
+			self.setState({multipleCards : json})
 			console.log('parsed json', json)
 		}).catch(function(ex){
 			console.log('parsing failed', ex)
@@ -60,19 +70,21 @@ export default class AddScan extends React.Component {
 
 	addToCollection() {
 		var self = this
-		var info
-		if(self.card){
-			info = this.state.card
-		} else if(self.multicard){
-			info = this.state.multicard
+		var sendInfo
+		console.log("HELLO OVER HERE")
+		if(_.get(self.state, 'card')){
+			sendInfo = self.state.card
+		} else if (_.get(self.state, 'multipleCards')) {
+			sendInfo = self.state.multipleCards
 		}
+		console.log("Sendinfo = ", sendInfo)
 		fetch('/api/v1/collection/' + self.props.params.slug, {
 			method: 'PUT',
 			headers: {
  				'Accept': 'application/json', 
  				'Content-Type': 'application/json'
  			},
- 			body: JSON.stringify(info)
+ 			body: JSON.stringify(sendInfo)
 		}).then(function(response){
 			console.log("Response", response)
 			return response.json()
@@ -82,7 +94,7 @@ export default class AddScan extends React.Component {
 		}).catch(function(ex){
 			console.log('parsing failed', ex)
 		});
-		self.setState({failed: false, name: ''})
+		self.setState({})
 	}
 
 	falseImage() {
@@ -96,16 +108,10 @@ export default class AddScan extends React.Component {
 
 	confirmImage(){
 		return (
-			<div className = 'centerText'>
-				<Row className = 'centerText'>
-					{this.state.card.name}
-				</Row>
-				<Row className = 'centerText'>
-					<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.card.multiverseid}&type=card`} />
-				</Row>
-				<Row className = 'centerText'>
-					<Button onClick={this.addToCollection.bind(this)}>Confirm</Button>
-				</Row>	
+			<div>
+			{this.state.card.name}
+			<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.card.multiverseid}&type=card`} />
+			<button onClick={this.addToCollection.bind(this)}>Confirm</button>
 			</div>
 			)
 	}
@@ -117,26 +123,45 @@ export default class AddScan extends React.Component {
 
 	displayButton() {
 		if(this.state.buttonState) {
-			return (<Button onClick = {this.multiScan.bind(this)} bsStyle = 'primary'>Add Photo</Button>)
+			return (<button onClick = {this.multiScan.bind(this)}>Add Photo</button>)
 		} else {
-			return (<Button onClick={this.imageScan.bind(this)} bsStyle = 'primary'>Add Photo</Button>)
+			return (<button onClick={this.imageScan.bind(this)}>Add Photo</button>)
+		}
+	}
+
+	displayDelete(card){
+		var self = this
+        return <button onClick={self.removeCard.bind(self, card)}>Delete</button>
+    }
+
+    removeCard(card){
+    	this.setState({multipleCards: filterOne(this.state.multipleCards, (obj) => obj.name === card.name)})
+    }
+
+	displayMultiple() {
+		var self = this
+		if(_.get(self.state, 'multipleCards')) {
+			return self.state.multipleCards.map((card)=>
+				<div>
+				<p><img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${card.multiverseid}&type=card`} />
+				{this.displayDelete(card)}</p>
+				</div>
+			)
 		}
 	}
 
 //will need to change bottom button
 	render() {
 		return (
-			<div className = 'centerText'>
-				<form>
-					<FormGroup>
-						<FormControl type="file" name="userPhoto" />
-							{this.state.card ? this.confirmImage() : ''}
-							{this.displayButton()}
-							{this.state.falseCard ? this.falseImage() : ''}
-							<Button><Link to={"/additem/" + this.props.params.slug}>Search via Name</Link></Button>
-							<p><input type = 'checkbox' id = "changeButton" onClick = {this.switchButton.bind(this)}/>For Multiple Cards at Once</p>
-					</FormGroup>
-				</form>
+			<div>
+				<input type="file" name="userPhoto" />
+				{this.displayButton()}
+				{this.state.card && !this.state.card.falseCard? this.confirmImage() : ''}
+				{_.get(this.state, 'card.falseCard')? this.falseImage() : ''}
+				<button><Link to={"/additem/" + this.props.params.slug}>Search via Name</Link></button>
+				<p><input type = 'checkbox' id = "changeButton" onClick = {this.switchButton.bind(this)}/>For Multiple Cards at Once</p>
+				{this.displayMultiple()}
+				{this.state.multipleCards ? <button onClick={this.addToCollection.bind(this)}>Confirm</button> : ""}
 			</div>
 		);
 	}
