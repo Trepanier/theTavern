@@ -32,14 +32,14 @@
 
   app.post('/api/v1/collection', collectionController.create)
   app.get('/api/v1/collection/:slug', collectionController.retrieveOne)
-  app.put('/api/v1/collection/remove/', collectionController.removeItem)//remove this when done
-  app.put('/api/v1/collection/:slug', collectionController.addItem)
+  app.put('/api/v1/collection/remove/', isLoggedIn, collectionController.removeItem)//remove this when done
+  app.put('/api/v1/collection/:slug', isLoggedIn, collectionController.addItem)
   app.get('/api/v1/photo', function(req,res){
     return res.json(req.file);
   });
 
 
-  app.get('/api/v1/cards/:slug', cardsController.findOne)
+  app.get('/api/v1/cards/:slug', isLoggedIn, cardsController.findOne)
 
   app.post('/api/v1/signup', passport.authenticate('local-signup', {
         successRedirect : '/api/v1/signup/true', // redirect to the secure profile section
@@ -90,8 +90,8 @@
     }
   })
 
-  app.post('/api/v1/scanimage', upload, visionController.scanImage)
-  app.post('/api/v1/scanmultipleimages', upload, visionController.scanMultipleImages)
+  app.post('/api/v1/scanimage', isLoggedIn, upload, visionController.scanImage)
+  app.post('/api/v1/scanmultipleimages', isLoggedIn, upload, visionController.scanMultipleImages)
 
   
   function isLoggedIn(req, res, next) {

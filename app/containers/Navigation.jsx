@@ -1,10 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { Link, IndexLink } from 'react-router';
 import { connect } from 'react-redux';
-
 import classNames from 'classnames/bind';
 import styles from 'css/components/navigation';
-
+import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap'
 const cx = classNames.bind(styles);
 
 class Navigation extends Component {
@@ -30,27 +29,34 @@ class Navigation extends Component {
   logInOut(){
     if(this.props.user){
       return(
-        <span> 
-        <Link to={"/profile/" + this.props.user} className={cx('item')} activeClassName={cx('active')}>Profile</Link>
-        <Link to={"/additem/" + this.props.user} className={cx('item')} activeClassName={cx('active')}>Add Item</Link>
-        {this.props.user}
-        <Link to="/logout" onClick = {this.props.toggleLogin} className = {cx('item')} activeclassName={cx('active')}>Logout</Link>
-        </span> 
+        <NavDropdown eventKey={2} title= {this.props.user} id = "user-drop-down">
+          <MenuItem eventKey={2.1} href={/profile/ + this.props.user}>Profile</MenuItem>
+          <MenuItem eventKey={2.2} href={"/additem/" + this.props.user}>Add Item</MenuItem> 
+          <MenuItem eventKey={2.3} href="/logout">Log Out</MenuItem>  
+        </NavDropdown> 
       )     
     } else {
-      return <Link to="/login"  className={cx('item')} activeClassName={cx('active')}>Login</Link>
+      return <NavItem eventKey={2} href="/login">Login</NavItem>  
     }
   }
 
   render() {
     return (
-      <nav className={cx('navigation')} role="navigation">
-      <IndexLink to="/" className={cx('item')} activeClassName={cx('active')}>Home</IndexLink>
-      {this.logInOut()}
-      </nav>
+      <Navbar className={"navbar-fixed-top"} fluid = 'true'>
+        <Navbar.Header>
+          <Navbar.Brand>
+            COLLECTION BOX
+          </Navbar.Brand>
+        </Navbar.Header>
+        <Nav>
+          <NavItem eventKey={1} href='/'>Home</NavItem>
+          {this.logInOut()}
+        </Nav>
+      </Navbar>
       );
   }
 }
+
 
 
 export default Navigation;

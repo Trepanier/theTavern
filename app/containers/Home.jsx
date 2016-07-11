@@ -2,6 +2,7 @@ import React from 'react';
 import 'whatwg-fetch';
 import { Link, IndexLink } from 'react-router';
 import {browserHistory} from 'react-router';
+import { Carousel } from 'react-bootstrap'
 
 /*
  * Note: This is kept as a container-level component, 
@@ -39,16 +40,45 @@ import {browserHistory} from 'react-router';
     		)
  	}
 
+ 	carouselSlideShow() {
+ 		return (
+ 			<Carousel className = 'carousel-inner img'>
+		 		<Carousel.Item>
+			 		<img width={223} height={311} src= "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=413591&type=card" />
+			 		<Carousel.Caption>
+				 		<h3>Bill just added Force of Will to their Collection</h3>
+				 		<p>(recent activity feature to be added in the future)</p>
+			 		</Carousel.Caption>
+		 		</Carousel.Item>
+		 		<Carousel.Item>
+			 		<img  width={223} height={311} src= "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=413767&type=card" />
+			 		<Carousel.Caption>
+				 		<h3>Lydar now has Mana Crypt for trade</h3>
+				 		<p>(recent activity feature to be added in the future)</p>
+			 		</Carousel.Caption>
+		 		</Carousel.Item>
+		 		<Carousel.Item>
+			 		<img width={223} height={311} src= "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=413790&type=card" />
+			 		<Carousel.Caption>
+				 		<h3>Trep just traded Wasteland</h3>
+				 		<p>(recent activity feature to be added in the future)</p>
+			 		</Carousel.Caption>
+		 		</Carousel.Item>
+	 		</Carousel>
+	 	)
+ 	}
+
  	render(){
  		return (
- 			<div>
- 				<h1>Welcome to the Collection Box</h1>
+ 			<div className = 'centerText marginTop'>
+ 				<h1 className = 'profileName'>Welcome to the Collection Box</h1>
  				<div>
  					<h2>The Collection Box helps individuals store, view, and trade 
  					their collections online with other users. Either enter your login
- 					information or signup as a new user.</h2>
- 					<h3>Current Users</h3>
- 					{this.displayUsers()}
+ 					information or <Link to = "/signup">Sign Up Here</Link>.</h2>
+ 					{this.carouselSlideShow()}
+ 					<h3>Users Collections</h3>
+ 					<h4>{this.displayUsers()}</h4>
  				</div>
  			</div>
  			)

@@ -26,7 +26,8 @@ function renderFullPage(renderedContent, initialState, head={
   title: '',
   meta: '<meta name="viewport" content="width=device-width, initial-scale=1" />',
   link: '<link rel="stylesheet" href="/assets/styles/main.css"/>',
-  theme: '<link rel="stylesheet" href="/assets/styles/theme.css"/>'
+  theme: '<link rel="stylesheet" href="/assets/styles/theme.css"/>',
+  bootstrap: '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>'
 }) {
   return `
   <!DOCTYPE html>
@@ -35,6 +36,7 @@ function renderFullPage(renderedContent, initialState, head={
     ${head.title}
     ${head.meta}
     ${head.link}
+    ${head.bootstrap}
     ${head.theme}
   </head>
   <body>
