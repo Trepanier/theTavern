@@ -79,9 +79,7 @@ const cx = classNames.bind(styles);
 
  	searchFailed(){
  		return (
- 			<h2>
- 				Sorry, No Card Found
- 			</h2>
+ 			<h2>Sorry, No Card Found</h2>
  		)
  	}
 
@@ -91,8 +89,8 @@ const cx = classNames.bind(styles);
  			<form>
 				<FormGroup>
 					<Row className ='centerText'>
- 			<h1 className={cx('home__header')}>Search for your card here!</h1>
- 			<ControlLabel className='centerText'>Name</ControlLabel>
+ 			<h1 className={cx('home__header')}>Search via Card Name!</h1>
+ 			<ControlLabel className='centerText'>Card Name</ControlLabel>
  						<Col sm={12}>
  			<FormControl className='centerText' onChange={(e) => this.setState({search: e.target.value})} value = {this.state.search} />
  						</Col>

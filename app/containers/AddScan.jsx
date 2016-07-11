@@ -110,7 +110,7 @@ export default class AddScan extends React.Component {
 			<div>
 			{this.state.card.name}
 			<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.card.multiverseid}&type=card`} />
-			<button onClick={this.addToCollection.bind(this)}>Confirm</button>
+			<Button onClick={this.addToCollection.bind(this)} bsStyle = 'primary'>Confirm</Button>
 			</div>
 			)
 	}
@@ -122,15 +122,15 @@ export default class AddScan extends React.Component {
 
 	displayButton() {
 		if(this.state.buttonState) {
-			return (<button onClick = {this.multiScan.bind(this)}>Add Photo</button>)
+			return (<Button onClick = {this.multiScan.bind(this)} bsStyle = 'primary' className = 'checkboxAddScan'>Add Photo</Button>)
 		} else {
-			return (<button onClick={this.imageScan.bind(this)}>Add Photo</button>)
+			return (<Button onClick={this.imageScan.bind(this)} bsStyle = 'primary' className = 'checkboxAddScan'>Add Photo</Button>)
 		}
 	}
 
 	displayDelete(card){
 		var self = this
-        return <button onClick={self.removeCard.bind(self, card)}>Delete</button>
+        return <Button onClick={self.removeCard.bind(self, card)} bsStyle = 'danger'>Delete</Button>
     }
 
     removeCard(card){
@@ -153,14 +153,25 @@ export default class AddScan extends React.Component {
 	render() {
 		return (
 			<div>
-				<input type="file" name="userPhoto" />
-				{this.displayButton()}
-				{this.state.card && !this.state.card.falseCard? this.confirmImage() : ''}
-				{_.get(this.state, 'card.falseCard')? this.falseImage() : ''}
-				<button><Link to={"/additem/" + this.props.params.slug}>Search via Name</Link></button>
-				<p><input type = 'checkbox' id = "changeButton" onClick = {this.switchButton.bind(this)}/>For Multiple Cards at Once</p>
-				{this.displayMultiple()}
-				{this.state.multipleCards ? <button onClick={this.addToCollection.bind(this)}>Confirm</button> : ""}
+			<form>
+				<FormGroup>
+					<Row className = 'centerText'>
+					<h1 className={cx('home__header paddingAddScan')}>Search via Photo Name!</h1>
+					<ControlLabel>
+						<input type = "file" name = "userPhoto" />
+					</ControlLabel>
+					</Row>
+					<Row className = 'centerText'>
+						{this.displayButton()}
+						{this.state.card && !this.state.card.falseCard? this.confirmImage() : ''}
+						{_.get(this.state, 'card.falseCard')? this.falseImage() : ''}
+					<ControlLabel><input type = 'checkbox' id = "changeButton" onClick = {this.switchButton.bind(this)}/> For Multiple Cards at Once</ControlLabel>
+						{this.displayMultiple()}
+						{this.state.multipleCards ? <Button onClick={this.addToCollection.bind(this)} bsStyle = 'primary'>Confirm</Button> : ""}
+						<Button><Link to={"/additem/" + this.props.params.slug} bsStyle = 'primary'>Search via Name</Link></Button>
+					</Row>
+				</FormGroup>
+			</form>
 			</div>
 		);
 	}

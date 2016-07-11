@@ -20,10 +20,11 @@ export default class Logout extends React.Component {
 	}
 
 	render(){
-		return(<div>
-		<h1>Thanks for using Collection Box!</h1>
-		<p>You have logged out</p>
-		</div>)
+		return (
+			<div className = 'centerText'>
+				<h1>Thanks for using Collection Box!</h1>
+				<p>You have logged out</p>
+			</div>
+		)
 	}
-
 }

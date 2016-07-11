@@ -23,10 +23,6 @@ body {
 	background-size: cover;
 }
 
-.centerText {
-	text-align: center;
-}
-
 button {
  	color: black;
  }
@@ -75,6 +71,12 @@ button {
 	color: red;
 	font-size: 20px;
 }
- 
+
+.paddingAddScan {
+	padding: 0 0 20px 0;
+}
+
+
+
 
 
