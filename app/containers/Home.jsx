@@ -3,7 +3,7 @@ import 'whatwg-fetch';
 import { Link, IndexLink } from 'react-router';
 import {browserHistory} from 'react-router';
 import { Carousel } from 'react-bootstrap'
-
+const {Item, Caption} = Carousel
 /*
  * Note: This is kept as a container-level component, 
  *  i.e. We should keep this as the container that does the data-fetching 
@@ -43,27 +43,27 @@ import { Carousel } from 'react-bootstrap'
  	carouselSlideShow() {
  		return (
  			<Carousel className = 'carousel-inner img'>
-		 		<Carousel.Item>
+		 		<Item>
 			 		<img width={223} height={311} src= "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=413591&type=card" />
-			 		<Carousel.Caption>
+			 		<Caption>
 				 		<h3>Bill just added Force of Will to their Collection</h3>
 				 		<p>(recent activity feature to be added in the future)</p>
-			 		</Carousel.Caption>
-		 		</Carousel.Item>
-		 		<Carousel.Item>
+			 		</Caption>
+		 		</Item>
+		 		<Item>
 			 		<img  width={223} height={311} src= "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=413767&type=card" />
-			 		<Carousel.Caption>
+			 		<Caption>
 				 		<h3>Lydar now has Mana Crypt for trade</h3>
 				 		<p>(recent activity feature to be added in the future)</p>
-			 		</Carousel.Caption>
-		 		</Carousel.Item>
-		 		<Carousel.Item>
+			 		</Caption>
+		 		</Item>
+		 		<Item>
 			 		<img width={223} height={311} src= "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=413790&type=card" />
-			 		<Carousel.Caption>
+			 		<Caption>
 				 		<h3>Trep just traded Wasteland</h3>
 				 		<p>(recent activity feature to be added in the future)</p>
-			 		</Carousel.Caption>
-		 		</Carousel.Item>
+			 		</Caption>
+		 		</Item>
 	 		</Carousel>
 	 	)
  	}
