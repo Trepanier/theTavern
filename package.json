@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint app",
-    "clean": "rimraf public",
+    "clean": "echo 'I\'m Cleaning'",
     "start": "cross-env NODE_ENV=production node server/index.js",
     "dev": "cross-env NODE_ENV=development nodemon",
     "build:dev": "cross-env NODE_ENV=development webpack --colors --config ./webpack/webpack.config.dev-server.js",
