@@ -17,11 +17,7 @@ function filterOne(arrN, filtinfo){
 			skip = true
 			return prev
 		}
-<<<<<<< HEAD
-	},[])
-=======
 	},[]);
->>>>>>> development
 }
 
 export default class AddScan extends React.Component {
@@ -29,21 +25,13 @@ export default class AddScan extends React.Component {
 	constructor(props) {
  		super(props);
  		this.state = {
-<<<<<<< HEAD
-=======
  			loading : false
->>>>>>> development
  		}
  	}	
 
 	imageScan() {
 		var self = this
-<<<<<<< HEAD
-		self.setState({})
-=======
-		self.setState({loading: true})
-		self.setState({card: undefined , multipleCards : undefined})
->>>>>>> development
+		self.setState({loading: true, card: undefined , multipleCards : undefined})
 		var input = document.querySelector('input[type = "file"]')
  		var data = new FormData()
  		data.append('userPhoto', input.files[0])
@@ -55,14 +43,9 @@ export default class AddScan extends React.Component {
 			console.log("Response", response)
 			return response.json()
 		}).then(function(json){
-<<<<<<< HEAD
-			self.setState({card: json})
-			console.log('parsed json', json)
-=======
+
 			self.setState({card: json,
 						   loading: false})
-			console.log('parsed json HELLOOOOOOOOOOOOOOO', json)
->>>>>>> development
 		}).catch(function(ex){
 			this.setState({loading: false})
 			console.log('parsing failed', ex)
@@ -71,12 +54,8 @@ export default class AddScan extends React.Component {
 
 	multiScan() {
 		var self = this
-<<<<<<< HEAD
-		self.setState({})
-=======
 		self.setState({loading: true})
 		self.setState({card : undefined, multipleCards : undefined})
->>>>>>> development
 		var input = document.querySelector('input[type = "file"]')
  		var data = new FormData()
  		data.append('userPhoto', input.files[0])
@@ -88,14 +67,8 @@ export default class AddScan extends React.Component {
 			console.log("Response", response)
 			return response.json()
 		}).then(function(json){
-<<<<<<< HEAD
-			self.setState({multipleCards : json})
-			console.log('parsed json', json)
-=======
 			self.setState({multipleCards : json.filter((x) => x),
 						   loading: false})
-			console.log('parsed json HIIIIIIIIIIIIIIII', json)
->>>>>>> development
 		}).catch(function(ex){
 			self.setState({loading: false})
 			console.log('parsing failed', ex)
@@ -105,10 +78,6 @@ export default class AddScan extends React.Component {
 	addToCollection() {
 		var self = this
 		var sendInfo
-<<<<<<< HEAD
-=======
-		console.log("HELLO OVER HERE")
->>>>>>> development
 		if(_.get(self.state, 'card')){
 			sendInfo = self.state.card
 		} else if (_.get(self.state, 'multipleCards')) {
@@ -132,10 +101,6 @@ export default class AddScan extends React.Component {
 		}).catch(function(ex){
 			console.log('parsing failed', ex)
 		});
-<<<<<<< HEAD
-		self.setState({})
-=======
->>>>>>> development
 	}
 
 	falseImage() {
@@ -226,17 +191,6 @@ export default class AddScan extends React.Component {
 //will need to change bottom button
 	render() {
 		return (
-<<<<<<< HEAD
-			<div>
-				<input type="file" name="userPhoto" />
-				{this.displayButton()}
-				{this.state.card && !this.state.card.falseCard? this.confirmImage() : ''}
-				{_.get(this.state, 'card.falseCard')? this.falseImage() : ''}
-				<button><Link to={"/additem/" + this.props.params.slug}>Search via Name</Link></button>
-				<p><input type = 'checkbox' id = "changeButton" onClick = {this.switchButton.bind(this)}/>For Multiple Cards at Once</p>
-				{this.displayMultiple()}
-				{this.state.multipleCards ? <button onClick={this.addToCollection.bind(this)}>Confirm</button> : ""}
-=======
 			<div className = 'marginTop'>
 			<form>
 				<FormGroup>
@@ -262,7 +216,6 @@ export default class AddScan extends React.Component {
 					</Row>
 				</FormGroup>
 			</form>
->>>>>>> development
 			</div>
 		);
 	}
