@@ -68,7 +68,7 @@ export default class AddScan extends React.Component {
 			console.log("Response", response)
 			return response.json()
 		}).then(function(json){
-			self.setState({multipleCards : json,
+			self.setState({multipleCards : json.filter((x) => x),
 						   loading: false})
 			console.log('parsed json HIIIIIIIIIIIIIIII', json)
 		}).catch(function(ex){
@@ -119,7 +119,7 @@ export default class AddScan extends React.Component {
 		return (
 			<div>
 				<h3 className = 'textShadowTitle'>{this.state.card.name}</h3><br />
-				<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.card.multiverseid}&type=card`} /><br /><br />
+				<img className = 'imageShadow' src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.card.multiverseid}&type=card`} /><br /><br />
 				<Button onClick={this.addToCollection.bind(this)} bsStyle = 'primary'>Confirm</Button><br /><br />
 			</div>
 		)
@@ -150,9 +150,10 @@ export default class AddScan extends React.Component {
 	displayMultiple() {
 		var self = this
 		if(_.get(self.state, 'multipleCards')) {
-			return self.state.multipleCards.map((card)=>
+			return self.state.multipleCards
+			.map((card)=>
 				<Col md = {4}>
-				<p><img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${card.multiverseid}&type=card`} />
+				<p><img className = 'imageShadow' src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${card.multiverseid}&type=card`} />
 				{this.displayDelete(card)}</p>
 				</Col>
 			)
@@ -191,6 +192,7 @@ export default class AddScan extends React.Component {
 						<label className = "widthChange">{this.displayButton()}</label>
 						<label className = "widthChange"><ControlLabel><input type = 'checkbox' id = "changeButton" onClick = {this.switchButton.bind(this)}/> For Multiple Cards at Once</ControlLabel></label>
 						<label className = "widthChange"><Button><Link to={"/additem/" + this.props.params.slug} bsStyle = 'primary'>Search via Name</Link></Button></label><br /><br />
+						<h2 className = "profileName">{this.state.multipleCards ? "Number of Cards found: " + this.state.multipleCards.length : ''}</h2>
 						<Row>{this.displayMultiple()}</Row>
 						{this.state.multipleCards ? <Button onClick={this.addToCollection.bind(this)} bsStyle = 'primary'>Confirm</Button> : ""}
 					</Row>

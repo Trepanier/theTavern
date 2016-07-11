@@ -30,7 +30,8 @@ button {
 .link {
 	color: #337ab7;
 	padding: 20px;
-	text-shadow: 2px 2px 1px black;
+	text-shadow: 1px 1px 1px black;
+	font-size: 18px
 }
 
 .carousel-inner img {
@@ -39,8 +40,9 @@ button {
 }
 
 .profileCD {
+	background-color: hsla(10, 5%, 60%, .3);
 	line-height: 175%;
-	padding: -20px;
+	border-radius: 25px
 }
 
 .profileName {
@@ -49,7 +51,7 @@ button {
 }
 
 .textShadow {
-	text-shadow: 1px 2px 1px black;
+	text-shadow: 1px 1px 1px black;
 }
 
 .textShadowTitle {
@@ -64,7 +66,6 @@ button {
 
 .centerText {
 	text-align: center;
-	padding: 15px;
 }
 
 .alertText {
@@ -78,8 +79,13 @@ button {
 
 .centerTextBox {
     margin-left: 15%;
-    margin-right: 15%;
     width: 70%;
+    padding-left: 15px;
+
+}
+
+.centerButton {
+	margin-top: 5px;
 }
 
 .widthChange{
@@ -90,6 +96,7 @@ button {
 	margin-top: 1%;
     margin-left: 2%;
     margin-right: 2%;
+    border-radius: 10px
 }
 
 .marginTop {

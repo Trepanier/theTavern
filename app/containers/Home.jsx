@@ -51,7 +51,7 @@ import { Carousel } from 'react-bootstrap'
 			 		</Carousel.Caption>
 		 		</Carousel.Item>
 		 		<Carousel.Item>
-			 		<img width={223} height={311} src= "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=413767&type=card" />
+			 		<img  width={223} height={311} src= "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=413767&type=card" />
 			 		<Carousel.Caption>
 				 		<h3>Lydar now has Mana Crypt for trade</h3>
 				 		<p>(recent activity feature to be added in the future)</p>
@@ -71,14 +71,14 @@ import { Carousel } from 'react-bootstrap'
  	render(){
  		return (
  			<div className = 'centerText marginTop'>
- 				<h1>Welcome to the Collection Box</h1>
+ 				<h1 className = 'profileName'>Welcome to the Collection Box</h1>
  				<div>
  					<h2>The Collection Box helps individuals store, view, and trade 
  					their collections online with other users. Either enter your login
  					information or <Link to = "/signup">Sign Up Here</Link>.</h2>
  					{this.carouselSlideShow()}
  					<h3>Users Collections</h3>
- 					{this.displayUsers()}
+ 					<h4>{this.displayUsers()}</h4>
  				</div>
  			</div>
  			)

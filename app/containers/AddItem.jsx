@@ -4,7 +4,7 @@ import styles from 'css/components/home';
 import 'whatwg-fetch';
 import {browserHistory} from 'react-router';
 import { Link } from 'react-router';
-import {Button, Row, form, FormGroup, ControlLabel, FormControl, Col} from 'react-bootstrap'
+import {Button, Row, form, FormGroup, ControlLabel, FormControl, Col, Input} from 'react-bootstrap'
 const cx = classNames.bind(styles);
 
 /*
@@ -27,7 +27,7 @@ const cx = classNames.bind(styles);
  	checkName() {
  		var self = this
  		self.setState({failed: false, name: ''})
- 		fetch('/api/v1/cards/' + this.state.search) 
+ 		fetch('/api/v1/cards/' + this.state.search, {credentials : 'same-origin'}) 
  		.then(function(response) {
  			console.log("response", response)
  			return response.json()
@@ -69,7 +69,7 @@ const cx = classNames.bind(styles);
 	 				<h3 className = 'textShadowTitle'>{this.state.name}</h3>
 	 			</Row>
 	 			<Row className ='centerText'>
-	 				<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.multiverseid}&type=card`} />
+	 				<img className = 'imageShadow' src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.multiverseid}&type=card`} />
 	 			</Row>
 	 			<Row className ='centerText'>
 	 				<Button onClick={this.addToCollection.bind(this)} bsStyle = 'primary'>Add to Collection</Button>
@@ -84,16 +84,25 @@ const cx = classNames.bind(styles);
  		)
  	}
 
+ 	handleKeyPress(e){
+ 		console.log(e.charCode)
+ 		if(e.charCode === 13){
+ 			e.preventDefault()
+ 			this.checkName()
+ 		}
+ 	}
+
  	render() {
  		return (
  			<div className={cx('home marginTop')}>
  			<form>
 				<FormGroup>
 					<Row className ='centerText'>
- 			<h1 className = 'centerText profileName'>Search via Card Name!</h1>
- 			<ControlLabel className='centerText'>Card Name</ControlLabel>
- 						<Col sm={12}>
- 			<FormControl className='centerText centerTextBox' onChange={(e) => this.setState({search: e.target.value})} value = {this.state.search} />
+ 						<h1 className = 'centerText profileName'>Search via Card Name!</h1>
+ 						<ControlLabel className='centerText'>Card Name</ControlLabel>
+ 						<Col sm={12} md={12} >
+ 								<FormControl className='centerText' onChange={(e) => this.setState({search: e.target.value})} onKeyPress = {this.handleKeyPress.bind(this)} value = {this.state.search}/>
+ 								<Button className='centerButton' onClick={this.checkName.bind(this)} bsStyle = 'primary'>Search</Button>
  						</Col>
  					</Row>
  				</FormGroup>
@@ -101,7 +110,7 @@ const cx = classNames.bind(styles);
  					<Row className ='centerText'>
  					{this.state.name ? this.confirmImage() : ''}
  					{this.state.failed ? this.searchFailed() : ''}<br />
- 					<Button onClick={this.checkName.bind(this)} bsStyle = 'primary'>Search</Button>
+ 					<h1 className = 'profileName'>{this.state.message? "How'd you get here? Please log in!" : ''}</h1>
  					<Button><Link to={"/addscan/" + this.props.params.slug} bsStyle = 'primary'>Search via Photo</Link></Button>
  					</Row>
  				</FormGroup>

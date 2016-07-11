@@ -39,7 +39,7 @@
   });
 
 
-  app.get('/api/v1/cards/:slug', cardsController.findOne)
+  app.get('/api/v1/cards/:slug', isLoggedIn, cardsController.findOne)
 
   app.post('/api/v1/signup', passport.authenticate('local-signup', {
         successRedirect : '/api/v1/signup/true', // redirect to the secure profile section

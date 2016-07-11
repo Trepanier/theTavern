@@ -13,7 +13,22 @@ export default class SignUp extends React.Component {
 			userName:'',
 			email:'',
 			password:'',
+			passwordC: '',
 			success:''
+		}
+	}
+
+	checkInfo(){
+		if(this.state.userName === ''){
+			this.setState({error : "Username is blank!"})
+		} else if (this.state.email === ''){
+			this.setState({error : "Email is blank!"})
+		} else if (this.state.password === ''){
+			this.setState({error : "Password is blank!"})
+		} else if(this.state.password !== this.state.passwordC){
+			this.setState({error : "Passwords don't match"})
+		} else {
+			this.pullUser()
 		}
 	}
 
@@ -83,11 +98,12 @@ export default class SignUp extends React.Component {
 		return(
 			<div className = 'marginTop'>
 			<label className = 'alertText'>{this.inUse()}</label>
+			<label className = 'alertText'>{this.state.error ? this.state.error : ''}</label>
 			<form>
 				<FormGroup>
 					<Row>
 						<Col sm={3}>
-							<ControlLabel>Username</ControlLabel>
+							<ControlLabel>Username:</ControlLabel>
 							<FormControl placeHolder= "Enter Username" onChange={(e)=>this.setState({userName:e.target.value})}/><br />
 						</Col>
 					</Row>
@@ -95,7 +111,7 @@ export default class SignUp extends React.Component {
 				<FormGroup>
 					<Row>
 						<Col sm={3}>
-							<ControlLabel>Email</ControlLabel>
+							<ControlLabel>Email:</ControlLabel>
 							<FormControl type="email" placeHolder = "Enter Email" onChange={(e)=>this.setState({email:e.target.value})}/><br />
 						</Col>
 					</Row>
@@ -103,13 +119,21 @@ export default class SignUp extends React.Component {
 				<FormGroup>
 					<Row>
 						<Col sm={3}>
-							<ControlLabel>Password</ControlLabel>
+							<ControlLabel>Password:</ControlLabel>
 							<FormControl type="password" placeHolder= "Enter Password" onChange={(e)=>this.setState({password:e.target.value})}/><br />
 						</Col>
 					</Row>
 				</FormGroup>
+				<FormGroup>
+					<Row>
+						<Col sm={3}>
+							<ControlLabel>Confirm Password:</ControlLabel>
+							<FormControl type="password" placeHolder= "Confrim Password" onChange={(e)=>this.setState({passwordC:e.target.value})}/><br />
+						</Col>
+					</Row>
+				</FormGroup>
 			</form>
-			<Button onClick ={this.pullUser.bind(this)} bsStyle = 'primary'>Sign Up</Button>
+			<Button onClick ={this.checkInfo.bind(this)} bsStyle = 'primary'>Sign Up</Button>
 			</div>)
 		}
 	}
