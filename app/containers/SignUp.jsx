@@ -81,7 +81,7 @@ export default class SignUp extends React.Component {
 	render(){
 		var self = this 
 		return(
-			<div>
+			<div className = 'marginTop'>
 			<label className = 'alertText'>{this.inUse()}</label>
 			<form>
 				<FormGroup>

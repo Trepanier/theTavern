@@ -25,45 +25,54 @@ export default class AddScan extends React.Component {
 	constructor(props) {
  		super(props);
  		this.state = {
+ 			loading : false
  		}
  	}	
 
 	imageScan() {
 		var self = this
-		self.setState({})
+		self.setState({loading: true})
+		self.setState({card: undefined , multipleCards : undefined})
 		var input = document.querySelector('input[type = "file"]')
  		var data = new FormData()
  		data.append('userPhoto', input.files[0])
 		fetch('/api/v1/scanimage', {
+			credentials: 'same-origin'
 			method: 'POST',
 			body: data
 		}).then(function(response){
 			console.log("Response", response)
 			return response.json()
 		}).then(function(json){
-			self.setState({card: json})
-			console.log('parsed json', json)
+			self.setState({card: json,
+						   loading: false})
+			console.log('parsed json HELLOOOOOOOOOOOOOOO', json)
 		}).catch(function(ex){
+			this.setState({loading: false})
 			console.log('parsing failed', ex)
 		});
 	}
 
 	multiScan() {
 		var self = this
-		self.setState({})
+		self.setState({loading: true})
+		self.setState({card : undefined, multipleCards : undefined})
 		var input = document.querySelector('input[type = "file"]')
  		var data = new FormData()
  		data.append('userPhoto', input.files[0])
 		fetch('/api/v1/scanmultipleimages', {
+			credentials: 'same-origin'
 			method: 'POST',
 			body: data
 		}).then(function(response){
 			console.log("Response", response)
 			return response.json()
 		}).then(function(json){
-			self.setState({multipleCards : json})
-			console.log('parsed json', json)
+			self.setState({multipleCards : json,
+						   loading: false})
+			console.log('parsed json HIIIIIIIIIIIIIIII', json)
 		}).catch(function(ex){
+			self.setState({loading: false})
 			console.log('parsing failed', ex)
 		});
 	}
@@ -79,6 +88,7 @@ export default class AddScan extends React.Component {
 		}
 		console.log("Sendinfo = ", sendInfo)
 		fetch('/api/v1/collection/' + self.props.params.slug, {
+			credentials : 'same-origin',
 			method: 'PUT',
 			headers: {
  				'Accept': 'application/json', 
@@ -89,8 +99,8 @@ export default class AddScan extends React.Component {
 			console.log("Response", response)
 			return response.json()
 		}).then(function(json){
-			self.setState({})
-			console.log('parsed json', json)
+			self.setState({card : undefined, multipleCards: undefined})
+			console.log('parsed json MEMEMEMEMEMEMEMEMEME', json)
 		}).catch(function(ex){
 			console.log('parsing failed', ex)
 		});
@@ -108,11 +118,11 @@ export default class AddScan extends React.Component {
 	confirmImage(){
 		return (
 			<div>
-			{this.state.card.name}
-			<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.card.multiverseid}&type=card`} />
-			<Button onClick={this.addToCollection.bind(this)} bsStyle = 'primary'>Confirm</Button>
+				<h3 className = 'textShadowTitle'>{this.state.card.name}</h3><br />
+				<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.card.multiverseid}&type=card`} /><br /><br />
+				<Button onClick={this.addToCollection.bind(this)} bsStyle = 'primary'>Confirm</Button><br /><br />
 			</div>
-			)
+		)
 	}
 
 	switchButton() {
@@ -141,34 +151,48 @@ export default class AddScan extends React.Component {
 		var self = this
 		if(_.get(self.state, 'multipleCards')) {
 			return self.state.multipleCards.map((card)=>
-				<div>
+				<Col md = {4}>
 				<p><img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${card.multiverseid}&type=card`} />
 				{this.displayDelete(card)}</p>
-				</div>
+				</Col>
 			)
+		}
+	}
+
+	loadingDisplay(){
+		if(this.state.loading){
+			return(
+				<h1 className = "profileName">
+				NOW LOADING IMAGES
+				</h1>
+				)
 		}
 	}
 
 //will need to change bottom button
 	render() {
 		return (
-			<div>
+			<div className = 'marginTop'>
 			<form>
 				<FormGroup>
 					<Row className = 'centerText'>
-					<h1 className={cx('home__header paddingAddScan')}>Search via Photo Name!</h1>
+					<h1 className = 'centerText profileName paddingAddScan'>Search via Photo Name!</h1>
 					<ControlLabel>
 						<input type = "file" name = "userPhoto" />
 					</ControlLabel>
 					</Row>
+				</FormGroup>
+				<FormGroup>
 					<Row className = 'centerText'>
-						{this.displayButton()}
-						{this.state.card && !this.state.card.falseCard? this.confirmImage() : ''}
+						{this.state.card && !this.state.card.falseCard && !this.state.card.message? this.confirmImage() : ''}
 						{_.get(this.state, 'card.falseCard')? this.falseImage() : ''}
-					<ControlLabel><input type = 'checkbox' id = "changeButton" onClick = {this.switchButton.bind(this)}/> For Multiple Cards at Once</ControlLabel>
-						{this.displayMultiple()}
+						<h1 className = "profileName">{_.get(this.state , "card.message") || _.get(this.state , "multipleCards.message")? "Please log in to use this feature" : ""}</h1>
+						{this.loadingDisplay()}
+						<label className = "widthChange">{this.displayButton()}</label>
+						<label className = "widthChange"><ControlLabel><input type = 'checkbox' id = "changeButton" onClick = {this.switchButton.bind(this)}/> For Multiple Cards at Once</ControlLabel></label>
+						<label className = "widthChange"><Button><Link to={"/additem/" + this.props.params.slug} bsStyle = 'primary'>Search via Name</Link></Button></label><br /><br />
+						<Row>{this.displayMultiple()}</Row>
 						{this.state.multipleCards ? <Button onClick={this.addToCollection.bind(this)} bsStyle = 'primary'>Confirm</Button> : ""}
-						<Button><Link to={"/additem/" + this.props.params.slug} bsStyle = 'primary'>Search via Name</Link></Button>
 					</Row>
 				</FormGroup>
 			</form>

@@ -44,6 +44,7 @@ const cx = classNames.bind(styles);
  	addToCollection() {
  		var self = this
  		fetch('/api/v1/collection/' + self.props.params.slug, {
+ 			credentials : 'same-origin',
  			method: 'PUT',
  			headers: {
  				'Accept': 'application/json', 
@@ -65,7 +66,7 @@ const cx = classNames.bind(styles);
  		return (
  			<div className ='centerText'>
 	 			<Row className ='centerText'>
-	 				{this.state.name}
+	 				<h3 className = 'textShadowTitle'>{this.state.name}</h3>
 	 			</Row>
 	 			<Row className ='centerText'>
 	 				<img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${this.state.multiverseid}&type=card`} />
@@ -85,14 +86,14 @@ const cx = classNames.bind(styles);
 
  	render() {
  		return (
- 			<div className={cx('home')}>
+ 			<div className={cx('home marginTop')}>
  			<form>
 				<FormGroup>
 					<Row className ='centerText'>
- 			<h1 className={cx('home__header')}>Search via Card Name!</h1>
+ 			<h1 className = 'centerText profileName'>Search via Card Name!</h1>
  			<ControlLabel className='centerText'>Card Name</ControlLabel>
  						<Col sm={12}>
- 			<FormControl className='centerText' onChange={(e) => this.setState({search: e.target.value})} value = {this.state.search} />
+ 			<FormControl className='centerText centerTextBox' onChange={(e) => this.setState({search: e.target.value})} value = {this.state.search} />
  						</Col>
  					</Row>
  				</FormGroup>

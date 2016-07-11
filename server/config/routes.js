@@ -32,8 +32,8 @@
 
   app.post('/api/v1/collection', collectionController.create)
   app.get('/api/v1/collection/:slug', collectionController.retrieveOne)
-  app.put('/api/v1/collection/remove/', collectionController.removeItem)//remove this when done
-  app.put('/api/v1/collection/:slug', collectionController.addItem)
+  app.put('/api/v1/collection/remove/', isLoggedIn, collectionController.removeItem)//remove this when done
+  app.put('/api/v1/collection/:slug', isLoggedIn, collectionController.addItem)
   app.get('/api/v1/photo', function(req,res){
     return res.json(req.file);
   });
@@ -90,8 +90,8 @@
     }
   })
 
-  app.post('/api/v1/scanimage', upload, visionController.scanImage)
-  app.post('/api/v1/scanmultipleimages', upload, visionController.scanMultipleImages)
+  app.post('/api/v1/scanimage', isLoggedIn, upload, visionController.scanImage)
+  app.post('/api/v1/scanmultipleimages', isLoggedIn, upload, visionController.scanMultipleImages)
 
   
   function isLoggedIn(req, res, next) {

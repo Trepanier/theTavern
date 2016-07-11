@@ -13,7 +13,9 @@ export default class Profile extends React.Component {
     super(props);
     this.state={
       currentUser : "",
-      profile: ""
+      profile: {
+        userKollection: []
+      }
     };
   }
 
@@ -46,6 +48,7 @@ export default class Profile extends React.Component {
   removeItem(card) {
     var self = this
     return fetch('/api/v1/collection/remove/', {
+      credentials : 'same-origin',
       method: 'PUT',
       headers: {
         'Accept': 'application/json', 
@@ -86,6 +89,7 @@ export default class Profile extends React.Component {
       position: 'relative'
     }
     if(_.get(self.state , "profile.userKollection")){
+      console.log('USER KOLLECTION BEFORE MAP' , self.state.profile.userKollection)
       return self.state.profile.userKollection.map((card)=>
         <div>
         <Row>
@@ -108,7 +112,7 @@ export default class Profile extends React.Component {
 
   render() {
     return (
-     <div>
+     <div className = 'marginTop'>
       <h1 className = 'centerText profileName'>{this.state.profile.user}'s Profile</h1>
       <hr />
       <Grid>{this.displayKollection()}</Grid>

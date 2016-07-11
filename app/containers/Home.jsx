@@ -70,7 +70,7 @@ import { Carousel } from 'react-bootstrap'
 
  	render(){
  		return (
- 			<div className = 'centerText'>
+ 			<div className = 'centerText marginTop'>
  				<h1>Welcome to the Collection Box</h1>
  				<div>
  					<h2>The Collection Box helps individuals store, view, and trade 

@@ -48,7 +48,7 @@ export default class Login extends React.Component {
 	render(){
 		var self = this 
 		return(
-			<div>
+			<div className = 'marginTop'>
 			<form>
 				<FormGroup>
 					<Row>

@@ -21,7 +21,7 @@ export default class Logout extends React.Component {
 
 	render(){
 		return (
-			<div className = 'centerText'>
+			<div className = 'centerText marginTop'>
 				<h1>Thanks for using Collection Box!</h1>
 				<p>You have logged out</p>
 			</div>

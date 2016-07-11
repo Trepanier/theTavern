@@ -76,7 +76,22 @@ button {
 	padding: 0 0 20px 0;
 }
 
+.centerTextBox {
+    margin-left: 15%;
+    margin-right: 15%;
+    width: 70%;
+}
 
+.widthChange{
+	margin: 0 20px 0 20px;
+}
 
+.navbar-fixed-top {
+	margin-top: 1%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
 
-
+.marginTop {
+	margin: 75px;
+}
