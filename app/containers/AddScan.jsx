@@ -37,7 +37,7 @@ export default class AddScan extends React.Component {
  		var data = new FormData()
  		data.append('userPhoto', input.files[0])
 		fetch('/api/v1/scanimage', {
-			credentials: 'same-origin'
+			credentials: 'same-origin',
 			method: 'POST',
 			body: data
 		}).then(function(response){
@@ -61,7 +61,7 @@ export default class AddScan extends React.Component {
  		var data = new FormData()
  		data.append('userPhoto', input.files[0])
 		fetch('/api/v1/scanmultipleimages', {
-			credentials: 'same-origin'
+			credentials: 'same-origin',
 			method: 'POST',
 			body: data
 		}).then(function(response){
