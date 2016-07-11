@@ -89,12 +89,11 @@ export default class AddScan extends React.Component {
 			console.log("Response", response)
 			return response.json()
 		}).then(function(json){
-			self.setState(json)
+			self.setState({})
 			console.log('parsed json', json)
 		}).catch(function(ex){
 			console.log('parsing failed', ex)
 		});
-		self.setState({})
 	}
 
 	falseImage() {
