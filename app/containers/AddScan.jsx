@@ -169,7 +169,7 @@ export default class AddScan extends React.Component {
 
 	displayDelete(card){
 		var self = this
-        return <button onClick={self.removeCard.bind(self, card)}>Delete</button>
+        return <Button onClick={self.removeCard.bind(self, card)} bsStyle = 'danger'>Delete</Button>
     }
 
     removeCard(card){
@@ -180,10 +180,10 @@ export default class AddScan extends React.Component {
 		var self = this
 		if(_.get(self.state, 'multipleCards')) {
 			return self.state.multipleCards.map((card)=>
-				<div>
+				<Col md={4}>
 				<p><img src={`http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=${card.multiverseid}&type=card`} />
 				{this.displayDelete(card)}</p>
-				</div>
+				</Col>
 			)
 		}
 	}
