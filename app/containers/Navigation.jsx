@@ -5,7 +5,7 @@ import classNames from 'classnames/bind';
 import styles from 'css/components/navigation';
 import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap'
 const cx = classNames.bind(styles);
-
+const {Header, Brand} = Navbar
 class Navigation extends Component {
 
  constructor(props){
@@ -42,12 +42,12 @@ class Navigation extends Component {
 
   render() {
     return (
-      <Navbar fluid = 'true'>
-        <Navbar.Header>
-          <Navbar.Brand>
+      <Navbar className={"navbar-fixed-top"} fluid = 'true'>
+        <Header>
+          <Brand>
             COLLECTION BOX
-          </Navbar.Brand>
-        </Navbar.Header>
+          </Brand>
+        </Header>
         <Nav>
           <NavItem eventKey={1} href='/'>Home</NavItem>
           {this.logInOut()}
