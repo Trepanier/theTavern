@@ -3,13 +3,10 @@ import { Route, IndexRoute } from 'react-router';
 import Search from 'containers/Search';
 import App from 'containers/App';
 import Profile from 'containers/Profile';
-import Collection from 'containers/Collection'
 import Home from 'containers/Home';
 import Login from 'containers/Login';
 import SignUp from 'containers/SignUp';
 import LogOut from 'containers/LogOut';
-import AddScan from 'containers/AddScan';
-import AddItem from 'containers/AddItem';
 import PageNotFound from 'containers/PageNotFound';
 
 /*
@@ -22,13 +19,10 @@ export default (store) => {
     <Route path="/" component={App}>
       <IndexRoute component={Home} />
       <Route path = "profile/:slug" component={Profile} />
-      <Route path="collection/:slug" component={Collection} />
-      <Route path = "additem/:slug" component = {AddItem} />
       <Route path="login" component={Login} />
       <Route path="logout" component = {LogOut} />
       <Route path="signup" component ={SignUp} />
       <Route path="search" component={Search} />
-      <Route path="addscan/:slug" component={AddScan} />
       <Route path = "*" component = {PageNotFound} />
     </Route>
   );
