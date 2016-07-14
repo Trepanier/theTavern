@@ -14,7 +14,9 @@ import requestApi from '../utilities/requests'
 
  	constructor(props){
  		super(props);
- 		this.state={};
+ 		this.state={
+ 			value: ''
+ 		};
  	}
 
  	signUpRequest() {
@@ -22,52 +24,48 @@ import requestApi from '../utilities/requests'
  		.then((json)=> this.setState(json))
  	}
 
- 	handleChange(e){
- 		console.log(e)
- 		this.setState({ testr : e.target.value})
- 		console.log(this.state)
- 	}
-
  	signUpDisplay() {
+ 		var self = this;
  		return (
 	 		<Form horizontal>
-	 			<FormGroup controlId = 'userName' validationState = 'success'>
-	 				<Col componentClass = {ControlLabel} sm = {2} md = {2}>
-	 					Username
-	 				</Col>
-	 				<Col sm = {4} md = {4}>
-	 					<FormControl type = 'text' placeholder = 'Username' onChange = {this.handleChange} />
-	 				<FormControl.Feedback />
-	 				</Col>
-	 				<HelpBlock validationState = 'error'>Username is Taken</HelpBlock>
-	 			</FormGroup>
-	 			
-	 			<FormGroup controlId = 'email'>
-	 				<Col componentClass = {ControlLabel} sm = {2} md = {2}>
-	 					Email
-	 				</Col>
-	 				<Col sm = {4} md = {4}>
-	 					<FormControl type = 'email' placeholder = 'Email' />
-	 				</Col>
-	 			</FormGroup>
-	 			
-	 			<FormGroup controlId = 'password'>
-	 				<Col componentClass = {ControlLabel} sm = {2} md = {2}>
-	 					Password
-	 				</Col>
-	 				<Col sm = {4} md = {4}>
-	 					<FormControl type = 'password' placeholder = 'Password' />
-	 				</Col>
-	 			</FormGroup>
-	 			
-	 			<FormGroup controlId = 'confirmPassword'>
-	 				<Col componentClass = {ControlLabel} sm = {2} md = {2}>
-	 					Confirm Password
-	 				</Col>
-	 				<Col sm = {4} md = {4}>
-	 					<FormControl type = 'password' placeholder = 'Confirm Password' />
-	 				</Col>
-	 			</FormGroup>
+	 			{[{id: 'userName',
+	 			  label: 'Username',
+	 			  placeholder: 'Username',
+	 			  type: 'text'},
+	 			  {id: 'email',
+	 			  label: 'Email',
+	 			  placeholder :'Email',
+	 			  type: 'email'},
+	 			  {id: 'password',
+	 			  label: 'Password',
+	 			  placeholder: 'Password', 
+	 			  type: 'password'},
+	 			  {id: 'confirmPassword',
+	 			  label: 'Confirm Password',
+	 			  placeholder: 'Confirm Password',
+	 			  type: 'password'}]
+	 			  	.map((formgroup) => (
+		 			  	<FormGroup controlId = {formgroup.id}>
+			 				<Col componentClass = {ControlLabel} sm = {2} md = {2}>
+			 					{formgroup.label}
+			 				</Col>
+			 				<Col sm = {4} md = {4}>
+			 					<FormControl 
+				 					type = {formgroup.type}
+				 					placeholder = {formgroup.placeholder} 
+				 					onChange = {(e)=>{
+				 									var update = {}
+				 									update[formgroup.id] = e.target.value
+				 									self.setState(update)
+				 							}
+				 					}
+			 					/>
+			 				</Col>
+		 				</FormGroup>
+	 			  		))
+	 			}
+
+	 		
 
 	 			<Col smOffset = {2} sm = {2} md = {2}>
 	 				<Button type = 'submit' onClick = {this.signUpRequest}>Signup</Button>
