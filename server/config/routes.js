@@ -4,10 +4,7 @@
  var express = require('express');
  var _ = require('lodash');
  var path = require('path');
- var collectionController = require("../controllers/collectionController")
- var visionController = require("../controllers/visionController")
  var authController = require("../controllers/authController")
- var cardsController = require("../controllers/cardsController")
  var App = require(path.resolve(__dirname, '../../', 'public', 'assets', 'server.js'))['default'];
  var User=require("../models/userModel")
 
@@ -29,17 +26,9 @@
     }
   });
   var upload = multer({ storage : storage}).single('userPhoto');
-
-  app.post('/api/v1/collection', collectionController.create)
-  app.get('/api/v1/collection/:slug', collectionController.retrieveOne)
-  app.put('/api/v1/collection/remove/', isLoggedIn, collectionController.removeItem)//remove this when done
-  app.put('/api/v1/collection/:slug', isLoggedIn, collectionController.addItem)
   app.get('/api/v1/photo', function(req,res){
     return res.json(req.file);
   });
-
-
-  app.get('/api/v1/cards/:slug', isLoggedIn, cardsController.findOne)
 
   app.post('/api/v1/signup', passport.authenticate('local-signup', {
         successRedirect : '/api/v1/signup/true', // redirect to the secure profile section
@@ -89,10 +78,6 @@
       res.json({loggedIn : false})
     }
   })
-
-  app.post('/api/v1/scanimage', isLoggedIn, upload, visionController.scanImage)
-  app.post('/api/v1/scanmultipleimages', isLoggedIn, upload, visionController.scanMultipleImages)
-
   
   function isLoggedIn(req, res, next) {
     // if user is authenticated in the session, carry on 

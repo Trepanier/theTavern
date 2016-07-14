@@ -2,8 +2,7 @@ import React from 'react';
 import 'whatwg-fetch';
 import { Link, IndexLink } from 'react-router';
 import {browserHistory} from 'react-router';
-import { Carousel } from 'react-bootstrap'
-const {Item, Caption} = Carousel
+import {Form, FormGroup, FormControl, ControlLabel, Col, Row, Button} from 'react-bootstrap'
 /*
  * Note: This is kept as a container-level component, 
  *  i.e. We should keep this as the container that does the data-fetching 
@@ -17,70 +16,60 @@ const {Item, Caption} = Carousel
  		this.state={};
  	}
 
- 	componentWillMount(){
- 		var self = this
- 		fetch('api/v1/getallusers/')
- 		.then(function(response){
- 			return response.json()
- 		}).then(function(json){
- 			self.setState(json)
- 			console.log("This is the current state", self.state)
- 		}).catch(function(ex) {
- 			console.log('parsing failed', ex)
- 		})
- 	}
-
- 	displayUsers(){
- 		var self = this
- 		var userArr = Object.keys(self.state).map(function (key) {return self.state[key]});
-    		return userArr.map((user)=>
-    			<div>
-    			<Link to={"/profile/" + user.local.userName}>{user.local.userName}</Link>
-    			</div>
-    		)
- 	}
-
- 	carouselSlideShow() {
+ 	signUpDisplay() {
  		return (
- 			<Carousel className = 'carousel-inner img'>
-		 		<Item>
-			 		<img width={223} height={311} src= "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=413591&type=card" />
-			 		<Caption>
-				 		<h3>Bill just added Force of Will to their Collection</h3>
-				 		<p>(recent activity feature to be added in the future)</p>
-			 		</Caption>
-		 		</Item>
-		 		<Item>
-			 		<img  width={223} height={311} src= "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=413767&type=card" />
-			 		<Caption>
-				 		<h3>Lydar now has Mana Crypt for trade</h3>
-				 		<p>(recent activity feature to be added in the future)</p>
-			 		</Caption>
-		 		</Item>
-		 		<Item>
-			 		<img width={223} height={311} src= "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=413790&type=card" />
-			 		<Caption>
-				 		<h3>Trep just traded Wasteland</h3>
-				 		<p>(recent activity feature to be added in the future)</p>
-			 		</Caption>
-		 		</Item>
-	 		</Carousel>
+	 		<Form horizontal>
+	 			<FormGroup controlId = 'userName'>
+	 				<Col componentClass = {ControlLabel} sm = {2} md = {2}>
+	 					Username
+	 				</Col>
+	 				<Col sm = {4} md = {4}>
+	 					<FormControl type = 'text' placeholder = 'Username' />
+	 				</Col>
+	 			</FormGroup>
+	 			
+	 			<FormGroup controlId = 'email'>
+	 				<Col componentClass = {ControlLabel} sm = {2} md = {2}>
+	 					Email
+	 				</Col>
+	 				<Col sm = {4} md = {4}>
+	 					<FormControl type = 'email' placeholder = 'Email' />
+	 				</Col>
+	 			</FormGroup>
+	 			
+	 			<FormGroup controlId = 'password'>
+	 				<Col componentClass = {ControlLabel} sm = {2} md = {2}>
+	 					Password
+	 				</Col>
+	 				<Col sm = {4} md = {4}>
+	 					<FormControl type = 'password' placeholder = 'Password' />
+	 				</Col>
+	 			</FormGroup>
+	 			
+	 			<FormGroup controlId = 'confirmPassword'>
+	 				<Col componentClass = {ControlLabel} sm = {2} md = {2}>
+	 					Confirm Password
+	 				</Col>
+	 				<Col sm = {4} md = {4}>
+	 					<FormControl type = 'password' placeholder = 'Confirm Password' />
+	 				</Col>
+	 			</FormGroup>
+
+	 			<Col smOffset = {2} sm = {2} md = {2}>
+	 				<Button type = 'submit'>Signup</Button>
+	 			</Col>
+	 		</Form>
 	 	)
  	}
 
  	render(){
  		return (
  			<div className = 'centerText marginTop'>
- 				<h1 className = 'profileName'>Welcome to the Collection Box</h1>
- 				<div>
- 					<h2>The Collection Box helps individuals store, view, and trade 
- 					their collections online with other users. Either enter your login
- 					information or <Link to = "/signup">Sign Up Here</Link>.</h2>
- 					{this.carouselSlideShow()}
- 					<h3>Users Collections</h3>
- 					<h4>{this.displayUsers()}</h4>
- 				</div>
+ 				<h1 className = 'profileName'>Welcome to The Tavern</h1>
+ 				<h2>The Tavern is a place where D & D users and enthusiasts gather to plan their next party</h2>
+ 				{this.signUpDisplay()}
  			</div>
- 			)
+
+ 		)
  	} 	
  }

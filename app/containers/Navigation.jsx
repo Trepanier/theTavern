@@ -3,9 +3,10 @@ import { Link, IndexLink } from 'react-router';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from 'css/components/navigation';
-import {Navbar, Nav, NavItem, NavDropdown, MenuItem} from 'react-bootstrap'
+import {Navbar, Nav, NavItem, NavDropdown, MenuItem, Form, FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap'
 const cx = classNames.bind(styles);
 const {Header, Brand} = Navbar
+
 class Navigation extends Component {
 
  constructor(props){
@@ -26,7 +27,7 @@ class Navigation extends Component {
     })
   }
 
-  logInOut(){
+  dropDown(){
     if(this.props.user){
       return(
         <NavDropdown eventKey={2} title= {this.props.user} id = "user-drop-down">
@@ -39,17 +40,37 @@ class Navigation extends Component {
     }
   }
 
+  loginDisplay() {
+    return (
+      <Form inline>
+        <FormGroup controlId = 'email'>
+            <ControlLabel>Email</ControlLabel>
+            {' '}
+            <FormControl type = 'email' placeholder = 'Email' />
+        </FormGroup>
+        {' '}
+        <FormGroup>
+            <ControlLabel>Password</ControlLabel>
+            {' '}
+            <FormControl type = 'password' placeholder = 'Password' />
+        </FormGroup>
+        {' '}
+        <Button type = 'submit'>Login</Button>
+      </Form>
+    )
+  }
+
   render() {
     return (
       <Navbar className={"navbar-fixed-top"} fluid = 'true'>
         <Header>
           <Brand>
-            COLLECTION BOX
+            THE TAVERN
           </Brand>
         </Header>
         <Nav>
           <NavItem eventKey={1} href='/'>Home</NavItem>
-          {this.logInOut()}
+          {this.dropDown()}
         </Nav>
       </Navbar>
       );
