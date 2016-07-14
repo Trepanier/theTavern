@@ -7,7 +7,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/kollectionDB');
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/tavern');
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

@@ -20,7 +20,7 @@ import requestApi from '../utilities/requests'
  	}
 
  	signUpRequest() {
- 		requestApi('api/v1/signup', 'PUT')(this.state)
+ 		requestApi('api/v1/signup', 'POST')(this.state)
  		.then((json)=> this.setState(json))
  	}
 
@@ -68,7 +68,7 @@ import requestApi from '../utilities/requests'
 	 		
 
 	 			<Col smOffset = {2} sm = {2} md = {2}>
-	 				<Button type = 'submit' onClick = {this.signUpRequest}>Signup</Button>
+	 				<Button type = 'submit' onClick = {this.signUpRequest.bind(this)}>Signup</Button>
 	 			</Col>
 	 		</Form>
 	 	)
