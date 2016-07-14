@@ -1,2 +1,3 @@
-# collectionProject
-Collection Project Repository
+
+# theTavern
+This is for a D &amp; D meetup
