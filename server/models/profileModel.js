@@ -11,12 +11,13 @@ var profileSchema = new Schema({
  Host: Boolean,
  Phone: String,
  Email: String,
- Alcohol: Boolean
+ Alcohol: Boolean,
+ BlockedUser: [],
+ Friends: [],
+ SkillLevel: String,
+ Party: []
 });
 
 var Profile = mongoose.model('profile', profileSchema);
 
-module.exports = {
-	Profile: Profile,
-	profileSchema: profileSchema
-}
+module.exports = Profile

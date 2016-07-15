@@ -5,6 +5,7 @@ import {Link, IndexLink, browserHistory} from 'react-router';
 import _ from 'lodash';
 const cx = classNames.bind(styles);
 import {Grid, Col, Row, Button} from 'react-bootstrap'
+import requestApi from '../utilities/requests'
 
 
 export default class Profile extends React.Component {
@@ -12,25 +13,19 @@ export default class Profile extends React.Component {
   constructor(props){
     super(props);
     this.state={
-      currentUser : "",
-      profile: {
-        userKollection: []
-      }
+      currentUser : ""
     };
   }
 
   loggedInUser() {
-    var self = this
-    return fetch('/api/v1/getuser', {credentials : 'same-origin'})
-    .then(function(response) {
-      return response.json()
-    }).then(function(json) {
-      self.setState({currentUser: json})
-      console.log('USER', self.state.currentUser)
-    }).catch(function(ex) {
-      console.log('user parsing failed', ex)
-    })
-  }
+    requestApi('/api/v1/getuser')()
+      .then((user)=>this.setState({currentUser: user}))
+ }
+
+ whosProfile() {
+  requestApi('/api/v1/getprofile/' + this.props.params.slug)()
+    .then((profile)=>this.setState({currentProfile: profile}))
+ }
 
   componentWillMount(){
     var self = this
@@ -42,7 +37,6 @@ export default class Profile extends React.Component {
   render() {
     return (
      <div className = 'marginTop'>
-      <h1 className = 'centerText profileName'>{this.state.currentUser.local.userName}</h1>
      </div>
      );
   }

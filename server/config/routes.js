@@ -7,6 +7,7 @@
  var authController = require("../controllers/authController")
  var App = require(path.resolve(__dirname, '../../', 'public', 'assets', 'server.js'))['default'];
  var User=require("../models/userModel")
+ var profileController = require('../controllers/profileController')
 
  module.exports = function(app, passport) {
   
@@ -89,6 +90,8 @@
     res.writeHead(403, {"Content-Type" : "text/JSON"});
     res.end(JSON.stringify({message : "You are not authorized for this action"}))
   }
+
+  app.get('/api/v1/getprofile/:slug', profileController.retrieveOne);
 
   app.get('*', function (req, res, next) {
     App(req, res);
