@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react';
-import { Link, IndexLink } from 'react-router';
+import {Link, IndexLink, browserHistory} from 'react-router';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
 import styles from 'css/components/navigation';
 import {Navbar, Nav, NavItem, NavDropdown, MenuItem, Form, FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap'
+import requestApi from '../utilities/requests'
 const cx = classNames.bind(styles);
 const {Header, Brand} = Navbar
 
@@ -15,17 +16,10 @@ class Navigation extends Component {
   }  
 
   componentWillMount() {
-    var self = this
-    fetch('/api/v1/getuser', {credentials : 'same-origin'})
-    .then(function(response) {
-      return response.json()
-    }).then(function(json){
-      self.setState(json)
-      console.log("parsed json", json)
-    }).catch(function(ex) {
-      console.log('parsing failed', ex)
-    })
+    requestApi('/api/v1/getuser')().then(user=>this.setState(user))
   }
+
+  
 
   dropDown(){
     if(this.props.user){
@@ -42,23 +36,53 @@ class Navigation extends Component {
 
   loginDisplay() {
     return (
-      <Form inline>
-        <FormGroup controlId = 'email'>
+      <Form inline className="marginTop black alignRight">
+        <FormGroup controlId = 'email' >
             <ControlLabel>Email</ControlLabel>
             {' '}
-            <FormControl type = 'email' placeholder = 'Email' />
+            <FormControl type = 'email' placeholder = 'Email' onChange= {e=> this.setState({email:e.target.value})}/>
         </FormGroup>
         {' '}
         <FormGroup>
             <ControlLabel>Password</ControlLabel>
             {' '}
-            <FormControl type = 'password' placeholder = 'Password' />
+            <FormControl type = 'password' placeholder = 'Password' onChange = {e=> this.setState({password:e.target.value})} />
         </FormGroup>
         {' '}
-        <Button type = 'submit'>Login</Button>
+        <Button  onClick={this.loginReq.bind(this)}>Login</Button>
       </Form>
     )
   }
+
+  loginReq() {
+    var self = this
+    requestApi('/api/v1/login', 'POST')({'email': this.state.email, 'password': this.state.password})
+      .then(loginSuccess=>
+        {
+          if(loginSuccess.success === 'true'){
+            self.props.toggleLogin()
+            browserHistory.push('/profile/' + loginSuccess.user)
+          } else {
+            alert('Login failed. You should feel bad.')
+          }
+        })
+  }
+
+  isLoggedIn(){
+    if(this.props.user){
+      return(
+        <div>
+        {this.dropDown()}
+        </div>
+        )
+    }else{
+      return (
+        <div>
+        {this.loginDisplay()}
+        </div>
+        )
+      }
+    }
 
   render() {
     return (
@@ -69,8 +93,7 @@ class Navigation extends Component {
           </Brand>
         </Header>
         <Nav>
-          <NavItem eventKey={1} href='/'>Home</NavItem>
-          {this.dropDown()}
+            {this.isLoggedIn()}
         </Nav>
       </Navbar>
       );

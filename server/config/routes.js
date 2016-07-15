@@ -47,7 +47,8 @@
       }));
 
   app.get('/api/v1/login/:result',function(req, res){
-    res.json({success: req.params.result})
+    console.log("Login attempt Res: ", req.user)
+    res.json({success: req.params.result, user: req.user.local.userName})
   } )//write function her 
 
   app.get('/api/v1/user',function(req,res){
