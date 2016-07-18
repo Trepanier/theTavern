@@ -2,20 +2,20 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var profileSchema = new Schema({
- UserName: String,
- Name: String,
- Description: String,
- Location: String,
- Age: Number,
- Games: [],
- Host: Boolean,
- Phone: String,
- Email: String,
- Alcohol: Boolean,
- BlockedUser: [],
- Friends: [],
- SkillLevel: String,
- Party: []
+ userName: String,
+ name: String,
+ description: String,
+ location: String,
+ age: Number,
+ games: [],
+ host: Boolean,
+ phone: String,
+ email: String,
+ alcohol: Boolean,
+ blockedUser: [],
+ friends: [],
+ skillLevel: String,
+ party: []
 });
 
 var Profile = mongoose.model('profile', profileSchema);

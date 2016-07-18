@@ -1,12 +1,25 @@
 var Profile = require('../models/profileModel')
 
-function retrieveOne(req, res) {
-	console.log("Get Request Received for ", req.params.slug)
-	Profile.findOne({user:req.params.slug}, function(err, profile) {
+function createOne(req, res){
+	console.log("Post request recieved for creating a profile")
+	Profile.create(req.body, function(err, profile){
 		if(err) return console.log(err);
 		res.writeHead(200, {"Content-Type": "text/json"})
 		res.end(JSON.stringify(profile))
 	})
 }
 
-module.exports = { retrieveOne }
+
+function retrieveOne(req, res) {
+	console.log("Get Request Received for ", req.params.slug)
+	Profile.findOne({userName:req.params.slug}, function(err, profile) {
+		if(err) return console.log(err);
+		res.writeHead(200, {"Content-Type": "text/json"})
+		res.end(JSON.stringify(profile))
+	})
+}
+
+module.exports = { 
+	retrieveOne,
+	createOne
+	}

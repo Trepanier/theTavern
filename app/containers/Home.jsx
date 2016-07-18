@@ -25,7 +25,10 @@ import GroupForm from '../components/GroupForm'
 
  	signUpRequest() {
  		requestApi('api/v1/signup', 'POST')(this.state)
- 		.then((json)=> this.setState(json))
+ 		.then((json)=>{ 
+ 			this.setState(json);
+ 			requestApi('api/v1/createprofile', 'POST')({userName: this.state.userName, email: this.state.email})
+ 			})
  	}
 
  	signUpDisplay() {

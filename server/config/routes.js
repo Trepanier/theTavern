@@ -49,7 +49,11 @@
 
   app.get('/api/v1/login/:result',function(req, res){
     console.log("Login attempt Res: ", req.user)
+    if(req.params.result=== 'true'){
     res.json({success: req.params.result, user: req.user.local.userName})
+    }else{
+      res.json({success: req.params.result})
+    }
   } )//write function her 
 
   app.get('/api/v1/user',function(req,res){
@@ -80,6 +84,7 @@
       res.json({loggedIn : false})
     }
   })
+
   
   function isLoggedIn(req, res, next) {
     // if user is authenticated in the session, carry on 
@@ -91,6 +96,7 @@
     res.end(JSON.stringify({message : "You are not authorized for this action"}))
   }
 
+  app.post('/api/v1/createprofile', profileController.createOne);
   app.get('/api/v1/getprofile/:slug', profileController.retrieveOne);
 
   app.get('*', function (req, res, next) {

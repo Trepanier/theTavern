@@ -62,7 +62,7 @@ class Navigation extends Component {
           if(loginSuccess.success === 'true'){
             self.props.toggleLogin()
             browserHistory.push('/profile/' + loginSuccess.user)
-          } else {
+          } else if (loginSuccess.success === 'false') {
             alert('Login failed. You should feel bad.')
           }
         })
