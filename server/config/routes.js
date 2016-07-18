@@ -96,6 +96,7 @@
     res.end(JSON.stringify({message : "You are not authorized for this action"}))
   }
 
+  app.put('/api/v1/updateprofile', profileController.updateOne);
   app.post('/api/v1/createprofile', profileController.createOne);
   app.get('/api/v1/getprofile/:slug', profileController.retrieveOne);
 

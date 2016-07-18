@@ -67,6 +67,13 @@ export default class Profile extends React.Component {
     console.log("State.edit," , self.state.edit)
   }
 
+  updateProfile(e) {
+    e.preventDefault()
+    var self = this
+    requestApi('/api/v1/updateprofile', 'PUT')(self.state.currentProfile)
+      .then(self.setState({edit : false}))
+  }
+
 
   render() {
     return (
@@ -90,7 +97,7 @@ export default class Profile extends React.Component {
             Friends: {this.textOutput('friends')}<br />
           </h4>
 
-          <button onClick = {console.log(this.state.currentProfile)}>CONFIRM</button>
+          <button onClick = {this.updateProfile.bind(this)}>CONFIRM</button>
         </Col>
 
         <Col col-md = {6}>
