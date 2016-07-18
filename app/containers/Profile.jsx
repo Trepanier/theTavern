@@ -28,7 +28,6 @@ export default class Profile extends React.Component {
   requestApi('/api/v1/getprofile/' + this.props.params.slug)()
     .then((profile)=>{
       this.setState({currentProfile: profile})
-      console.log("HHHHHHHHHHHHHH", this.state.currentProfile)
     })
  }
 
@@ -38,11 +37,21 @@ export default class Profile extends React.Component {
     self.whosProfile()
   }
 
+  editTracker(curr){
+    console.log("editTracker curr", curr)
+    this.setState({currentProfile :{[curr] : document.getElementById(curr).value}})
+  }
+
   textOutput(curr) {
+    const updateState = (e) =>{
+      var profile = this.state.currentProfile
+      profile[curr] = e.target.value
+      this.setState({currentProfile : profile})
+    }
+
     if(this.state.edit === true) {
-      console.log("state + curr, ", this.state.currentProfile[curr], " curr, ", curr)
-      return (
-          <input className="black" type = 'text' name = {curr} value = {this.state.currentProfile[curr]}/>
+       return( 
+        <input className="black" type = 'text' onChange={updateState.bind(this)}id = {curr} value = {this.state.currentProfile[curr]}/>
         )
     }else{
       return (
@@ -75,12 +84,13 @@ export default class Profile extends React.Component {
             Email: {this.textOutput('email')}<br />
             Host: {this.textOutput('host')}<br />
             Drink: {this.textOutput('alcohol')}<br />
-            Skill: {this.textOutput('skill')}<br />
+            Skill: {this.textOutput('skillLevel')}<br />
             Position: {this.textOutput('position')}<br />
-            Game: {this.textOutput('game')}<br />
+            Game: {this.textOutput('games')}<br />
             Friends: {this.textOutput('friends')}<br />
-
           </h4>
+
+          <button onClick = {console.log(this.state.currentProfile)}>CONFIRM</button>
         </Col>
 
         <Col col-md = {6}>
