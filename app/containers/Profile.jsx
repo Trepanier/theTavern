@@ -55,7 +55,7 @@ export default class Profile extends React.Component {
        return( 
         <div>
         <input className="black" type = 'text' onChange={updateState.bind(this)} id = {`textbox${curr}`} value = {this.state.currentProfile[curr]}/>
-        <input type='checkbox' onClick={toggleHideValue.bind(this, curr)} checked={_.get(this.state, `currentProfile.hiddenValues[${curr}]`)}/>hidden
+        <input type='checkbox' onClick={toggleHideValue.bind(this, curr)} checked={_.get(this.state, `currentProfile.hiddenValues[${curr}]`)}/>hide
         </div>
         )
     }else if(!_.get(this.state, `currentProfile.hiddenValues[${curr}]`)){
@@ -86,38 +86,42 @@ export default class Profile extends React.Component {
 
   render() {
     return (
-      <Form className = 'marginTop centerText'>
+      <div className = 'container-fluid marginTop centerText profileCD'>
         <h1 className = 'profileName'>{this.state.currentProfile.userName}'s Profile</h1>
         <h2 className = 'marginTop' >Description of individual goes here</h2>
-        <Col col-md = {6}>
-        <button onClick = {this.switchEdit.bind(this)}>Edit</button>
+        <Col md = {6}>
+        <Button onClick = {this.switchEdit.bind(this)} bsStyle = 'primary'>Edit</Button>
           <h4>
-            Name: {this.textOutput('name')}<br />
-            User Name: {this.textOutput('userName')}<br />
-            Age: {this.textOutput('age')}<br />
-            Location: {this.textOutput('location')}<br />
-            Phone: {this.textOutput('phone')}<br />
-            Email: {this.textOutput('email')}<br />
-            Host: {this.textOutput('host')}<br />
-            Drink: {this.textOutput('alcohol')}<br />
-            Skill: {this.textOutput('skillLevel')}<br />
-            Position: {this.textOutput('position')}<br />
-            Game: {this.textOutput('games')}<br />
-            Friends: {this.textOutput('friends')}<br />
+            <ul className = 'leftText'>
+              <li>Name: {this.textOutput('name')}</li>
+              <li>User Name: {this.textOutput('userName')}</li>
+              <li>Age: {this.textOutput('age')}</li>
+              <li>Location: {this.textOutput('location')}</li>
+              <li>Phone: {this.textOutput('phone')}</li>
+              <li>Email: {this.textOutput('email')}</li>
+              <li>Host: {this.textOutput('host')}</li>
+              <li>Drink: {this.textOutput('alcohol')}</li>
+              <li>Skill: {this.textOutput('skillLevel')}</li>
+              <li>Position: {this.textOutput('position')}</li>
+              <li>Game: {this.textOutput('games')}</li>
+              <li>Friends: {this.textOutput('friends')}</li>
+            </ul>
           </h4>
 
-          <button onClick = {this.updateProfile.bind(this)}>CONFIRM</button>
+          <Button onClick = {this.updateProfile.bind(this)} bsStyle = 'primary'>CONFIRM</Button>
         </Col>
 
-        <Col col-md = {6}>
-          <li>suggestions/party #1</li>
-          <li>suggestions/party #2</li>
-          <li>suggestions/party #3</li>
+        <Col md = {6}>
+          <a><li>suggestions/party #1</li></a>
+          <a><li>suggestions/party #2</li></a>
+          <a><li>suggestions/party #3</li></a>
         </Col>
-        <Form>
-          add calander here
-        </Form>
-      </Form>
+        <Col>
+        <div>
+          <p>add calander here</p>
+        </div>
+        </Col>
+      </div>
      );
   }
 };
