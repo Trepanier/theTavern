@@ -15,7 +15,8 @@ var profileSchema = new Schema({
  blockedUser: [],
  friends: [],
  skillLevel: String,
- party: []
+ party: [],
+ hiddenValues: []
 });
 
 var Profile = mongoose.model('profile', profileSchema);

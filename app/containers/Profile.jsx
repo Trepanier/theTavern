@@ -49,16 +49,34 @@ export default class Profile extends React.Component {
       this.setState({currentProfile : profile})
     }
 
+    const toggleHideValue = (value) =>
+      this.setState(_.set(this.state, `currentProfile.hidden[${value}]`, !_.get(this.state, `currentProfile.hidden[${value}]`, false)))
+
     if(this.state.edit === true) {
        return( 
-        <input className="black" type = 'text' onChange={updateState.bind(this)}id = {curr} value = {this.state.currentProfile[curr]}/>
+        <div>
+        <input className="black" type = 'text' onChange={updateState.bind(this)} id = {`textbox${curr}`} value = {this.state.currentProfile[curr]}/>
+        <input type='checkbox' onClick={toggleHideValue.bind(this, curr)} checked={_.get(this.state, `currentProfile.hidden[${curr}]`)}/>Hidden
+        </div>
         )
-    }else{
+    }else if(!_.get(this.state, `currentProfile.hidden[${curr}]`)){
+      console.log('NOT HIDDEDN',_.get(this.state, `currentProfile.hidden`))
       return (
         <span>{this.state.currentProfile[curr]}</span>
       )
+    } else {
+      return <span>Life is a mystery...</span>
     }
   }
+
+  // checkHidden(name){
+  //   var checkboxes = document.querySelectorAll('input[name="' + name + '"]:checked')
+  //   var values = [];
+  //    Array.prototype.forEach.call(checkboxes, function(el){
+  //       values.push(el.value)
+  //    });
+  //    return values;
+  // }
 
   switchEdit(e){
     e.preventDefault()
@@ -70,6 +88,11 @@ export default class Profile extends React.Component {
   updateProfile(e) {
     e.preventDefault()
     var self = this
+    
+    // var temp = self.checkHidden('hiddenCheck');
+    // self.setState({hidden: temp})
+    // console.log("hidden values", self.state.hidden)
+    
     requestApi('/api/v1/updateprofile', 'PUT')(self.state.currentProfile)
       .then(self.setState({edit : false}))
   }
