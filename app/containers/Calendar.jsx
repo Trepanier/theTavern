@@ -5,19 +5,35 @@ import {Form, FormGroup, FormControl, ControlLabel, Col, Row, Button, HelpBlock}
 
 export default class Calendar extends React.Component {
 
+
+	checkAv(time, day){
+		console.log("Time: ", time , " Day: ", day)
+
+		if(this.props.availability[day][time]){
+			return(
+				<span>Available</span>
+				)
+		}else{
+			return(
+			<span>-</span>
+			)
+		}
+	}
+
 	times() {
-		var avalibility = ["Late Night", "Night", "Afternoon", "Lunch", "Morning"]
-		return avalibility.map((curr)=> {
+		
+		var dayTimes = ["Morning", "Lunch", "Afternoon", "Night", "GraveYard"]
+		return dayTimes.map((curr)=> {
 			return (
 				<tr>
 					<td>{curr}</td>
-					<td>test</td>
-					<td>test2</td>
-					<td>test3</td>
-					<td>test4</td>
-					<td>test5</td>
-					<td>test6</td>
-					<td>test7</td>
+					<td>{this.checkAv(curr , "Monday")}</td>
+					<td>{this.checkAv(curr , "Tuesday")}</td>
+					<td>{this.checkAv(curr , "Wednesday")}</td>
+					<td>{this.checkAv(curr , "Thursday")}</td>
+					<td>{this.checkAv(curr , "Friday")}</td>
+					<td>{this.checkAv(curr , "Saturday")}</td>
+					<td>{this.checkAv(curr , "Sunday")}</td>
 				</tr>
 			)
 		})

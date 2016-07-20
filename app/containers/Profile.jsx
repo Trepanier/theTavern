@@ -60,7 +60,6 @@ export default class Profile extends React.Component {
         </div>
         )
     }else if(!_.get(this.state, `currentProfile.hiddenValues[${curr}]`)){
-      console.log('NOT HIDDEN',_.get(this.state, `currentProfile.hiddenValues`))
       return (
         <span>{this.state.currentProfile[curr]}</span>
       )
@@ -73,19 +72,18 @@ export default class Profile extends React.Component {
     e.preventDefault()
     var self = this
     self.setState({edit: !self.state.edit})
-    console.log("State.edit," , self.state.edit)
   }
 
   updateProfile(e) {
     e.preventDefault()
     var self = this
-    console.log(self.state.currentProfile)
     requestApi('/api/v1/updateprofile', 'PUT')(self.state.currentProfile)
       .then(self.setState({edit : false}))
   }
 
 
   render() {
+    console.log("availability", this.state.currentProfile.availability)
     return (
       <div className = 'container-fluid marginTop centerText profileCD'>
         <h1 className = 'profileName'>{this.state.currentProfile.userName}'s Profile</h1>
@@ -121,7 +119,7 @@ export default class Profile extends React.Component {
         </Row>
         <Row>
           <Col md = {12}>
-            <Calendar />
+            <Calendar availability={this.state.currentProfile.availability}/>
           </Col>
         </Row>
       </div>

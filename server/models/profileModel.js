@@ -16,7 +16,8 @@ var profileSchema = new Schema({
  friends: [],
  skillLevel: String,
  party: [],
- hiddenValues: {}
+ hiddenValues: {},
+ availability: {}
 })
 
 var Profile = mongoose.model('profile', profileSchema);
