@@ -44,7 +44,7 @@ button {
 }
 
 .profileCD {
-	background-color: hsla(10, 5%, 60%, .3);
+	background-color: rgba(0, 0, 0, .5);
 	line-height: 175%;
 	border-radius: 25px
 }
@@ -109,4 +109,12 @@ button {
 
 .marginTop {
 	margin: 10px;
+}
+
+.profileCal table {
+	margin: 0 auto;
+}
+
+.profileCal th {
+	padding: 5px;
 }

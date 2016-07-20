@@ -6,6 +6,7 @@ import _ from 'lodash';
 const cx = classNames.bind(styles);
 import {Form, FormGroup, FormControl, ControlLabel, Col, Row, Button, HelpBlock} from 'react-bootstrap'
 import requestApi from '../utilities/requests'
+import Calendar from './Calendar'
 
 
 export default class Profile extends React.Component {
@@ -89,38 +90,40 @@ export default class Profile extends React.Component {
       <div className = 'container-fluid marginTop centerText profileCD'>
         <h1 className = 'profileName'>{this.state.currentProfile.userName}'s Profile</h1>
         <h2 className = 'marginTop' >Description of individual goes here</h2>
-        <Col md = {6}>
-        <Button onClick = {this.switchEdit.bind(this)} bsStyle = 'primary'>Edit</Button>
-          <h4>
-            <ul className = 'leftText'>
-              <li>Name: {this.textOutput('name')}</li>
-              <li>User Name: {this.textOutput('userName')}</li>
-              <li>Age: {this.textOutput('age')}</li>
-              <li>Location: {this.textOutput('location')}</li>
-              <li>Phone: {this.textOutput('phone')}</li>
-              <li>Email: {this.textOutput('email')}</li>
-              <li>Host: {this.textOutput('host')}</li>
-              <li>Drink: {this.textOutput('alcohol')}</li>
-              <li>Skill: {this.textOutput('skillLevel')}</li>
-              <li>Position: {this.textOutput('position')}</li>
-              <li>Game: {this.textOutput('games')}</li>
-              <li>Friends: {this.textOutput('friends')}</li>
-            </ul>
-          </h4>
+        <Row>
+          <Col md = {6}>
+          <Button onClick = {this.switchEdit.bind(this)} bsStyle = 'primary'>Edit</Button>
+            <h4>
+              <ul className = 'leftText'>
+                <li>Name: {this.textOutput('name')}</li>
+                <li>User Name: {this.textOutput('userName')}</li>
+                <li>Age: {this.textOutput('age')}</li>
+                <li>Location: {this.textOutput('location')}</li>
+                <li>Phone: {this.textOutput('phone')}</li>
+                <li>Email: {this.textOutput('email')}</li>
+                <li>Host: {this.textOutput('host')}</li>
+                <li>Drink: {this.textOutput('alcohol')}</li>
+                <li>Skill: {this.textOutput('skillLevel')}</li>
+                <li>Position: {this.textOutput('position')}</li>
+                <li>Game: {this.textOutput('games')}</li>
+                <li>Friends: {this.textOutput('friends')}</li>
+              </ul>
+            </h4>
 
-          <Button onClick = {this.updateProfile.bind(this)} bsStyle = 'primary'>CONFIRM</Button>
-        </Col>
+            <Button onClick = {this.updateProfile.bind(this)} bsStyle = 'primary'>CONFIRM</Button><br/><br/>
+          </Col>
 
-        <Col md = {6}>
-          <a><li>suggestions/party #1</li></a>
-          <a><li>suggestions/party #2</li></a>
-          <a><li>suggestions/party #3</li></a>
-        </Col>
-        <Col>
-        <div>
-          <p>add calander here</p>
-        </div>
-        </Col>
+          <Col md = {6}>
+            <a><li>suggestions/party #1</li></a>
+            <a><li>suggestions/party #2</li></a>
+            <a><li>suggestions/party #3</li></a>
+          </Col>
+        </Row>
+        <Row>
+          <Col md = {12}>
+            <Calendar />
+          </Col>
+        </Row>
       </div>
      );
   }
