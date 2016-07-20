@@ -31,6 +31,14 @@ button {
  	color: black;
  }
 
+ .red {
+ 	color: red;
+ }
+
+ .green {
+ 	color: limegreen;
+ }
+
 .link {
 	color: #337ab7;
 	padding: 20px;
@@ -94,6 +102,15 @@ button {
 
 .centerButton {
 	margin-top: 5px;
+}
+
+.invisableButton{
+	background:none;
+	border:none; 
+}
+
+.invisableButton:hover{
+	background:hotpink;
 }
 
 .widthChange{

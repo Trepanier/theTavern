@@ -6,18 +6,33 @@ import {Form, FormGroup, FormControl, ControlLabel, Col, Row, Button, HelpBlock}
 export default class Calendar extends React.Component {
 
 
+	switchAv(time, day){
+
+	}
+
 	checkAv(time, day){
 		console.log("Time: ", time , " Day: ", day)
-
-		if(this.props.availability[day][time]){
-			return(
-				<span>Available</span>
+		if(this.props.edit){
+			if(this.props.availability[day][time]){
+				return(
+					<div className = 'green invisableButton' onClick = {()=>this.props.setAvailability(day, time, false)}>Available</div>
+					)
+			}else{
+				return(
+				<div className = 'red invisableButton' onClick = {()=>this.props.setAvailability(day, time, true)}>-</div>
 				)
+			}
 		}else{
-			return(
-			<span>-</span>
-			)
-		}
+			if(this.props.availability[day][time]){
+				return(
+					<span className = 'green'>Available</span>
+					)
+			}else{
+				return(
+				<span className = 'red'>-</span>
+				)
+			}
+		}	
 	}
 
 	times() {
@@ -40,25 +55,29 @@ export default class Calendar extends React.Component {
 	}
 
 	render() {
-		return(
-			<div className = 'profileCal'>
-				<Row>
-					<table>
-						<tr>
-							<th> </th>
-							<th>Monday</th>
-							<th>Tuesday</th>
-							<th>Wednesday</th>
-							<th>Thursday</th>
-							<th>Friday</th>
-							<th>Saturday</th>
-							<th>Sunday</th>	
-						</tr>
-						{this.times()}
-					</table>
-				</Row>
-			</div>
-		)
+		if(this.props.availability){
+			return(
+				<div className = 'profileCal'>
+					<Row>
+						<table>
+							<tr>
+								<th> </th>
+								<th>Monday</th>
+								<th>Tuesday</th>
+								<th>Wednesday</th>
+								<th>Thursday</th>
+								<th>Friday</th>
+								<th>Saturday</th>
+								<th>Sunday</th>	
+							</tr>
+							{this.times()}
+						</table>
+					</Row>
+				</div>
+			)
+		} else {
+			return <Row><h1>Loading availability...</h1></Row>
+		}
 	}
 }
 

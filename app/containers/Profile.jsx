@@ -32,6 +32,12 @@ export default class Profile extends React.Component {
     })
  }
 
+   setAvailability(day, time, available){
+      this.setState(_.set(this.state, `currentProfile.availability[${day}][${time}]`, available))
+      console.log(this.state.currentProfile.availability[day][time])
+      // change the state maybe call api
+   }
+
   componentWillMount(){
     var self = this
     self.loggedInUser()
@@ -119,7 +125,7 @@ export default class Profile extends React.Component {
         </Row>
         <Row>
           <Col md = {12}>
-            <Calendar availability={this.state.currentProfile.availability}/>
+            <Calendar availability={_.get(this.state, 'currentProfile.availability')} edit={this.state.edit} setAvailability={this.setAvailability.bind(this)}/>
           </Col>
         </Row>
       </div>
