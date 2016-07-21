@@ -2,18 +2,29 @@ import React from 'react';
 import classNames from 'classnames/bind';
 import styles from 'css/components/home';
 import {Form, FormGroup, FormControl, ControlLabel, Col, Row, Button, HelpBlock} from 'react-bootstrap'
+import {changeAvailabiltyAction} from '../redux/actions'
+import {connect} from 'react-redux'
 
-export default class Calendar extends React.Component {
+function mapStateToProps(state){
+	return{
+		availability: state.getIn(["currentProfile", "availability"]),
+		edit: state.get('edit')
+		}
+}
+
+function mapDispatchToProps(dispatch){
+	return{
+		setAvailability: (day, time, available) => dispatch(changeAvailabiltyAction(day, time, available))
+		}
+}
+
+export default class CalendarView extends React.Component {
 
 
-	switchAv(time, day){
-
-	}
 
 	checkAv(time, day){
-		console.log("Time: ", time , " Day: ", day)
 		if(this.props.edit){
-			if(this.props.availability[day][time]){
+			if(this.props.availability.getIn([day,time])){
 				return(
 					<div className = 'green invisableButton' onClick = {()=>this.props.setAvailability(day, time, false)}>Available</div>
 					)
@@ -23,7 +34,7 @@ export default class Calendar extends React.Component {
 				)
 			}
 		}else{
-			if(this.props.availability[day][time]){
+			if(this.props.availability.getIn([day,time])){
 				return(
 					<span className = 'green'>Available</span>
 					)
@@ -81,3 +92,4 @@ export default class Calendar extends React.Component {
 	}
 }
 
+module.exports = connect(mapStateToProps, mapDispatchToProps)(CalendarView)
