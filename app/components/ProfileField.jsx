@@ -9,7 +9,6 @@ function mapStateToProps(state, ownProps){
   return {
     edit : state.get('edit'),
     value: state.getIn(['currentProfile', ownProps.field]),
-    field: ownProps.field
   }
 
 }

@@ -10,7 +10,10 @@ import requestApi from '../utilities/requests'
 import Calendar from './Calendar'
 import ToggleEditButton from '../components/ToggleEditButton'
 import ProfileField from '../components/ProfileField'
+import ProfileListField from '../components/ProfileListField'
 import {setProfileAction, changeEditAction} from '../redux/actions'
+import editButtonBehavior from '../components/ToggleEditBehavior'
+import getProfileBehavior from '../components/getProfileBehavior'
 
 
 
@@ -29,21 +32,24 @@ function mapDispatchToProps(dispatch){
   }
 }
 
-class ProfileView extends React.Component {
 
-  constructor(props){
-    super(props);
-    this.state={
-      currentUser : "",
-      currentProfile: "",
-      edit: false
-    };
+class CommitButtonView extends React.Component {
+  updateProfile(e) {
+    e.preventDefault()
+    requestApi('/api/v1/updateprofile', 'PUT')(this.props.currentProfile.toJS())
+      .then(this.props.changeEdit)
   }
 
-  loggedInUser() {
-    requestApi('/api/v1/getuser')()
-      .then((user)=>this.setState({currentUser: user}))
- }
+  render(){
+    return <div className='btn btn-primary' onClick={(e)=>this.updateProfile(e)}>Commit</div>
+  }
+}
+
+var CommitButton = editButtonBehavior(getProfileBehavior(CommitButtonView))
+
+
+
+class ProfileView extends React.Component {
 
  whosProfile() {
   requestApi('/api/v1/getprofile/' + this.props.params.slug)()
@@ -52,36 +58,12 @@ class ProfileView extends React.Component {
     })
  }
 
-   setAvailability(day, time, available){
-      this.setState(_.set(this.state, `currentProfile.availability[${day}][${time}]`, available))
-      console.log(this.state.currentProfile.availability[day][time])
-      // change the state maybe call api
-   }
-
   componentWillMount(){
     var self = this
-    self.loggedInUser()
     self.whosProfile()
   }
 
-  editTracker(curr){
-    this.setState({currentProfile :{[curr] : document.getElementById(curr).value}})
-  }
 
-
-
-  switchEdit(e){
-    e.preventDefault()
-    var self = this
-    self.setState({edit: !self.state.edit})
-  }
-
-  updateProfile(e) {
-    e.preventDefault()
-    var self = this
-    requestApi('/api/v1/updateprofile', 'PUT')(self.props.currentProfile.toJS())
-      .then(self.props.changeEdit)
-  }
 
 
   render() {
@@ -104,11 +86,12 @@ class ProfileView extends React.Component {
                 <li>Drink: <ProfileField field='alcohol'/></li>
                 <li>Skill: <ProfileField field='skillLevel'/></li>
                 <li>Position: <ProfileField field='position'/></li>
-                <li>Game: <ProfileField field='games'/></li>
-                <li>Friends: <ProfileField field='friends'/></li>
+                <li>Game: <ProfileListField field='games'/></li>
+                <li>Friends: <ProfileListField field='friends'/></li>
+                <li>Blocked Users: <ProfileListField field='blockedUser' /></li>
               </ul>
             </h4>
-            <Button onClick = {this.updateProfile.bind(this)} bsStyle = 'primary'>CONFIRM</Button><br/><br/>
+            <CommitButton /><br/><br/>
           </Col>
 
           <Col md = {6}>
@@ -126,5 +109,7 @@ class ProfileView extends React.Component {
      );
   }
 };
+
+
 
 module.exports = connect(mapStateToProps , mapDispatchToProps)(ProfileView)

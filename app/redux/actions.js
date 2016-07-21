@@ -24,7 +24,7 @@ function changeAvailabiltyAction(day, time, available){
 		day,
 		time,
 		available
-		}
+	}
 }
 
 function changeEditAction(){
@@ -33,10 +33,27 @@ function changeEditAction(){
 	}
 }
 
+function addToListAction(list, item){
+	return {
+		type: 'ADD_LIST_ITEM',
+		list,
+		item
+	}
+}
+
+function deleteFromListAction(list, item){
+	return {
+		type: 'REMOVE_LIST_ITEM',
+		list,
+		item
+	}
+}
 
 module.exports = {
 	updateProfileAction,
 	setProfileAction,
 	changeAvailabiltyAction,
-	changeEditAction
+	changeEditAction,
+	addToListAction,
+	deleteFromListAction
 }
