@@ -63,9 +63,6 @@ class ProfileView extends React.Component {
     self.whosProfile()
   }
 
-
-
-
   render() {
     return (
       <div className = 'container-fluid marginTop centerText profileCD'>

@@ -38,7 +38,7 @@ export default class ProfileListFieldView extends React.Component {
 
 		if(this.props.edit){
 			return(<div>
-				<input className="black" type='textbox' id='inputBox' /><span className='green invisableButton twentyTwo' onClick={() => this.props.addToList(this.props.field, document.getElementById('inputBox').value)}>+</span>
+				<input className="black" type='textbox' id={this.props.field} /><span className='green invisableButton twentyTwo' onClick={() => this.props.addToList(this.props.field, document.getElementById(this.props.field).value)}>+</span>
 				{this.listDisplay(this.props.value)}
 				</div>)
 		}else{	
