@@ -73,6 +73,7 @@ class Navigation extends Component {
       return(
         <div>
         {this.dropDown()}
+        <NavItem eventKey={3} href="/search">Search</NavItem>
         </div>
         )
     }else{
