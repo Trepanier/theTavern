@@ -6,15 +6,28 @@ import { Link } from 'react-router';
 const cx = classNames.bind(styles);
 import {browserHistory} from 'react-router';
 import {Button, form, FormGroup, ControlLabel, FormControl, Col, Row} from 'react-bootstrap';
+import {setUserAction, setLoginAction} from '../redux/actions'
+import {connect} from 'react-redux'
+
+
+function mapStateToProps(state, ownProps){
+  console.log('map state', state.get('currentProfile'))
+  return {
+    edit : state.get('edit'),
+    user : state.get('currentUser')
+  }
+
+}
+
+function mapDispatchToProps(dispatch, ownProps){
+  return {
+    setUser : (user) => dispatch(setUserAction(user)),
+    setLogin: () => dispatch(setLoginAction())  
+  }
+
+}
 
 export default class Login extends React.Component {
-	setInitialState(){
-		this.setState={
-			email:'',
-			password:'',
-			success:''
-		}
-	}
 
 	pullUser(){
 		console.log(this.props)

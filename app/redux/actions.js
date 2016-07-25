@@ -1,6 +1,20 @@
 
 
+//USER/LOGIN ACTIONS
+function setUserAction(user){
+	return{
+		type: "SET_USER",
+		user
+	}
+}
 
+function toggleLoginAction(){
+	return{
+		type: "TOGGLE_LOGIN"
+	}
+}
+
+//PROFILE ACTIONS
 function updateProfileAction(field, value){
 	return {
 		type: 'UPDATE_PROFILE',
@@ -49,11 +63,23 @@ function deleteFromListAction(list, item){
 	}
 }
 
+
+//SEARCH ACTIONS
+function setSearchAction(search) {
+	return {
+		type: 'SET_SEARCH',
+		search
+	}
+}
+
 module.exports = {
+	toggleLoginAction,
+	setUserAction,
 	updateProfileAction,
 	setProfileAction,
 	changeAvailabiltyAction,
 	changeEditAction,
 	addToListAction,
-	deleteFromListAction
+	deleteFromListAction,
+	setSearchAction
 }

@@ -1,8 +1,7 @@
 import React from 'react';
-import {updateProfileAction} from '../redux/actions'
-import {connect} from 'react-redux'
+import {updateProfileAction} from '../../redux/actions'
 import {Button} from 'react-bootstrap'
-
+import {connect} from 'react-redux'
 
 function mapStateToProps(state, ownProps){
   console.log('map state', state.get('currentProfile'))
@@ -15,20 +14,23 @@ function mapStateToProps(state, ownProps){
 
 function mapDispatchToProps(dispatch, ownProps){
   return {
-    updateProfile : (value) => dispatch(updateProfileAction(ownProps.field, value))
+    updateProfile : (value) => dispatch(updateProfileAction(ownProps.field, value)),
+    addToList : (list, item) => dispatch(addToListAction(list, item)),
+    deleteFromList : (list, item) => dispatch(deleteFromListAction(list, item))
   }
 
 }
 
 
+
 export default class ProfileFieldsView extends React.Component {
   render(){
     if (this.props.edit){
-      return  (<div>
+      return  (<span>{this.props.label}:
         <input className="black" type = 'text' onChange={(e) => this.props.updateProfile(e.target.value)} value = {this.props.value}/>
-        </div>)
+        </span>)
     } else {
-      return <span>{this.props.value}</span>
+      return <span>{this.props.label}: {this.props.value}</span>
     }
   }
 

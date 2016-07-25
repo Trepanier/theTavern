@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var profileSchema = new Schema({
- userName: String,
+ userName: {type: String, required: true},
  name: String,
  description: String,
  location: String,
@@ -16,8 +16,9 @@ var profileSchema = new Schema({
  friends: [],
  skillLevel: String,
  party: [],
- hiddenValues: {},
- availability: {}
+ availability: {},
+ dm: Boolean,
+ player: {type: Boolean, default: true}
 })
 
 var Profile = mongoose.model('profile', profileSchema);

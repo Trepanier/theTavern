@@ -9,8 +9,7 @@ const cx = classNames.bind(styles);
 import requestApi from '../utilities/requests'
 import Calendar from './Calendar'
 import ToggleEditButton from '../components/ToggleEditButton'
-import ProfileField from '../components/ProfileField'
-import ProfileListField from '../components/ProfileListField'
+import {ProfileField, ProfileListField, ProfileCheckboxField} from '../components/profileFields'
 import {setProfileAction, changeEditAction} from '../redux/actions'
 import editButtonBehavior from '../components/ToggleEditBehavior'
 import getProfileBehavior from '../components/getProfileBehavior'
@@ -73,19 +72,20 @@ class ProfileView extends React.Component {
           <ToggleEditButton/>
             <h4>
               <ul className = 'leftText'>
-                <li>Name: <ProfileField field='name'/></li>
-                <li>User Name: <ProfileField field='userName'/></li>
-                <li>Age: <ProfileField field='age'/></li>
-                <li>Location: <ProfileField field='location'/></li>
-                <li>Phone: <ProfileField field='phone'/></li>
-                <li>Email: <ProfileField field='email'/></li>
-                <li>Host: <ProfileField field='host'/></li>
-                <li>Drink: <ProfileField field='alcohol'/></li>
-                <li>Skill: <ProfileField field='skillLevel'/></li>
-                <li>Position: <ProfileField field='position'/></li>
-                <li>Game: <ProfileListField field='games'/></li>
-                <li>Friends: <ProfileListField field='friends'/></li>
-                <li>Blocked Users: <ProfileListField field='blockedUser' /></li>
+                <li><ProfileField field='name' label="Name"/></li>
+                <li><ProfileField label='User Name' field='userName'/></li>
+                <li><ProfileField label='Age' field='age'/></li>
+                <li><ProfileField label='Location' field='location'/></li>
+                <li><ProfileField label='Phone' field='phone'/></li>
+                <li><ProfileField label='Email' field='email'/></li>
+                <li><ProfileCheckboxField label='Host' field='host'/></li>
+                <li><ProfileField label='Drink' field='alcohol'/></li>
+                <li><ProfileField label='Skill' field='skillLevel'/></li>
+                <li><ProfileCheckboxField label='Dungeon Master' field='dungeonMaster'/></li>
+                <li><ProfileCheckboxField label='Player' field='player'/></li>
+                <li><ProfileListField label='Games'field='games'/></li>
+                <li><ProfileListField label='Friends' field='friends'/></li>
+                <li><ProfileListField label='Blocked Users' field='blockedUser' /></li>
               </ul>
             </h4>
             <CommitButton /><br/><br/>
