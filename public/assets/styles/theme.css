@@ -17,7 +17,7 @@
 body {
 	background-color:  black;
 	color: white;
-	background-image: url("../images/woodBackground.jpg");
+	background-image: url("../images/Tavern.png");
 	background-attachment: fixed;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -25,6 +25,18 @@ body {
 
 button {
  	color: black;
+ }
+
+.black {
+ 	color: black;
+ }
+
+ .red {
+ 	color: red;
+ }
+
+ .green {
+ 	color: limegreen;
  }
 
 .link {
@@ -40,13 +52,13 @@ button {
 }
 
 .profileCD {
-	background-color: hsla(10, 5%, 60%, .3);
+	background-color: rgba(0, 0, 0, .5);
 	line-height: 175%;
 	border-radius: 25px
 }
 
 .profileName {
-	padding: 0 0 25px 0;
+	padding: 50px 0 25px 0;
 	text-shadow: 5px 5px black;
 }
 
@@ -66,6 +78,10 @@ button {
 
 .centerText {
 	text-align: center;
+}
+
+.leftText {
+	text-align: left;
 }
 
 .alertText {
@@ -88,6 +104,15 @@ button {
 	margin-top: 5px;
 }
 
+.invisableButton{
+	background:none;
+	border:none; 
+}
+
+.invisableButton:hover{
+	background:hotpink;
+}
+
 .widthChange{
 	margin: 0 20px 0 20px;
 }
@@ -100,5 +125,21 @@ button {
 }
 
 .marginTop {
-	margin: 75px;
+	margin: 10px;
+}
+
+.marginBiggerTop {
+	margin: 70px;
+}
+
+.profileCal table {
+	margin: 0 auto;
+}
+
+.profileCal th {
+	padding: 5px;
+}
+
+.twentyTwo {
+	font-size: 25px;
 }

@@ -62,30 +62,6 @@ export default class SignUp extends React.Component {
 		})
 	}
 
-	createCollection(){
-		var self = this
-		fetch('/api/v1/collection', {
-			credentials : 'same-origin',
-			method: 'POST',
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				user: self.state.userName,
-				title: self.state.userName + "\'s Collection",
-				userKollection: [],
-				slug: self.state.userName
-			})
-		})
-		.then(function(response) {
-			return response.json()
-		}).then(function(json) {
-			console.log(json)
-		}).catch(function(ex) {
-			console.log('parsing failed', ex)
-		})
-	}
 
 	inUse(){
 		if(this.state.success === "false"){
